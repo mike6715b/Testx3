@@ -5,6 +5,7 @@
     <container>
         <div align="center" class="login-form">
             <form action="{{ route('login') }}" method="POST" id="login-form">
+                @csrf
                 <div class="login-table">
                     <table width="300" border="0" cellspacing="0" cellpadding="3">
                         <tbody id="tbody-login"><tr>
@@ -20,6 +21,14 @@
                 </div>
             </form>
         </div>
+        @if (count($errors))
+            <ul>
+                @foreach($errors->all() as $error)
+                    // Remove the spaces between the brackets
+                    <li>{!! $error !!}</li>
+                @endforeach
+            </ul>
+        @endif
     </container>
 
 @endsection

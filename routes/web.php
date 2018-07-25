@@ -21,7 +21,25 @@ Route::post('login', [
 ]);
 Route::get('logout', [
     'as' => 'logout',
-    'uses' => 'LoginController@logout',
+    'uses' => 'LoginController@logout'
 ]);
-
 Route::view('mainmenu', 'mainmenu');
+
+/*
+Route::get('/db', function () {
+   \Illuminate\Support\Facades\DB::table('users')->insert(
+       [
+           [
+               'user_name' => 'Bruno Rehak',
+               'user_uid' => 'bruno.rehak',
+               'user_email' => 'bruno.rehak@gmail.com',
+               'user_pwd' => \Illuminate\Support\Facades\Hash::make('delta0690.'),
+               'user_class' => 'admin',
+           ]
+       ]
+   );
+   echo "User added!";
+});
+*/
+
+
