@@ -12,18 +12,28 @@
 */
 
 Route::get('/', function () {
-    return view('login');
+    if (Auth::check()) {
+        return redirect()->route('mainmenu');
+    } else {
+        return view('login');
+    }
 });
 
 Route::post('login', [
     'as' => 'login',
     'uses' => 'LoginController@login',
 ]);
+Route::get('login', function () {
+    return view('login');
+});
 Route::get('logout', [
     'as' => 'logout',
-    'uses' => 'LoginController@logout'
+    'uses' => 'LoginController@logout',
 ]);
-Route::view('mainmenu', 'mainmenu');
+Route::get('mainmenu', [
+    'as' => 'mainmenu',
+    'uses' => 'PagesController@mainmenu',
+]);
 
 /*
 Route::get('/db', function () {

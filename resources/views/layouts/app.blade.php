@@ -135,7 +135,7 @@
     <div class="container">
         <div id="branding">
             <div id="header-logo">
-                <a href="index.php"><img src="img/testx3.png"></a>
+                <a href="{{ route('mainmenu') }}"><img src="{{ asset('img/testx3.png') }}"></a>
             </div>
         </div>
         <div id="info">

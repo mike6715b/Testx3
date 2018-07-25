@@ -4,7 +4,7 @@
 
     <container>
         <div align="center" class="login-form">
-            <form action="{{ route('login') }}" method="POST" id="login-form">
+            <form action="{{ action('LoginController@login') }}" method="POST" id="login-form">
                 @csrf
                 <div class="login-table">
                     <table width="300" border="0" cellspacing="0" cellpadding="3">
