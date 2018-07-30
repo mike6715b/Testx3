@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Session;
 class PagesController extends Controller
 {
     /**
+     * Provjerava dali je korisnik ispravne klase (admin, teacher, student)
+     *
      * @param $user_class
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
@@ -19,7 +21,12 @@ class PagesController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function mainmenu(Request $request) {
+        dd($request->session()->all());
         return view('mainmenu');
     }
 

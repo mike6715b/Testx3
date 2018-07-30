@@ -5,7 +5,7 @@
         @include('mainmenu.admin')
     @elseif(\Illuminate\Support\Facades\Session::get('user_class') == 'teacher')
         @include('mainmenu.teacher')
-    @elseif(\Illuminate\Support\Facades\Session::get('user_class') == 'student')
+    @else(\Illuminate\Support\Facades\Session::get('user_class') == 'student')
         @include('mainmenu.student')
     @endif
 

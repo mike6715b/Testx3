@@ -7,20 +7,20 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*public function login(Request $request) {
+    public function login(Request $request) {
         Auth::attempt(array(
             'user_uid' => $request->username,
             'password' => $request->password,
         ));
-
+        dd($request->session()->all());
         if (Auth::check()) {
             return redirect()->route('mainmenu');
         } else {
             return back();
         }
-    }*/
+    }
 
-    public function login(Request $request) {
+    /*public function loginOld(Request $request) {
         session([
             'user_id' => '1',
             'user_name' => 'Bruno Rehak',
@@ -29,7 +29,7 @@ class LoginController extends Controller
             'user_class' => 'admin',
         ]);
         return redirect()->route('mainmenu');
-    }
+    }*/
 
     public function logout() {
         Auth::logout();
