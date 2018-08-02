@@ -10,87 +10,95 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//ROOT
-Route::get('/', function () {
-    return view('login');
-});
-//LOGIN/LOGOUT
-Route::post('login', [
-    'as' => 'login',
-    'uses' => 'LoginController@login',
-]);
-Route::get('login', function () {
-    return view('login');
-});
-Route::get('logout', [
-    'as' => 'logout',
-    'uses' => 'LoginController@logout',
-]);
-//MAINMENU
-Route::get('mainmenu', [
-    'as' => 'mainmenu',
-    'uses' => 'PagesController@mainmenu',
-]);
+Route::group(['middleware' => 'web'], function () {
+    //ROOT
+    Route::get('/', function () {
+        return view('login');
+    });
 
+//LOGIN/LOGOUT
+    Route::post('login', [
+        'as' => 'login',
+        'uses' => 'LoginController@login',
+    ]);
+    Route::get('login', function () {
+        return view('login');
+    });
+});
+
+
+Route::group(['middleware' => ['web', 'auth']], function () {
+
+//MAINMENU
+    Route::get('mainmenu', [
+        'as' => 'mainmenu',
+        'uses' => 'PagesController@mainmenu',
+    ]);
 //Exam
-Route::get('mainmenu/exam', [
-    'as' => 'mainmenu.exam',
-    'uses' => 'PagesController@exam'
-]);
-Route::get('mainmenu/contrlexam', [
-    'as' => 'mainmenu.contrlexam',
-    'uses' => 'PagesController@contrlexam',
-]);
-Route::get('mainmenu/selfcheck', [
-    'as' => 'mainmenu.selfcheck',
-    'uses' => 'PagesController@selfcheck',
-]);
+    Route::get('mainmenu/exam', [
+        'as' => 'mainmenu.exam',
+        'uses' => 'PagesController@exam'
+    ]);
+    Route::get('mainmenu/contrlexam', [
+        'as' => 'mainmenu.contrlexam',
+        'uses' => 'PagesController@contrlexam',
+    ]);
+    Route::get('mainmenu/selfcheck', [
+        'as' => 'mainmenu.selfcheck',
+        'uses' => 'PagesController@selfcheck',
+    ]);
 
 //Add stud/teach
-Route::get('mainmenu/studadd', [
-    'as' => 'mainmenu.studadd',
-    'uses' => 'PagesController@studadd',
-]);
-Route::get('mainmenu/classadd', [
-    'as' => 'mainmenu.classadd',
-    'uses' => 'PagesController@classadd',
-]);
-Route::get('mainmenu/studlist', [
-    'as' => 'mainmenu.studlist',
-    'uses' => 'PagesController@studlist',
-]);
-Route::get('mainmenu/teachadd', [
-    'as' => 'mainmenu.teachadd',
-    'uses' => 'PagesController@teachadd',
-]);
-Route::get('mainmenu/teachlist', [
-    'as' => 'mainmenu.teachlist',
-    'uses' => 'PagesController@teachlist',
-]);
+    Route::get('mainmenu/studadd', [
+        'as' => 'mainmenu.studadd',
+        'uses' => 'PagesController@studadd',
+    ]);
+    Route::get('mainmenu/classadd', [
+        'as' => 'mainmenu.classadd',
+        'uses' => 'PagesController@classadd',
+    ]);
+    Route::get('mainmenu/studlist', [
+        'as' => 'mainmenu.studlist',
+        'uses' => 'PagesController@studlist',
+    ]);
+    Route::get('mainmenu/teachadd', [
+        'as' => 'mainmenu.teachadd',
+        'uses' => 'PagesController@teachadd',
+    ]);
+    Route::get('mainmenu/teachlist', [
+        'as' => 'mainmenu.teachlist',
+        'uses' => 'PagesController@teachlist',
+    ]);
 
 //Subject
-Route::get('mainmenu/subjadd', [
-    'as' => 'mainmenu.subjadd',
-    'uses' => 'PagesController@subjadd'
-]);
-Route::get('mainmenu/subjlist', [
-    'as' => 'mainmenu.subjlist',
-    'uses' => 'PagesController@subjlist',
-]);
+    Route::get('mainmenu/subjadd', [
+        'as' => 'mainmenu.subjadd',
+        'uses' => 'PagesController@subjadd'
+    ]);
+    Route::get('mainmenu/subjlist', [
+        'as' => 'mainmenu.subjlist',
+        'uses' => 'PagesController@subjlist',
+    ]);
 
 //Fields
-Route::get('mainmenu/fieldadd', [
-    'as' => 'mainmenu.fieldadd',
-    'uses' => 'PagesController@fieldadd',
-]);
-Route::get('mainmenu/fieldquesadd', [
-    'as' => 'mainmenu.fieldquesadd',
-    'uses' => 'PagesController@fieldquesadd',
-]);
-Route::get('mainmenu/fieldlist', [
-    'as' => 'mainmenu.fieldlist',
-    'uses' => 'PagesController@fieldlist',
-]);
+    Route::get('mainmenu/fieldadd', [
+        'as' => 'mainmenu.fieldadd',
+        'uses' => 'PagesController@fieldadd',
+    ]);
+    Route::get('mainmenu/fieldquesadd', [
+        'as' => 'mainmenu.fieldquesadd',
+        'uses' => 'PagesController@fieldquesadd',
+    ]);
+    Route::get('mainmenu/fieldlist', [
+        'as' => 'mainmenu.fieldlist',
+        'uses' => 'PagesController@fieldlist',
+    ]);
+
+    Route::get('logout', [
+        'as' => 'logout',
+        'uses' => 'LoginController@logout',
+    ]);
+});
 
 /*
 Route::get('/db', function () {

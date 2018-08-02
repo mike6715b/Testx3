@@ -1,12 +1,14 @@
 @extends('layouts.app')
 @section('content')
 
-    @if(\Illuminate\Support\Facades\Session::get('user_class') == 'admin')
+    @if($user_class == 'admin')
         @include('mainmenu.admin')
-    @elseif(\Illuminate\Support\Facades\Session::get('user_class') == 'teacher')
+    @elseif($user_class == 'teacher')
         @include('mainmenu.teacher')
-    @else(\Illuminate\Support\Facades\Session::get('user_class') == 'student')
+    @elseif($user_class == 'student')
         @include('mainmenu.student')
+    @else
+        Error!
     @endif
 
 @endsection

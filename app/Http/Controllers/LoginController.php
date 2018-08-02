@@ -7,16 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+
     public function login(Request $request) {
         Auth::attempt(array(
             'user_uid' => $request->username,
             'password' => $request->password,
         ));
-        dd($request->session()->all());
+        dd(Auth::user());
         if (Auth::check()) {
             return redirect()->route('mainmenu');
         } else {
-            return back();
+            return view('login');
         }
     }
 

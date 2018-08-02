@@ -8,17 +8,10 @@ use Illuminate\Support\Facades\Session;
 
 class PagesController extends Controller
 {
-    /**
-     * Provjerava dali je korisnik ispravne klase (admin, teacher, student)
-     *
-     * @param $user_class
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    protected function checkLoginInPages($user_class, Request $request) {
-        if (Session::get('user_class') != $user_class) {
-            return redirect()->route('mainmenu');
-        }
+
+    public function __construct()
+    {
+        return 'hy';
     }
 
     /**
@@ -26,8 +19,9 @@ class PagesController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function mainmenu(Request $request) {
-        dd($request->session()->all());
-        return view('mainmenu');
+        dd(Auth::user());
+        $user_class = Auth::user()->user_class;
+        return view('mainmenu')->with($user_class);
     }
 
     public function exam() {
