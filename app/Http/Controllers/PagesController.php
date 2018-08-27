@@ -74,10 +74,10 @@ class PagesController extends Controller
     }
 
     public function fieldquesadd() {
-
+        return view('usertransactions.fieldquesadd');
     }
 
     public function fieldlist() {
-
+        return view('usertransactions.fieldlist');
     }
 }

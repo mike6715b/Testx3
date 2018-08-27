@@ -117,6 +117,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('fieldadd', [
         'uses' => 'UserTransactionController@fieldadd'
     ]);
+    Route::post('fieldquesadd', [
+        'uses' => 'UserTransactionController@fieldquesadd'
+    ]);
+
+//Ajax
+    Route::get('ajaxGetFields', [
+        'uses' => 'UserTransactionController@ajaxGetFields'
+    ]);
 });
 
 /*

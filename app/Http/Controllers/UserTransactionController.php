@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Field;
 use App\Subject;
 use App\Classes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -85,6 +87,30 @@ class UserTransactionController extends Controller
         } else {
             return redirect()->route('mainmenu');
         }
+    }
+
+    public function fieldadd(Request $request) {
+        $name = $request->name;
+        $subj = $request->subject;
+
+        $field = new Field;
+        $field->field_name = $name;
+        $field->field_subj_id = $subj;
+        $field->save();
+
+        return redirect()->route('mainmenu');
+    }
+
+    public function fieldquesadd(Request $request) {
+
+    }
+
+    public function ajaxGetFields(Request $request) {
+        $subj = $request->subj;
+
+        $res = DB::table('fields')->where('field_subj_id', $subj)->pluck('field_id', 'field_name');
+        return json_encode($res);
+
     }
 
 }
