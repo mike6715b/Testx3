@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Subject;
 use App\Classes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class UserTransactionController extends Controller
@@ -65,6 +67,21 @@ class UserTransactionController extends Controller
 
         if (isset($request->multi)) {
             return redirect()->route('mainmenu.teachadd');
+        } else {
+            return redirect()->route('mainmenu');
+        }
+    }
+
+    public function subjadd(Request $request) {
+        $name = $request->name;
+
+        $subject = new Subject;
+        $subject->subj_name = $name;
+        $subject->subj_author = Auth::user()->user_uid;
+        $subject->save();
+
+        if (isset($request->gradiva)) {
+            return redirect()->route('mainmenu.fieldadd');
         } else {
             return redirect()->route('mainmenu');
         }

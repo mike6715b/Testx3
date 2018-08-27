@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Subject;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,15 +61,16 @@ class PagesController extends Controller
     }
 
     public function subjadd() {
-        
+        return view('usertransactions.subjadd');
     }
 
     public function subjlist() {
-
+        $subjects = Subject::all();
+        return view('usertransactions.subjlist')->with($subjects);
     }
 
     public function fieldadd() {
-
+        return view('usertransactions.fieldadd');
     }
 
     public function fieldquesadd() {

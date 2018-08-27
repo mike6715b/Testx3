@@ -110,6 +110,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('teachadd', [
         'uses' => 'UserTransactionController@teachadd'
     ]);
+
+    Route::post('subjadd', [
+        'uses' => 'UserTransactionController@subjadd'
+    ]);
+    Route::post('fieldadd', [
+        'uses' => 'UserTransactionController@fieldadd'
+    ]);
 });
 
 /*
