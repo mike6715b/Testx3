@@ -51,15 +51,16 @@ class PagesController extends Controller
     }
 
     public function teachadd() {
-
+        return view('usertransactions.teachadd');
     }
 
     public function teachlist() {
-
+        $teachers = User::where('user_class', '=', 'teacher')->get();
+        return view('usertransactions.teachlist')->with($teachers);
     }
 
     public function subjadd() {
-
+        
     }
 
     public function subjlist() {

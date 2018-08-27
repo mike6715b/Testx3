@@ -107,7 +107,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'uses' => 'UserTransactionController@studadd'
     ]);
 
-
+    Route::post('teachadd', [
+        'uses' => 'UserTransactionController@teachadd'
+    ]);
 });
 
 /*

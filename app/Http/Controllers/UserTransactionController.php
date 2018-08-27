@@ -44,7 +44,29 @@ class UserTransactionController extends Controller
         if (isset($request->multi)) {
             return redirect()->route('mainmenu.studadd');
         } else {
-            return $user->all();
+            return redirect()->route('mainmenu');
+        }
+    }
+
+    public function teachadd(Request $request)
+    {
+        $name = $request->name;
+        $uid = $request->uid;
+        $email = $request->email;
+        $pwd = $request->pwd;
+
+        $user = new User;
+        $user->user_name = $name;
+        $user->user_uid = $uid;
+        $user->user_email = $email;
+        $user->user_pwd =  \Illuminate\Support\Facades\Hash::make($pwd);
+        $user->user_class = 'teacher';
+        $user->save();
+
+        if (isset($request->multi)) {
+            return redirect()->route('mainmenu.teachadd');
+        } else {
+            return redirect()->route('mainmenu');
         }
     }
 
