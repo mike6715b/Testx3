@@ -19,7 +19,7 @@ class PagesController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function mainmenu(Request $request) {
-        dd(Auth::user());
+        //dd(Auth::user());
         $user_class = Auth::user()->user_class;
         return view('mainmenu')->with($user_class);
     }
@@ -37,11 +37,11 @@ class PagesController extends Controller
     }
 
     public function studadd() {
-        return 'studadd';
+        return view('usertransactions.studadd');
     }
 
     public function classadd() {
-
+        return view('usertransactions.classadd');
     }
 
     public function studlist() {

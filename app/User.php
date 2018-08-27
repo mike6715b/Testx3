@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     protected $table = 'users';
+    protected $primaryKey = 'user_id';
 
     protected $fillable = [
       'user_name', 'user_uid', 'user_email', 'user_class'
@@ -20,4 +21,10 @@ class User extends Authenticatable
     public function getAuthPassword() {
         return $this->user_pwd;
     }
+
+    public function userClass()  {
+        return $this->user_class;
+    }
+
+
 }

@@ -13,11 +13,15 @@ class LoginController extends Controller
             'user_uid' => $request->username,
             'password' => $request->password,
         ));
-        dd(Auth::user());
+
+        //Auth::loginUsingId('1');
+
+
         if (Auth::check()) {
             return redirect()->route('mainmenu');
         } else {
-            return view('login');
+            $errors = "Incorrect login data!";
+            return view('login')->with($errors);
         }
     }
 

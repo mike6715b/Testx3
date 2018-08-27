@@ -2,21 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Classes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 class UserTransactionController extends Controller
 {
-    /**
-     * @param $user_class
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    private function CheckUserClass($user_class, Request $request) {
-        if (Session::get('user_class') != $user_class) {
-            return redirect()->route('mainmenu');
+
+    public function classadd(Request $request) {
+        $name = $request->name;
+
+        $classes = new Classes;
+        $classes->class_name = $name;
+        $classes->save();
+
+        if (isset($request->multi)) {
+            $mul = true;
+            return redirect()->route('mainmenu.classadd')->with($mul);
+        } else {
+            return $classes->all();
         }
     }
 
+    public function studadd(Request $request) {
+        $name = $request->name;
+        $uid = $request->uid;
+        $email = $request->email;
+        $pwd = $request->pwd;
+        $class = $request->class;
+        return $class;
+        $user = new User;
+        //
+    }
 
 }

@@ -98,6 +98,15 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'as' => 'logout',
         'uses' => 'LoginController@logout',
     ]);
+//UserTransaction
+    Route::post('classadd', [
+       'uses' => 'UserTransactionController@classadd'
+    ]);
+
+    Route::post('studadd', [
+        'uses' => 'UserTransactionController@studadd'
+    ]);
+
 });
 
 /*
