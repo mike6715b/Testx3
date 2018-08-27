@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -45,7 +46,8 @@ class PagesController extends Controller
     }
 
     public function studlist() {
-
+        $users = User::where('user_class', '!=', 'teacher')->where('user_class', '!=', 'admin')->get();
+        return view('usertransactions.studlist')->with($users);
     }
 
     public function teachadd() {
