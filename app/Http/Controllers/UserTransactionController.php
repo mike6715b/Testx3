@@ -32,9 +32,20 @@ class UserTransactionController extends Controller
         $email = $request->email;
         $pwd = $request->pwd;
         $class = $request->class;
-        return $class;
+
         $user = new User;
-        //
+        $user->user_name = $name;
+        $user->user_uid = $uid;
+        $user->user_email = $email;
+        $user->user_pwd = \Illuminate\Support\Facades\Hash::make($pwd);
+        $user->user_class = $class;
+        $user->save();
+
+        if (isset($request->multi)) {
+            return redirect()->route('mainmenu.studadd');
+        } else {
+            return $user->all();
+        }
     }
 
 }

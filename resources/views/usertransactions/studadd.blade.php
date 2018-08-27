@@ -66,7 +66,7 @@
                 $("#pwd").val(pwd);
               }
             console.log("submit");
-            $("#studadd").submit();
+            $("form#studadd").submit();
            });
         });
     </script>
