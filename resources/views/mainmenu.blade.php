@@ -5,10 +5,8 @@
         @include('mainmenu.admin')
     @elseif(Auth::user()->user_class == 'teacher')
         @include('mainmenu.teacher')
-    @elseif(Auth::user()->user_class == 'student')
-        @include('mainmenu.student')
     @else
-        Error!
+        @include('mainmenu.student')
     @endif
 
 @endsection
