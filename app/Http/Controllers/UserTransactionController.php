@@ -114,7 +114,7 @@ class UserTransactionController extends Controller
     }
 
     public function fieldquesadd(Request $request) {
-
+        dd($request);
     }
 
     public function ajaxGetFields(Request $request) {
@@ -123,6 +123,10 @@ class UserTransactionController extends Controller
         $res = DB::table('fields')->where('field_subj_id', $subj)->pluck('field_id', 'field_name');
         return json_encode($res);
 
+    }
+
+    public function fieldlist(Request $request) {
+        
     }
 
 }

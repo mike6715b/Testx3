@@ -5,6 +5,7 @@
     <fieldset>
         <legend align="left">Dodavanje pitanja</legend>
         <form method="POST" action="{{ action('UserTransactionController@fieldquesadd') }}" name="fieldquesadd" id="fieldquesadd">
+            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <div id="selFieldSubj">
                 <p>
                     <label>Predmet: </label>
@@ -34,7 +35,7 @@
                     <select name="quesType" id="quesType">
                         <option></option>
                         <option value="1">Odabir odgovora</option>
-                        <o1ption value="2">Upis odgovora</o1ption>
+                        <option value="2">Upis odgovora</option>
                     </select>
                 </p>
                 <div id="question" style="display: none;">
@@ -42,18 +43,17 @@
                     <input type="text" name="question" id="question"> <br>
                 </div>
                 <div id="quesType1" style="display: none;">
-                        <label>Odgovor 1: </label>
-                        <input type="text" name="1ans1" id="1ans1"> <br>
-                        <label>Odgovor 2: </label>
-                        <input type="text" name="1ans2" id="1ans2"> <br>
-                        <label>Odgovor 3: </label>
-                        <input type="text" name="1ans3" id="1ans3"> <br>
-                        <label>Odgovor 4: </label>
-                        <input type="text" name="1ans4" id="1ans4"> <br>
-                        <button id="addAns" name="addAns">Dodaj odgovor</button>
-
+                        <label>Odgovor: </label>
+                        <input type="text" name="ans[]" required> <br>
+                        <label>Odgovor: </label>
+                        <input type="text" name="ans[]" required> <br>
+                        <label>Odgovor: </label>
+                        <input type="text" name="ans[]" required> <br>
+                        <label>Odgovor: </label>
+                        <input type="text" name="ans[]" required> <br>
                 </div>
-                <button id="submitQues" name="submitQUes" style="display: none;">Unesi pitanje</button>
+                <button name="addAns" id="addAns">Dodaj polje</button> <br><br>
+                <button id="submitQues" name="submitQUes" type="submit" style="display: none;">Unesi pitanje</button>
             </div>
         </form>
     </fieldset>
@@ -98,14 +98,17 @@
               $('#question').show();
               if (selectedType === "1") {
                   $('#quesType1').show();
+                  $('#submitQues').show();
               } else if (selectedType === "2") {
                   alert('comming soon');
               }
            });
 
-           $('#addAns').click(function () {
-
-           });
+           $("#addAns").click(function (e) {
+               e.preventDefault();
+               $("#quesType1").append('<label>Odgovor: </label><input type="text" name="ans[]" required/> <br>');
+           }); 
+           
         });
     </script>
 
