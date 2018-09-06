@@ -44,15 +44,14 @@
                 </div>
                 <div id="quesType1" style="display: none;">
                         <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required> <br>
+                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans1"> <br>
                         <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required> <br>
+                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans2"> <br>
                         <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required> <br>
+                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans3"> <br>
                         <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required> <br>
+                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans4"> <br>
                 </div>
-                <button name="addAns" id="addAns">Dodaj polje</button> <br><br>
                 <button id="submitQues" name="submitQUes" type="submit" style="display: none;">Unesi pitanje</button>
             </div>
         </form>
@@ -104,10 +103,10 @@
               }
            });
 
-           $("#addAns").click(function (e) {
+           /*$("#addAns").click(function (e) {
                e.preventDefault();
                $("#quesType1").append('<label>Odgovor: </label><input type="text" name="ans[]" required/> <br>');
-           }); 
+           });*/
            
         });
     </script>

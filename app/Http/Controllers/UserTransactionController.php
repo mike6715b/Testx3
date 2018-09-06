@@ -6,6 +6,7 @@ use App\User;
 use App\Field;
 use App\Subject;
 use App\Classes;
+use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -114,7 +115,58 @@ class UserTransactionController extends Controller
     }
 
     public function fieldquesadd(Request $request) {
-        dd($request);
+        //dd($request); //Debug
+        $subject = $request->subjectSel;
+        $field = $request->fieldSel;
+        $quesType = $request->quesType;
+        $quest = $request->question;
+        $answer = $request->ans;
+        $corrAns = $request->tocanOdg;
+
+        $param = [
+            0 => $quest,
+            1 => $answer,
+            2 => $corrAns,
+            3 => $quesType,
+        ];
+
+        $quesCurr = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->get();
+        if (count($quesCurr) == 0) {
+            $question = $this->newQuestion($param);
+
+            $questions = new Question;
+            $questions->ques_subj_id = $subject;
+            $questions->ques_field_id = $field;
+            $questions->ques_type = $quesType;
+            $questions->ques_questions = $question;
+            $questions->save();
+            return redirect()->route('mainmenu');
+        } else {
+            return 'else!';
+        }
+
+    }
+
+    protected function newQuestion($param) {
+        $question = $param[0];
+        $ans = $param[1];
+        $corrAns = $param[2];
+
+        if ($param[3] == 1) {
+            $quest = [
+                1 => [
+                    'question' => $question,
+                    'type' => $param[3],
+                    'ans1' => $ans[0],
+                    'ans2' => $ans[1],
+                    'ans3' => $ans[2],
+                    'ans4' => $ans[3],
+                    'correct' => $corrAns,
+                ]
+            ];
+            $quest = json_encode($quest);
+            return $quest;
+        }
     }
 
     public function ajaxGetFields(Request $request) {
@@ -123,10 +175,6 @@ class UserTransactionController extends Controller
         $res = DB::table('fields')->where('field_subj_id', $subj)->pluck('field_id', 'field_name');
         return json_encode($res);
 
-    }
-
-    public function fieldlist(Request $request) {
-        
     }
 
 }
