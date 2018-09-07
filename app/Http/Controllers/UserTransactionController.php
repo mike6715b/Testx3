@@ -130,21 +130,42 @@ class UserTransactionController extends Controller
             3 => $quesType,
         ];
 
-        $quesCurr = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->get();
-        if (count($quesCurr) == 0) {
+        $quesInTable = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->get();
+        if (count($quesInTable) == 0) {
             $question = $this->newQuestion($param);
 
-            $questions = new Question;
-            $questions->ques_subj_id = $subject;
-            $questions->ques_field_id = $field;
-            $questions->ques_type = $quesType;
-            $questions->ques_questions = $question;
-            $questions->save();
-            return redirect()->route('mainmenu');
+            $this->saveQuestion($subject, $field, $question);
         } else {
-            return 'else!';
+            $quesInTableID = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->pluck('ques_id');
+            $quesCurrDecoded = json_decode($quesInTable[0]->ques_questions, TRUE);
+            $question = $this->addQuestion($param, count($quesCurrDecoded), $quesCurrDecoded);
+            $questionID = $quesInTableID[0];
+
+            $this->saveQuestion($subject, $field, $question, $questionID);
         }
 
+    }
+
+    protected function addQuestion($param, $numer, $currentQuestion) {
+        if ($param[3] == 1) {
+            $num = $numer+1;
+                $question = [
+                    'question' => $param[0],
+                    'type' => $param[3],
+                    'ans1' => $param[1][0],
+                    'ans2' => $param[1][1],
+                    'ans3' => $param[1][2],
+                    'ans4' => $param[1][3],
+                    'correct' => $param[2]
+                ];
+
+            $currentQuestion[$num] = $question;
+
+            $question = json_encode($currentQuestion);
+            return $question;
+        } else {
+            return -1;
+        }
     }
 
     protected function newQuestion($param) {
@@ -166,7 +187,22 @@ class UserTransactionController extends Controller
             ];
             $quest = json_encode($quest);
             return $quest;
+        } else {
+            return -1;
         }
+    }
+
+    protected function saveQuestion($subject, $field, $question, $id=0) {
+        $questions = new Question;
+        if ($id != 0) {
+            $questions->destroy($id);
+            $questions->ques_id = $id;
+        }
+        $questions->ques_subj_id = $subject;
+        $questions->ques_field_id = $field;
+        $questions->ques_questions = $question;
+        $questions->save();
+        return redirect()->route('mainmenu');
     }
 
     public function ajaxGetFields(Request $request) {
