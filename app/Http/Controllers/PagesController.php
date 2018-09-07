@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\Session;
 
 class PagesController extends Controller
 {
-
-    public function __construct()
-    {
-        return 'hy';
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function mainmenu(Request $request) {
         //dd(Auth::user());
         $user_class = Auth::user()->user_class;
@@ -27,7 +17,7 @@ class PagesController extends Controller
     }
 
     public function exam() {
-        return 'exam';
+        return view('usertransactions.exam');
     }
 
     public function contrlexam() {
