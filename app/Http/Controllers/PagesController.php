@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Field;
+use App\Question;
 use App\Subject;
 use App\User;
 use Illuminate\Http\Request;
@@ -37,8 +39,7 @@ class PagesController extends Controller
     }
 
     public function studlist() {
-        $users = User::where('user_class', '!=', 'teacher')->where('user_class', '!=', 'admin')->get();
-        return view('usertransactions.studlist')->with($users);
+        return view('usertransactions.studlist');
     }
 
     public function teachadd() {
@@ -46,8 +47,7 @@ class PagesController extends Controller
     }
 
     public function teachlist() {
-        $teachers = User::where('user_class', '=', 'teacher')->get();
-        return view('usertransactions.teachlist')->with($teachers);
+        return view('usertransactions.teachlist');
     }
 
     public function subjadd() {
@@ -55,8 +55,13 @@ class PagesController extends Controller
     }
 
     public function subjlist() {
-        $subjects = Subject::all();
-        return view('usertransactions.subjlist')->with($subjects);
+        return view('usertransactions.subjlist');
+    }
+
+    public function showques(Request $request) {
+        $res = Question::where('ques_field_id', $request->id)->first();
+        $decoded = json_decode($res->ques_questions, TRUE);
+        return view('usertransactions.showques')->with('decoded', $decoded);
     }
 
     public function fieldadd() {

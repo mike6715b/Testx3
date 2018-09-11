@@ -13,12 +13,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $user)
+                @foreach(App\User::where('user_class', '!=', 'admin')->where('user_class', '!=', 'teacher')->get() as $user)
                     <tr>
                         <td>{{ $user->user_name }}</td>
                         <td>{{ $user->user_email }}</td>
                         <td>{{ $user->user_uid }}</td>
-                        <td>{{ $user->user_class }}</td>
+                        <td>{{ App\Classes::where('class_id', $user->user_class)->pluck('class_name') }}</td>
                     </tr>
                 @endforeach
             </tbody>

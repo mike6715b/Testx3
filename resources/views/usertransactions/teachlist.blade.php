@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($teachers as $teacher)
+                @foreach(App\User::where('user_class', '=', 'teacher')->get() as $teacher)
                     <tr>
                         <td>{{ $teacher->user_name }}</td>
                         <td>{{ $teacher->user_mail }}</td>
