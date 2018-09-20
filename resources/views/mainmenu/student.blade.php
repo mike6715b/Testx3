@@ -31,8 +31,8 @@
         <table>
             <tbody>
             <tr>
-                <td><p><a href="{{ route('mainmenu.contrlexam') }}">Kontrolne zadace</a></p></td>
-                <td><p><a href="{{ route('mainmenu.selfcheck') }}">Samoprovjere</a></p></td>
+                <td><p><a href="{{ route('mainmenu.examlist') }}">Kontrolne zadace</a></p></td>
+                <td><p><a href="{{ route('mainmenu.examresult') }}">Samoprovjere</a></p></td>
             </tr>
             </tbody>
         </table>

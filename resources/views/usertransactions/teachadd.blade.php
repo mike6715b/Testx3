@@ -4,6 +4,7 @@
 
     <fieldset>
         <form method="POST" action="{{ action('UserTransactionController@teachadd') }}" id="teachAdd" >
+            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <p>
                 <label>Ime Prezime: </label><br>
                 <input type="text" name="name" id="name" required>
@@ -25,28 +26,8 @@
                 <input type="checkbox" name="multi" id="multi">
                 <label>Visestruki unos?</label>
             </p>
-            <input type="button" name="submit" id="teachSubmit" value="Unesi">
+            <button type="submit" name="submit" id="submit">Unesi</button>
         </form>
     </fieldset>
-
-    <script>
-        $(document).ready(function () {
-           console.log('Ready');
-           $("#teachSubmit").click(function () {
-               var pwdLen = $("#pwd").val().length;
-               if (pwdLen == 0) {
-                   var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890";
-                   var pwd = "";
-                   for (var x = 0; x < 8; x++) {
-                       var i = Math.floor(Math.random() * chars.length);
-                       pwd += chars.charAt(i);
-                   }
-                   console.log("Password: " + pwd);
-                   $("#pwd").val(pwd);
-               }
-               $("form#teachAdd").submit();
-           });
-        });
-    </script>
 
 @endsection

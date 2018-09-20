@@ -39,13 +39,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'as' => 'mainmenu.exam',
         'uses' => 'PagesController@exam'
     ]);
-    Route::get('mainmenu/contrlexam', [
-        'as' => 'mainmenu.contrlexam',
-        'uses' => 'PagesController@contrlexam',
+    Route::get('mainmenu/examlist', [
+        'as' => 'mainmenu.examlist',
+        'uses' => 'PagesController@examlist',
     ]);
-    Route::get('mainmenu/selfcheck', [
-        'as' => 'mainmenu.selfcheck',
-        'uses' => 'PagesController@selfcheck',
+    Route::get('mainmenu/examresult', [
+        'as' => 'mainmenu.examresult',
+        'uses' => 'PagesController@examresult'
     ]);
 
 //Add stud/teach
@@ -124,9 +124,17 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'uses' => 'UserTransactionController@fieldquesadd'
     ]);
 
+//Exam
+    Route::post('examcreate', [
+        'uses' => 'ExamController@examcreate'
+    ]);
+
 //Ajax
     Route::get('ajaxGetFields', [
         'uses' => 'UserTransactionController@ajaxGetFields'
+    ]);
+    Route::get('ajaxGetClasses', [
+        'uses' => 'UserTransactionController@ajaxGetClasses'
     ]);
 });
 
@@ -146,5 +154,9 @@ Route::get('/db', function () {
    echo "User added!";
 });
 */
+Route::get('testing', function () {
+   $test = \Illuminate\Support\Facades\DB::table('tests')->first();
+   dd(json_decode($test->test_class, TRUE));
+});
 
 
