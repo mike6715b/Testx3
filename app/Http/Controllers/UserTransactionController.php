@@ -212,5 +212,19 @@ class UserTransactionController extends Controller
         return json_encode($res);
 
     }
+/*
+    public function ajaxGetClasses(Request $request) {
+        $subj = $request->subj;
 
+        if (Auth::user()->user_class == 'admin') {
+            $req = Classes::all();
+            return $req;
+        } else {
+            $req = DB::table('class_subject')->where('subject_id', '=', $subj)->pluck('class_id');
+            foreach($req as $class) {
+
+            }
+        }
+    }
+*/
 }
