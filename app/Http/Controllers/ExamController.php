@@ -27,4 +27,12 @@ class ExamController extends Controller
 
         return redirect()->route('mainmenu.exam');
     }
+
+    public function examgen(Request $request) {
+        $testID = $request->id;
+        $test = Test::where('test_id', '=', $testID)->first();
+        $questionRow = Question::where('ques_id', '=', $test->test_ques)->first();
+        $questions = json_decode($questionRow->ques_questions, TRUE);
+        dd($questions);
+    }
 }

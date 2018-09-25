@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Field;
 use App\Question;
 use App\Subject;
+use App\Test;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,58 @@ class PagesController extends Controller
     }
 
     public function examlist() {
-        return view('exam.examlist');
+        $self = $this->getSelfTest();
+        $exam = $this->getExamTest();
+
+        return view('exam.examlist')->with('self', $self)->with('exam', $exam);
+    }
+
+    protected function getExamTest() {
+        $skips = ["[","]","\""];
+        $tests = Test::where('test_type', '=', '1')->get();
+        if (count($tests) != 0) {
+            $i = 1;
+            $res = [];
+            do {
+                $subj = \App\Subject::where('subj_id', '=', \App\Question::where('ques_id', '=', $tests[$i-1]->test_ques)->pluck('ques_subj_id'))->pluck('subj_name');
+                $subj = str_replace($skips, ' ', $subj);
+                $array = [
+                    "1" => $tests[$i-1]->test_title,
+                    "2" => $subj,
+                    "3" => $tests[$i-1]->updated_at,
+                    "4" => $tests[$i-1]->test_id,
+                ];
+                array_push($res, $array);
+                $i++;
+            } while (count($tests) > 1 && $i-1 < count($tests));
+            return $res;
+        } else {
+            return null;
+        }
+    }
+
+    protected function getSelfTest() {
+        $skips = ["[","]","\""];
+        $tests = Test::where('test_type', '=', '2')->get();
+        if (count($tests) != 0) {
+            $i = 1;
+            $res = [];
+            do {
+                $subj = \App\Subject::where('subj_id', '=', \App\Question::where('ques_id', '=', $tests[$i-1]->test_ques)->pluck('ques_subj_id'))->pluck('subj_name');
+                $subj = str_replace($skips, ' ', $subj);
+                $array = [
+                    "1" => $tests[$i-1]->test_title,
+                    "2" => $subj,
+                    "3" => $tests[$i-1]->updated_at,
+                    "4" => $tests[$i-1]->test_id,
+                ];
+                array_push($res, $array);
+                $i++;
+            } while (count($tests) > 1 && $i-1 < count($tests));
+            return $res;
+        } else {
+            return null;
+        }
     }
 
     public function examresult() {

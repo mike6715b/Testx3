@@ -47,6 +47,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'as' => 'mainmenu.examresult',
         'uses' => 'PagesController@examresult'
     ]);
+    Route::get('examgen', [
+        'as' => 'examgen',
+        'uses' => 'ExamController@examgen'
+    ]);
 
 //Add stud/teach
     Route::get('mainmenu/studadd', [
