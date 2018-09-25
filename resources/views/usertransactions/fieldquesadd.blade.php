@@ -35,7 +35,8 @@
                     <select name="quesType" id="quesType">
                         <option></option>
                         <option value="1">Odabir odgovora</option>
-                        <option value="2">Upis odgovora</option>
+                        <option value="2">Visetruki odgovor</option>
+                        <option value="3">Upis odgovora</option>
                     </select>
                 </p>
                 <div id="question" style="display: none;">
@@ -98,7 +99,7 @@
               if (selectedType === "1") {
                   $('#quesType1').show();
                   $('#submitQues').show();
-              } else if (selectedType === "2") {
+              } else if (selectedType === "2" || selectedType === "3") {
                   alert('comming soon');
               }
            });
