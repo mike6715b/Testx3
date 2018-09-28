@@ -130,7 +130,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 //Exam
     Route::post('examcreate', [
-        'uses' => 'ExamController@examcreate'
+        'uses' => 'ExamController@examcreate',
+    ]);
+    Route::post('examcheck', [
+        'uses' => 'ExamController@examcheck',
     ]);
 
 //Ajax

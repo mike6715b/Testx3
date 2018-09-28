@@ -33,6 +33,11 @@ class ExamController extends Controller
         $test = Test::where('test_id', '=', $testID)->first();
         $questionRow = Question::where('ques_id', '=', $test->test_ques)->first();
         $questions = json_decode($questionRow->ques_questions, TRUE);
-        dd($questions);
+        //dd($questions);
+        return view('exam.examgen')->with('questions', $questions);
+    }
+
+    public function examcheck(Request $request) {
+
     }
 }
