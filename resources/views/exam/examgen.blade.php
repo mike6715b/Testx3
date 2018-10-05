@@ -2,8 +2,8 @@
 
 @section('content')
 <?php $pos=1 ?>
-    <fieldset>
-        <legend>Test</legend>
+    <fieldset style="margin-left: 15%; margin-right: 15%; margin-top: 10px; border: 2px solid #e8491d; border-radius: 5px;">
+        <legend style="border: 2px solid #e8491d; border-radius: 5px; background-color: #dbdbdb;">Test</legend>
         <p style="margin-bottom: 0px; margin-top: 0px">{{ \Illuminate\Support\Facades\Auth::user()->user_name }}</p>
         <p style="margin-bottom: 0px; margin-top: 0px">{{ \Illuminate\Support\Facades\Auth::user()->user_email }}</p>
         <form  id="exam" method="POST" action="{{ action('ExamController@examcheck') }}">
@@ -12,13 +12,15 @@
             @foreach($questions as $question)
                 <tr>
                     <td>
-                        <p>{{ $pos }}. {{ $question['question'] }}</p>
+                        <p style="border-radius: 15px; border-color: #ff8e70; border-width: 2px; border-style: solid; padding: 3px; background-color: #c6c6c6">{{ $pos }}. {{ $question['question'] }}</p>
                         <p>
                             @if($question['type'] == 1)
-                                <input type="checkbox" name="ans1">{{ $question['ans1'] }}<br>
-                                <input type="checkbox" name="ans2">{{ $question['ans2'] }}<br>
-                                <input type="checkbox" name="ans3">{{ $question['ans3'] }}<br>
-                                <input type="checkbox" name="ans4">{{ $question['ans4'] }}<br>
+                                <div name="{{ $pos }}">
+                                    <input type="checkbox" name="ans[{{ $pos }}][]" value="ans1">{{ $question['ans1'] }}<br>
+                                    <input type="checkbox" name="ans[{{ $pos }}][]" value="ans2">{{ $question['ans2'] }}<br>
+                                    <input type="checkbox" name="ans[{{ $pos }}][]" value="ans3">{{ $question['ans3'] }}<br>
+                                    <input type="checkbox" name="ans[{{ $pos }}][]" value="ans4">{{ $question['ans4'] }}<br>
+                                </div>
                             @else
                                 <p>Nije type 1</p>
                             @endif
@@ -28,6 +30,7 @@
                 <?php $pos++ ?>
             @endforeach
         </table>
+            <button name="sub-btn">Unesi</button>
         </form>
     </fieldset>
 
