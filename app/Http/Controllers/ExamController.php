@@ -29,10 +29,10 @@ class ExamController extends Controller
     }
 
     public function examgen(Request $request) {
-        $testID = $request->id;
-        $test = Test::where('test_id', '=', $testID)->first();
+        $test = Test::where('test_id', '=', $request->id)->first();
         $questionRow = Question::where('ques_id', '=', $test->test_ques)->first();
         $questions = json_decode($questionRow->ques_questions, TRUE);
+        // RANDOMIZING QUESTIONS
         $ques_nums = [];
         for ($i = 0; $i < count($questions); $i++) {
             do {
@@ -46,6 +46,7 @@ class ExamController extends Controller
             $ques = $questions[$ques_num];
             $questions_rand[$i] = $ques;
         }
+        // RANDOMIZING ANSWERS
         $counter = 0;
         foreach ($questions_rand as $ques_rando) {
             $anss = [
