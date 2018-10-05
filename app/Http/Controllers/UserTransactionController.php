@@ -135,6 +135,7 @@ class UserTransactionController extends Controller
             $question = $this->newQuestion($param);
 
             $this->saveQuestion($subject, $field, $question);
+            return redirect()->route('mainmenu');
         } else {
             $quesInTableID = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->pluck('ques_id');
             $quesCurrDecoded = json_decode($quesInTable[0]->ques_questions, TRUE);
@@ -142,6 +143,7 @@ class UserTransactionController extends Controller
             $questionID = $quesInTableID[0];
 
             $this->saveQuestion($subject, $field, $question, $questionID);
+            return redirect()->route('mainmenu');
         }
 
     }
@@ -202,7 +204,6 @@ class UserTransactionController extends Controller
         $questions->ques_field_id = $field;
         $questions->ques_questions = $question;
         $questions->save();
-        return redirect()->route('mainmenu');
     }
 
     public function ajaxGetFields(Request $request) {
