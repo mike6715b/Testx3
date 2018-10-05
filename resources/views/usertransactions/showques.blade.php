@@ -28,13 +28,21 @@
                         <td>{{ $question['ans2'] }}</td>
                         <td>{{ $question['ans3'] }}</td>
                         <td>{{ $question['ans4'] }}</td>
-                        <td>@foreach($question['correct'] as $ans)
+                        <td>@if(is_array($question['correct']))
+                                @foreach($question['correct'] as $ans)
+                                    @if($ans == 'ans1') 1
+                                    @elseif($ans == 'ans2') 2
+                                    @elseif($ans == 'ans3') 3
+                                    @else 4
+                                    @endif
+                                @endforeach
+                            @else
                                 @if($ans == 'ans1') 1
                                 @elseif($ans == 'ans2') 2
                                 @elseif($ans == 'ans3') 3
                                 @else 4
                                 @endif
-                            @endforeach</td>
+                            @endif</td>
                     <tr>
                 @endforeach
             </tbody>
