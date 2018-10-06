@@ -40,42 +40,42 @@ class ExamController extends Controller
             } while (in_array($num, $ques_nums));
             $ques_nums[$i] = $num;
         }
-
         for ($i = 0; $i < count($questions); $i++) {
             $ques_num = $ques_nums[$i];
             $ques = $questions[$ques_num];
             $questions_rand[$i] = $ques;
         }
-        // RANDOMIZING ANSWERS
-        $counter = 0;
-        foreach ($questions_rand as $ques_rando) {
-            $anss = [
-                $ques_rando['ans1'],
-                $ques_rando['ans2'],
-                $ques_rando['ans3'],
-                $ques_rando['ans4']
-            ];
-            $anses = [];
-            for ($i = 0; $i < count($anss); $i++) {
-                if (!$anss[$i] == null) {
-                    do {
-                        $num = rand(1, count($anss));
-                    } while (in_array($num, $anses));
-                    $anses[$i] = $num;
-                }
-            }
-            $questions_rand[$counter]['ans1'] = $anss[$anses[0]-1];
-            $questions_rand[$counter]['ans2'] = $anss[$anses[1]-1];
-            $questions_rand[$counter]['ans3'] = $anss[$anses[2]-1];
-            $questions_rand[$counter]['ans4'] = $anss[$anses[3]-1];
-            $request->session()->put($counter, $questions_rand[$counter]['correct']);
-            $counter++;
+        for ($i = 0; $i < count($questions_rand); $i++) {
+            $request->session()->put($i, $questions_rand[$i]['correct']);
         }
         $request->session()->put('test_type', $test->test_type);
         return view('exam.examgen')->with('questions', $questions_rand);
     }
 
     public function examcheck(Request $request) {
-        dd($request);
+        $score = 0;
+        $key = 0;
+        do {
+            $corrAns = $request->session()->get($key);
+            $ans = $request->all();
+            if (!key_exists($key, $ans['ans'])) {
+                $key++;
+                continue;
+            }
+            $ans = $ans['ans'][$key];
+            if (count($corrAns) == count($ans)) {
+                $contr = [];
+                for ($i = 0; $i < count($corrAns); $i++) {
+                    if (in_array($ans[$i], $corrAns)) {
+                        array_push($contr, 1);
+                    }
+                }
+                if (!in_array(0, $contr)) {
+                    $score++;
+                }
+            }
+            $key++;
+        } while ($request->session()->has($key));
+        dd($score);
     }
 }
