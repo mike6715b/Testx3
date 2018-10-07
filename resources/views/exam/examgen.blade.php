@@ -29,13 +29,13 @@
                                                 ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans1">{{ $question['ans1'] }}<br><?php
                                                 break;
                                             case 2:
-                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans1">{{ $question['ans2'] }}<br><?php
+                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans2">{{ $question['ans2'] }}<br><?php
                                                 break;
                                             case 3:
-                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans1">{{ $question['ans3'] }}<br><?php
+                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans3">{{ $question['ans3'] }}<br><?php
                                                 break;
                                             case 4:
-                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans1">{{ $question['ans4'] }}<br><?php
+                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans4">{{ $question['ans4'] }}<br><?php
                                                 break;
                                         }
                                     }
