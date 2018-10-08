@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * ====ExamController====
+ * Ovaj controller se koristi za sve zahtjeve koje se odnose na
+ * ispite i upravljanje tim ispitima. Takoder za pisanje i
+ * provjeru ispita.
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -12,6 +17,8 @@ class ExamController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * Funkcija odgovorna za stvaranje testova.
+     * Dohvaca parametre koje je ucitelj ili admin unjeo
+     * i sprema u bazu podataka.
      */
     public function examcreate(Request $request) {
         // Dohvacamo sve sto je korisnik upisao
@@ -109,6 +116,10 @@ class ExamController extends Controller
             }
             $key++;
         } while ($request->session()->has($key));
-        dd($score);
+        if ($request->session()->get("test_type") == 1) {
+            dd("Test type 1");
+        } else {
+
+        }
     }
 }
