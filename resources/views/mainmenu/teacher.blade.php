@@ -1,30 +1,4 @@
-<style>
-    .main-menu #main-menu {
-        margin: auto;
-        text-align: left;
-    }
-
-    .main-menu fieldset{
-        border-color: #e8491d;
-        border-radius: 5px;
-        width: 500px;
-        margin: auto;
-        margin-top: 7px;
-        background-color: #c4c4c4;
-    }
-
-    .main-menu fieldset legend {
-        border: 2px solid #e8491d;
-        border-radius: 5px;
-        background-color: #dbdbdb;
-    }
-
-    .main-menu table tbody tr td {
-        padding-right: 10px;
-    }
-</style>
-
-<container id="main-menu" align="center">
+<container class="main-menu" align="center">
 
     <fieldset>
         <legend align="left">Zadace</legend>
