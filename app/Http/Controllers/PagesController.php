@@ -43,7 +43,9 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        return view('exam.manage');
+        $active = Test::where('status', '=', '1')->get();
+        $inactive = Test::where('status', '!=', '1')->get();
+        return view('exam.manage')->with('active', $active)->with('inactive', $inactive);
     }
 
     public function examlist() {

@@ -14,17 +14,29 @@
                             <th>ID</th>
                             <th>Naziv</th>
                             <th>Tip</th>
-                            <th>Status</th>
                             <th>Razred</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Prvi ispit</td>
-                                <td>Odaberi odgovor</td>
-                                <td>Aktivan</td>
-                                <td>4.MT</td>
-                            </tr>
+                            <?php $acID = 1; ?>
+                            @foreach($active as $test)
+                                <tr>
+                                    <td>{{ $acID }}</td>
+                                    <td>{{ $test->test_title }}</td>
+                                    <td>
+                                        @if($test->test_type == 2)
+                                            Samoprovjera
+                                        @else
+                                            Provjera znanja
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <?php $classes = json_decode($test->test_class) ?>
+                                        @foreach($classes as $class)
+                                            {{ \App\Classes::where('class_id', $class)->first()->class_name }},
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </fieldset>
@@ -37,17 +49,35 @@
                             <th>ID</th>
                             <th>Naziv</th>
                             <th>Tip</th>
-                            <th>Status</th>
                             <th>Razred</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Drugi ispit</td>
-                                <td>Odaberi odgovor</td>
-                                <td>Neaktivan</td>
-                                <td>4.MT</td>
-                            </tr>
+                            @if($inactive->count() == 0)
+                                <tr>
+                                    <td colspan="4">Nema neaktivnih provjera znanja</td>
+                                </tr>
+                            @else
+                                <?php $inacID = 1; ?>
+                                @foreach($inactive as $test)
+                                    <tr>
+                                        <td>{{ $inacID }}</td>
+                                        <td>{{ $test->test_title }}</td>
+                                        <td>
+                                            @if($test->test_type == 2)
+                                                Samoprovjera
+                                            @else
+                                                Provjera znanja
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <?php $classes = json_decode($test->test_class) ?>
+                                            @foreach($classes as $class)
+                                                {{ \App\Classes::where('class_id', $class)->first()->class_name }},
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </fieldset>
