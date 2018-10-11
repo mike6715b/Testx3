@@ -75,6 +75,8 @@ class ExamController extends Controller
             $request->session()->put($i, $questions_rand[$i]['correct']);
         }
         $request->session()->put('test_type', $test->test_type);
+        $request->session()->put('ques_id', $request->id);
+        $request->session()->put('ques_rand', json_encode($questions_rand));
         return view('exam.examgen')->with('questions', $questions_rand);
     }
 
@@ -92,34 +94,46 @@ class ExamController extends Controller
      * U suprotnom, korisnik ne dobiva bod.
      */
     public function examcheck(Request $request) {
-        $score = 0;
-        $key = 0;
+        $score = 0; $key = 0;
+        $score = $this->CheckAns($request, $score, $key);
+        if ($request->session()->get("test_type") == 1) {
+            dd("Test type 1");
+        } else {
+            $questions = $request->session()->get('ques_rand');
+            $questions = json_decode($questions, TRUE);
+            return view('exam.examresult')
+                ->with('questions', $questions)
+                ->with('anses', $request->all()['ans'])
+                ->with('score', $score);
+        }
+    }
+
+    protected function CheckAns($request, $score, $key, $cor = []) {
         do {
+            $userAns = $request->all()["ans"]; //Dohvacamo odgovore od korisnika
             $corrAns = $request->session()->get($key); //Dohvacamo tocne odgovore za pitanje
-            $ans = $request->all(); //Dohvacamo odgovore od korisnika
-            if (!key_exists($key, $ans['ans'])) { //Provjeravamo dali je korisnik dalo odgovor na pitanje
+            if (!key_exists($key, $userAns)) { //Provjeravamo dali je korisnik dalo odgovor na pitanje
                 $key++;
                 continue; //Ako nije, nastavi na drugo pitanje
             }
-            $ans = $ans['ans'][$key]; //Ako odg postoji, dohvacamo ga
-            if (count($corrAns) == count($ans)) { //Ako je broj tocnih odgovora, jedan broju odgovora koje je dao korisnik
-                $contr = [];
+            if (count($corrAns) == count($userAns[$key])) { //Ako je broj tocnih odgovora, jedan broju odgovora koje je dao korisnik
+                $control = []; //Koristimo za provjeru koliko ima tocnih/netocnih odgovora
                 for ($i = 0; $i < count($corrAns); $i++) {
-                    if (in_array($ans[$i], $corrAns)) { //Ako odgovor postiji u tocnim odgovorima
-                        array_push($contr, "1");
+                    if (in_array($userAns[$key][$i], $corrAns)) { //Ako odgovor postiji u tocnim odgovorima
+                        array_push($control, 1);
                     }
                 }
-                $counts = array_count_values($contr);
-                if ($counts["1"] == count($corrAns)) {
-                    $score++;
+                $counts = array_count_values($control);
+                if (key_exists(1, $counts)) {
+                    if ($counts[1] == count($corrAns)) {
+                        $score++;
+                        array_push($cor, $key);
+                    }
                 }
             }
             $key++;
         } while ($request->session()->has($key));
-        if ($request->session()->get("test_type") == 1) {
-            dd("Test type 1");
-        } else {
-
-        }
+        $request->session()->put('corrects', $cor);
+        return $score;
     }
 }
