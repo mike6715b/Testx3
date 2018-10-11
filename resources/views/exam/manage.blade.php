@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <fieldset>
+    <fieldset class="exam-manage">
         <legend align="left">Upravljanje ispitima</legend>
         <table>
             <tr>
                 <td>
-                    <fieldset style="margin-left: 10em" id="activetest">
+                    <fieldset id="activetest">
                         <legend align="left">Aktivni ispiti</legend>
                         <table id="active-test">
                             <thead>
@@ -42,7 +42,7 @@
                     </fieldset>
                 </td>
                 <td>
-                    <fieldset style="margin-left: 15em" id="inactivetest">
+                    <fieldset id="inactivetest">
                         <legend align="left">Neaktivni ispiti</legend>
                         <table id="active-test">
                             <thead>

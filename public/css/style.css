@@ -22,6 +22,18 @@ container {
     margin: auto;
     text-align: left;
 }
+* fieldset{
+    border-color: #e8491d;
+    border-radius: 5px;
+    margin-top: 7px;
+    margin-left: 5em;
+    margin-right: 5em;
+}
+* legend {
+    border: 2px solid #e8491d;
+    border-radius: 5px;
+    background-color: #dbdbdb;
+}
 /* --GLOBAL */
 
 /* Header */
@@ -118,3 +130,15 @@ header #info {
     text-decoration: none;
 }
 /* ---MAIN MENU--- */
+/* ---EXAM--- */
+.exam-manage fieldset {
+    border-color: #e8491d;
+    border-radius: 5px;
+    margin-top: 7px;
+    background-color: #c4c4c4;
+}
+.exam-manage fieldset legend {
+    border: 2px solid #e8491d;
+    border-radius: 5px;
+    background-color: #dbdbdb;
+}
