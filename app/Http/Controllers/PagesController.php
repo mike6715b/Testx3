@@ -6,6 +6,7 @@ use App\Field;
 use App\Question;
 use App\Subject;
 use App\Test;
+use App\TestDone;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,14 @@ class PagesController extends Controller
             $i = 1;
             $res = [];
             do {
+                //Check
+                $resul = TestDone::where('test_user_id', '=', Auth::user()->user_id)
+                    ->where('test_id', '=', $tests[$i-1]->test_id)->get();
+                if (count($resul) != 0) {
+                    $i++;
+                    continue;
+                }
+
                 $subj = \App\Subject::where('subj_id', '=', \App\Question::where('ques_id', '=', $tests[$i-1]->test_ques)->pluck('ques_subj_id'))->pluck('subj_name');
                 $subj = str_replace($skips, ' ', $subj);
                 $array = [
@@ -104,7 +113,9 @@ class PagesController extends Controller
     }
 
     public function examresult() {
-        return 'examresult';
+        $data = TestDone::where('test_user_id', '=', Auth::user()->user_id)->get();
+        return view('exam.results')
+            ->with('data', $data);
     }
 
     public function studadd() {
@@ -143,7 +154,7 @@ class PagesController extends Controller
     }
 
     public function subjadd() {
-        if ($this->isUserAdmin() != true) {
+        if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
         return view('usertransactions.subjadd');
