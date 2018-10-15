@@ -25,11 +25,15 @@
         </div>
     </div>
     <div class="status">
-        <div id="logout">
-            <form action="{{ route('logout') }}" method="get">
-                <button type="sumbit" name="logout">Logout</button>
-            </form>
-        </div>
+        @if(\Illuminate\Support\Facades\Auth::check())
+            <div id="logout">
+                <form action="{{ route('logout') }}" method="get">
+                    <p style="margin-bottom: 0.25em"><button type="sumbit" name="logout">Logout</button>
+                        {{ \Illuminate\Support\Facades\Auth::user()->user_name }}</p>
+                </form>
+            </div>
+        @else
+        @endif
     </div>
 </header><!-- /header -->
 
