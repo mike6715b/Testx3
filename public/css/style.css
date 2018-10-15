@@ -142,3 +142,7 @@ header #info {
     border-radius: 5px;
     background-color: #dbdbdb;
 }
+.exam-result-done, .exam-list {
+    margin-left: 25em;
+    margin-right: 25em;
+}

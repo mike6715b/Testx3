@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <fieldset>
+    <fieldset class="exam-list">
         <legend align="left">Samoprovjera</legend>
         <table name="tests_self" id="test_self">
             <thead>
@@ -30,7 +30,7 @@
         </table>
     </fieldset>
 
-    <fieldset>
+    <fieldset class="exam-list">
         <legend align="left">Provjera znanja</legend>
         <table name="test_exam" id="test_exam">
             <thead>
