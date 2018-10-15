@@ -15,7 +15,7 @@
                 @foreach(App\User::where('user_class', '=', 'teacher')->get() as $teacher)
                     <tr>
                         <td>{{ $teacher->user_name }}</td>
-                        <td>{{ $teacher->user_mail }}</td>
+                        <td>{{ $teacher->user_email }}</td>
                         <td>{{ $teacher->user_uid }}</td>
                     </tr>
                 @endforeach

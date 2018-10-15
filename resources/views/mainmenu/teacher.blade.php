@@ -14,6 +14,17 @@
     </fieldset>
 
     <fieldset>
+        <legend align="left">Ucenik</legend>
+        <table>
+            <tbody>
+            <tr>
+                <td><p><a href="{{ route('mainmenu.studlist') }}">Popis ucenika</a></p></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <fieldset>
         <legend>Predmeti</legend>
         <table>
             <tbody>

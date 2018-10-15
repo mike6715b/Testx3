@@ -5,8 +5,8 @@
         <table>
             <tbody>
             <tr>
-                <td><p><a href="{{ route('mainmenu.examlist') }}">Kontrolne zadace</a></p></td>
-                <td><p><a href="{{ route('mainmenu.examresult') }}">Samoprovjere</a></p></td>
+                <td><p><a href="{{ route('mainmenu.examlist') }}">Pisanje zadace</a></p></td>
+                <td><p><a href="{{ route('mainmenu.examresult') }}">Rezultati zadace</a></p></td>
             </tr>
             </tbody>
         </table>
