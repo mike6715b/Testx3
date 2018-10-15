@@ -25,6 +25,4 @@ class User extends Authenticatable
     public function userClass()  {
         return $this->user_class;
     }
-
-
 }
