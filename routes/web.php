@@ -145,25 +145,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     ]);
 });
 
-/*
+
 Route::get('/db', function () {
-   \Illuminate\Support\Facades\DB::table('users')->insert(
-       [
-           [
-               'user_name' => 'Bruno Rehak',
-               'user_uid' => 'bruno.rehak',
-               'user_email' => 'bruno.rehak@gmail.com',
-               'user_pwd' => \Illuminate\Support\Facades\Hash::make('delta0690.'),
-               'user_class' => 'admin',
-           ]
-       ]
-   );
-   echo "User added!";
+   echo "Null!";
 });
-*/
-Route::get('testing', function () {
-   $test = \Illuminate\Support\Facades\DB::table('tests')->first();
-   dd(json_decode($test->test_class, TRUE));
-});
-
-
