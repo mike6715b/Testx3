@@ -18,8 +18,8 @@ class CreateTestsdoneTable extends Migration
             $table->integer('test_id');
             $table->integer('test_user_id');
             $table->integer('test_grade');
-            $table->date('test_complete');
-            $table->string('test_duration');
+            $table->longText('test_anses');
+            $table->char('test_complete');
         });
     }
 
