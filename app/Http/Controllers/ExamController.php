@@ -7,18 +7,21 @@
  */
 namespace App\Http\Controllers;
 
+use App\TestDone;
 use Illuminate\Http\Request;
 use App\Question;
 use App\Test;
+use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
      * Funkcija odgovorna za stvaranje testova.
      * Dohvaca parametre koje je ucitelj ili admin unjeo
      * i sprema u bazu podataka.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function examcreate(Request $request) {
         // Dohvacamo sve sto je korisnik upisao
@@ -44,8 +47,6 @@ class ExamController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * Funkcija odgovorna za generiranje pitanja. Dohvaca test, zatim pitanja.
      * Randomizira pitanja tako da generira nasumicni niz brojeva od 1 do x
      * (gdje x je ukupan broj pitanja) i onda redosljedom u tom nasumicnom
@@ -53,6 +54,9 @@ class ExamController extends Controller
      * Za svako randomizirno pitanje, odmah upisje u Session i tocan odgovor
      * nakon cega nastavlja na sljedece pitanje.
      * Na kraju jos upisuje tip testa (provjera znanja ili samoprovjera)
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function examgen(Request $request) {
         $test = Test::where('test_id', '=', $request->id)->first();
@@ -77,12 +81,11 @@ class ExamController extends Controller
         $request->session()->put('test_type', $test->test_type);
         $request->session()->put('ques_id', $request->id);
         $request->session()->put('ques_rand', json_encode($questions_rand));
+        $request->session()->put('test_id', $request->id);
         return view('exam.examgen')->with('questions', $questions_rand);
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * Redom uz pomoc dowhile petlje prolazi kroz pitanja.
      * Prvi if provjerava dali je korisnik naveo odgovor na pitanje,
      * ako nije petlja nastavlja dalje na iduce pitanje.
@@ -92,22 +95,70 @@ class ExamController extends Controller
      * je jedank broju tocnih odgovora i ako se korisnikovi odgovori i
      * tocni odgovori poklapaju, korisnik dobiva jedan bod.
      * U suprotnom, korisnik ne dobiva bod.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      */
     public function examcheck(Request $request) {
         $score = 0; $key = 0;
-        $score = $this->CheckAns($request, $score, $key);
+        $result = $this->CheckAns($request, $score, $key);
+        $score = $result[0] / $result[1];
         if ($request->session()->get("test_type") == 1) {
-            dd("Test type 1");
+            if ($score < 0.5) {
+                $grade = 1;
+            } elseif ($score > 0.5 && $score < 0.65) {
+                $grade = 2;
+            } elseif ($score > 0.65 && $score < 0.75) {
+                $grade = 3;
+            } elseif ($score > 0.75 && $score < 0.90) {
+                $grade = 4;
+            } else {
+                $grade = 5;
+            }
+            $testDone = new TestDone();
+            $testDone->test_id = $request->session()->get('test_id');
+            $testDone->test_user_id = Auth::user()->user_id;
+            $testDone->test_grade = $grade;
+            $testDone->test_anses = json_encode($request->all()['ans']);
+            $testDone->test_complete = date('d/m/Y h:i:s');
+            $testDone->save();
+            //dd($testDone);
+            $questions = $request->session()->get('ques_rand');
+            $questions = json_decode($questions, TRUE);
+            return view('exam.examresult')
+                ->with('questions', $questions)
+                ->with('anses', $request->all()['ans'])
+                ->with('score', $result[0])
+                ->with('numOfAns', $result[1]);
         } else {
             $questions = $request->session()->get('ques_rand');
             $questions = json_decode($questions, TRUE);
             return view('exam.examresult')
                 ->with('questions', $questions)
                 ->with('anses', $request->all()['ans'])
-                ->with('score', $score);
+                ->with('score', $result[0])
+                ->with('numOfAns', $result[1]);
         }
     }
 
+    /**
+     * Nakon sto dobijemo $request varijablu, iz nje povlacimo odgovore
+     * korisnika i tocne odgovore. Prva provjera je da utvrdimo da je korisnik
+     * dao odgovor na pitanje. Ako nije nastavljamo da iduce pitanje.
+     * Provjeravamo dali broj odgovora korisnika je jednak broju tocnih
+     * odgovora. Ako nije nastavljamo na seljedece pitanje.
+     * Za svaki odgovor korisnika koji je medu tocnim odgoovorima dodjeljuje
+     * broj 1 u varijablu $control. Nakon toga preborjavamo koliko ima
+     * jedinica (tocno) i nula (netocno). Ako broj jedinica je jednak broju
+     * tocnih odgovora, dodjeljujemo bod preko varijable $score.
+     *
+     * @param $request
+     * @param $score
+     * @param $key
+     * @param array $cor
+     * @return array
+     */
     protected function CheckAns($request, $score, $key, $cor = []) {
         do {
             $userAns = $request->all()["ans"]; //Dohvacamo odgovore od korisnika
@@ -123,9 +174,9 @@ class ExamController extends Controller
                         array_push($control, 1);
                     }
                 }
-                $counts = array_count_values($control);
-                if (key_exists(1, $counts)) {
-                    if ($counts[1] == count($corrAns)) {
+                $counts = array_count_values($control); //Prebroji tocne i netocne odgovore
+                if (key_exists(1, $counts)) { //Ako ima tocnih odgovora
+                    if ($counts[1] == count($corrAns)) { //Ako smo tocno ondgovorili na isti broj tocni
                         $score++;
                         array_push($cor, $key);
                     }
@@ -134,6 +185,7 @@ class ExamController extends Controller
             $key++;
         } while ($request->session()->has($key));
         $request->session()->put('corrects', $cor);
-        return $score;
+        $return = [$score, $key];
+        return $return;
     }
 }
