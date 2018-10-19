@@ -26,16 +26,16 @@
                                     for ($i = 0; $i < 4; $i++) {
                                         switch ($count[$i]) {
                                             case 1:
-                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans1">{{ $question['ans1'] }}<br><?php
+                                                ?><label for="ans1"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans1" id="ans1">{{ $question['ans1'] }}</label><br><?php
                                                 break;
                                             case 2:
-                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans2">{{ $question['ans2'] }}<br><?php
+                                                ?><label for="ans2"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans2" id="ans2">{{ $question['ans2'] }}</label><br><?php
                                                 break;
                                             case 3:
-                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans3">{{ $question['ans3'] }}<br><?php
+                                                ?><label for="ans3"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans3" id="ans3">{{ $question['ans3'] }}</label><br><?php
                                                 break;
                                             case 4:
-                                                ?><input type="checkbox" name="ans[{{ $pos }}][]" value="ans4">{{ $question['ans4'] }}<br><?php
+                                                ?><label for="ans4"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans4" id="ans4">{{ $question['ans4'] }}</label><br><?php
                                                 break;
                                         }
                                     }
