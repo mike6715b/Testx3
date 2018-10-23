@@ -11,16 +11,13 @@
                         <legend align="left">Aktivni ispiti</legend>
                         <table id="active-test">
                             <thead>
-                            <th>ID</th>
                             <th>Naziv</th>
                             <th>Tip</th>
                             <th>Razred</th>
                             </thead>
                             <tbody>
-                            <?php $acID = 1; ?>
                             @foreach($active as $test)
                                 <tr>
-                                    <td>{{ $acID }}</td>
                                     <td>{{ $test->test_title }}</td>
                                     <td>
                                         @if($test->test_type == 2)
@@ -35,6 +32,8 @@
                                             {{ \App\Classes::where('class_id', $class)->first()->class_name }},
                                         @endforeach
                                     </td>
+                                    <td><a href="./deac?id={{ $test->test_id }}">Deaktiviraj</a></td>
+                                    <td><a href="./deltest?id={{ $test->test_id }}">Obrisi</a></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -46,7 +45,6 @@
                         <legend align="left">Neaktivni ispiti</legend>
                         <table id="active-test">
                             <thead>
-                            <th>ID</th>
                             <th>Naziv</th>
                             <th>Tip</th>
                             <th>Razred</th>
@@ -57,10 +55,8 @@
                                     <td colspan="4">Nema neaktivnih provjera znanja</td>
                                 </tr>
                             @else
-                                <?php $inacID = 1; ?>
                                 @foreach($inactive as $test)
                                     <tr>
-                                        <td>{{ $inacID }}</td>
                                         <td>{{ $test->test_title }}</td>
                                         <td>
                                             @if($test->test_type == 2)
@@ -75,6 +71,8 @@
                                                 {{ \App\Classes::where('class_id', $class)->first()->class_name }},
                                             @endforeach
                                         </td>
+                                        <td><a href="./act?id={{ $test->test_id }}">Aktiviraj</a></td>
+                                        <td><a href="./deltest?id={{ $test->test_id }}">Obrisi</a></td>
                                     </tr>
                                 @endforeach
                             @endif
