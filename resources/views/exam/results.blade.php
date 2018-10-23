@@ -16,7 +16,7 @@
                     @foreach($data as $dat)
                         <tr>
                             <td>{{ $rb }}</td>
-                            <td>{{ \App\Test::where('test_id', '=', $dat->test_id)->first()->test_title }}</td>
+                            <td>{{ \App\Test::where('test_id', '=', $dat->test_id)->first()['test_title'] }}</td>
                             <td>{{ $dat->test_grade }}</td>
                             <td>{{ $dat->test_complete }}</td>
                         </tr>
