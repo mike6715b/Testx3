@@ -58,7 +58,7 @@ class PagesController extends Controller
 
     protected function getExamTest() {
         $skips = ["[","]","\""];
-        $tests = Test::where('test_type', '=', '1')->get();
+        $tests = Test::where('test_type', '=', '1')->where('status', '=', 1)->get();
         if (count($tests) != 0) {
             $i = 1;
             $res = [];
@@ -90,7 +90,7 @@ class PagesController extends Controller
 
     protected function getSelfTest() {
         $skips = ["[","]","\""];
-        $tests = Test::where('test_type', '=', '2')->get();
+        $tests = Test::where('test_type', '=', '2')->where('status', '=', 1)->get();
         if (count($tests) != 0) {
             $i = 1;
             $res = [];

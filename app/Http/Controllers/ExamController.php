@@ -121,6 +121,7 @@ class ExamController extends Controller
             $testDone->test_user_id = Auth::user()->user_id;
             $testDone->test_grade = $grade;
             $testDone->test_anses = json_encode($request->all()['ans']);
+            date_default_timezone_set('CET');
             $testDone->test_complete = date('d/m/Y h:i:s');
             $testDone->save();
             //dd($testDone);
@@ -140,6 +141,24 @@ class ExamController extends Controller
                 ->with('score', $result[0])
                 ->with('numOfAns', $result[1]);
         }
+    }
+
+    public function deactivate(Request $request) {
+        $id = $request->id;
+        Test::where('test_id', '=', $id)->update(['status' => 0]);
+        return redirect()->route('mainmenu.exam');
+    }
+
+    public function activate(Request $request) {
+        $id = $request->id;
+        Test::where('test_id', '=', $id)->update(['status' => 1]);
+        return redirect()->route('mainmenu.exam');
+    }
+
+    public function delete(Request $request) {
+        Test::destroy($request->id);
+        TestDone::where('test_id', '=', $request->id)->delete();
+        return redirect()->route('mainmenu.exam');
     }
 
     /**

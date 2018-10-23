@@ -135,6 +135,15 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('examcheck', [
         'uses' => 'ExamController@examcheck',
     ]);
+    Route::get('mainmenu/deac', [
+        'uses' => 'ExamController@deactivate',
+    ]);
+    Route::get('mainmenu/act', [
+        'uses' => 'ExamController@activate',
+    ]);
+    Route::get('mainmenu/deltest', [
+        'uses' => 'ExamController@delete'
+    ]);
 
 //Ajax
     Route::get('ajaxGetFields', [
