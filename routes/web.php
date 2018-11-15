@@ -13,7 +13,11 @@
 Route::group(['middleware' => 'web'], function () {
     //ROOT
     Route::get('/', function () {
-        return view('login');
+        return view('home');
+    });
+
+    Route::get('/register', function() {
+        return 'register';
     });
 
 //LOGIN/LOGOUT

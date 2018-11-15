@@ -37,7 +37,7 @@ container {
 /* --GLOBAL */
 
 /* Header */
-header {
+header, footer {
     background:#35424a;
     color:#ffffff;
     padding-top:10px;
@@ -47,61 +47,120 @@ header {
 
 header #header-logo {
     float:left;
+    padding-bottom: 5px;
 }
 
-header ul {
-    text-align:right;
-    float:right;
-    margin-right: 0;
-    padding-right: 0;
-}
-
-header li {
-    color: #e87b1d;
-    display: block;
-}
-
-header a {
-    color:#e87b1d;
-    text-decoration: none;
-}
-
-header #info {
-    margin-top:5px;
-    text-align: right;
+header #login-register {
+    float: right;
 }
 
 /* --Header */
 
+/* Footer */
+
+footer fieldset {
+    box-sizing: border-box;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+footer.container {
+    float: bottom;
+    width: 100%;
+    margin-top: 100px;
+    padding-bottom: 25px;
+    border-bottom-width: 0px;
+    border-top: #e8491d 3px solid;
+}
+
+footer fieldset legend {
+    background-color: #35424a;
+}
+
+footer fieldset#testx3 {
+    float: left;
+    width: 33.3%;
+}
+
+footer fieldset#kontakt {
+    float: right;
+    width: 33.3%;
+}
+
+footer fieldset ul {
+    padding-left: 10px;
+}
+
+@media screen and (max-width:800px) {
+    footer fieldset#testx3, footer fieldset#kontakt {
+        float: right;
+        width: 70%;
+    }
+}
+
+/* -- Footer -- */
+
+.login {
+    box-sizing: border-box;
+}
+
+/*  HOME */
+
+section.home fieldset.forms-fieldset, section.home div#short-about {
+    box-sizing: border-box;
+}
+
+section.home div#short-about {
+    float: left;
+}
+
+section.home fieldset.forms-fieldset {
+    float:right;
+    margin-bottom: 20px;
+    border-width: 0px;
+}
+
+section.home fieldset.forms-fieldset fieldset#login-form {
+    width: 24vw;
+}
+
+section.home fieldset.forms-fieldset fieldset#register-option {
+    margin-top: 12px;
+    min-width: 24vw;
+}
+
+section.home div#short-about fieldset ul {
+    padding-left: 1em;
+}
+
+section.home div#login-form fieldset {
+    margin-top: 5vw;
+}
+
+section.home div#short-about h1, section.home div#short-about p {
+    margin-left: 4vw;
+}
+
+@media screen and (max-width: 800px) {
+    section.home div#short-about, section.home fieldset.forms-fieldset {
+        float: right;
+        width: 100%;
+        margin-left: 10%;
+    }
+    section.home fieldset.forms-fieldset fieldset#login-form, section.home fieldset.forms-fieldset fieldset#register-option {
+        float: right;
+        margin: auto;
+    }
+}
+
+/* MAIN MENU */
 .main-menu {
     text-decoration: none;
 }
 
-.login-form{
-    margin-top: 100px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-
-}
-
-.login-table {
-    background-color: #c1c1c1;
-    width: 500px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border: 2px solid #e8491d;
-    border-radius: 20px;
-}
-
-.login-table button {
-    background-color: #fff;
-    border: 1px solid #e8491d;
-    border-radius: 5px;
-}
-
-/* MAIN MENU */
 .main-menu #main-menu {
     margin: auto;
     text-align: left;
@@ -130,6 +189,7 @@ header #info {
     text-decoration: none;
 }
 /* ---MAIN MENU--- */
+
 /* ---EXAM--- */
 .exam-manage fieldset {
     border-color: #e8491d;

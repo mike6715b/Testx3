@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <container>
+    <container class="login">
         <div align="center" class="login-form">
             <form action="{{ action('LoginController@login') }}" method="POST" id="login-form">
                 @csrf
@@ -21,14 +21,6 @@
                 </div>
             </form>
         </div>
-        @if (count($errors))
-            <ul>
-                @foreach($errors->all() as $error)
-                    // Remove the spaces between the brackets
-                    <li>{!! $error !!}</li>
-                @endforeach
-            </ul>
-        @endif
     </container>
 
 @endsection
