@@ -63,7 +63,7 @@ footer fieldset {
 }
 
 footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 
@@ -96,8 +96,9 @@ footer fieldset ul {
 
 @media screen and (max-width:800px) {
     footer fieldset#testx3, footer fieldset#kontakt {
-        float: right;
-        width: 70%;
+        float: none;
+        width: 50%;
+        margin: auto;
     }
 }
 
@@ -146,12 +147,21 @@ section.home div#short-about h1, section.home div#short-about p {
 
 @media screen and (max-width: 800px) {
     section.home div#short-about, section.home fieldset.forms-fieldset {
-        float: right;
+        float: none;
         width: 100%;
-        margin-left: 10%;
+        margin: auto;
     }
     section.home fieldset.forms-fieldset fieldset#login-form, section.home fieldset.forms-fieldset fieldset#register-option {
-        float: right;
+        float: none;
+        margin: auto;
+        margin-top: 15px;
+    }
+    section.home fieldset.forms-fieldset fieldset#register-option {
+        max-width: 50%;
+    }
+
+    section.home div#short-about {
+        float: none;
         margin: auto;
     }
 }
