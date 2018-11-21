@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        footer {
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
 
     <container class="login">
         <div align="center" class="login-form">

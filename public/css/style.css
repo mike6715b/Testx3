@@ -64,13 +64,13 @@ footer fieldset {
 
 footer {
     position: relative;
-    bottom: 0;
+    bottom: 1;
 }
 
 footer.container {
     float: bottom;
     width: 100%;
-    margin-top: 100px;
+    margin-top: 10px;
     padding-bottom: 25px;
     border-bottom-width: 0px;
     border-top: #e8491d 3px solid;
@@ -95,6 +95,10 @@ footer fieldset ul {
 }
 
 @media screen and (max-width:800px) {
+    footer {
+        position: relative;
+        bottom: 0;
+    }
     footer fieldset#testx3, footer fieldset#kontakt {
         float: none;
         width: 50%;
