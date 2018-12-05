@@ -34,8 +34,8 @@
                     <label>Tip pitanja: </label><br>
                     <select name="quesType" id="quesType">
                         <option></option>
-                        <option value="1">Odabir odgovora</option>
-                        <option value="2">Visetruki odgovor</option>
+                        <option value="1">Visetruki odgovor</option>
+                        <option value="2">Odabir odgovora</option>
                         <option value="3">Upis odgovora</option>
                     </select>
                 </p>
@@ -44,14 +44,24 @@
                     <input type="text" name="question" id="question"> <br>
                 </div>
                 <div id="quesType1" style="display: none;">
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans1"> <br>
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans2"> <br>
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans3"> <br>
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans4"> <br>
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans1[]" required><input type="radio" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans1"> <br>
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans1[]" required><input type="radio" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans2"> <br>
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans1[]" required><input type="radio" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans3"> <br>
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans1[]" required><input type="radio" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans4"> <br>
+                </div>
+                <div id="quesType2" style="display: none;">
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans2[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans1"> <br>
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans2[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans2"> <br>
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans2[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans3"> <br>
+                    <label>Odgovor: </label>
+                    <input type="text" name="ans2[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans4"> <br>
                 </div>
                 <button id="submitQues" name="submitQUes" type="submit" style="display: none;">Unesi pitanje</button>
             </div>
@@ -95,12 +105,21 @@
            $('#quesTypeSelector').on('change', function () {
               var selectedType = $("#quesType").val();
               console.log('Tip pitanja: ' + selectedType);
-              $('#question').show();
-              if (selectedType === "1") {
+              if (selectedType === "2") {
+                  $('#quesType2').hide();
+                  $('#quesType3').hide();
                   $('#quesType1').show();
                   $('#submitQues').show();
-              } else if (selectedType === "2" || selectedType === "3") {
-                  alert('comming soon');
+                  $('#question').show();
+              } else if (selectedType === "1") {
+                  $('#quesType1').hide();
+                  $('#quesType3').hide();
+                  $('#question').show();
+                  $('#quesType2').show();
+                  $('#submitQues').show();
+              } else if (selectedType === "3") {
+                  alert('Comming soon ;)');
+
               }
            });
 

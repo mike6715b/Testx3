@@ -120,7 +120,17 @@ class UserTransactionController extends Controller
         $field = $request->fieldSel;
         $quesType = $request->quesType;
         $quest = $request->question;
-        $answer = $request->ans;
+        switch ($quesType) {
+            case 1:
+                $answer = $request->ans1;
+                break;
+            case 2:
+                $answer = $request->ans2;
+                break;
+            case 3:
+                $answer = $request->ans3;
+                break;
+        }
         $corrAns = $request->tocanOdg;
 
         $param = [
