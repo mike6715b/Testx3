@@ -5,9 +5,9 @@
         <table>
             <tbody>
             <tr>
-                <td><a href="{{ route('mainmenu.exam') }}"><p>Stvaranje zadace</a></p></td>
-                <td><a href="{{ route('mainmenu.examlist') }}"><p>Pisanje zadace</a></p></td>
-                <td><a href="{{ route('mainmenu.examresult') }}"><p>Rezultati zadaca</a></p></td>
+                <td><a href="{{ route('mainmenu.exam') }}"><p>Stvaranje zadace</p></a></td>
+                <td><a href="{{ route('mainmenu.examlist') }}"><p>Pisanje zadace</p></a></td>
+                <td><a href="{{ route('mainmenu.examresult') }}"><p>Rezultati zadaca</p></a></td>
             </tr>
             </tbody>
         </table>

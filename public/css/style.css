@@ -6,6 +6,20 @@ body{
 }
 
 /* Global */
+button {
+    padding: 3px;
+    border: #e8491d 2px solid;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #e8491d;
+}
+
+a{
+    text-decoration: none;
+}
+
 .container{
     width:80%;
     margin:auto;
@@ -42,6 +56,7 @@ header, footer {
     color:#ffffff;
     padding-top:10px;
     min-height:100px;
+    max-height: 100px;
     border-bottom:#e8491d 3px solid;
 }
 
@@ -54,6 +69,28 @@ header #login-register {
     float: right;
 }
 
+header ul {
+    margin-top: 50%;
+    margin-bottom: 50%;
+}
+
+ul#logreg li {
+    margin-right: 10px;
+    padding: 4px;
+    border: #e8491d 2px solid;
+    border-radius: 5px;
+    list-style: none;
+    display: inline;
+}
+
+ul#logreg a li {
+    color: white;
+}
+
+ul#logreg li:hover {
+    background-color: #e8491d;
+}
+
 /* --Header */
 
 /* Footer */
@@ -64,7 +101,7 @@ footer fieldset {
 
 footer {
     position: relative;
-    bottom: 1;
+    bottom: 0;
 }
 
 footer.container {
@@ -114,65 +151,66 @@ footer fieldset ul {
 
 /*  HOME */
 
-section.home fieldset.forms-fieldset, section.home div#short-about {
-    box-sizing: border-box;
+section.home h1#branding {
+    font-family: "Comic Sans MS";
+    padding: auto;
+    font-size: 70px;
+    margin-bottom: 2px;
 }
 
-section.home div#short-about {
+section.home p#short-abot {
+    margin-bottom: 15px;
+}
+
+section.home h1#branding span#num {
+    color: #e8491d;
+}
+
+section.home p#short-abot {
+    font-family: "Comic Sans MS";
+}
+
+.home-column {
     float: left;
+    width: 33.33%;
 }
 
-section.home fieldset.forms-fieldset {
-    float:right;
-    margin-bottom: 20px;
-    border-width: 0px;
+/* Clear floats after the columns */
+.home-row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
-section.home fieldset.forms-fieldset fieldset#login-form {
-    width: 24vw;
+section.home div.home-row div.home-column img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin-left: 30%;
+    margin-right: 70%;
+    border: #e8491d 3px solid;
+    border-radius: 10px;
 }
 
-section.home fieldset.forms-fieldset fieldset#register-option {
-    margin-top: 12px;
-    min-width: 24vw;
+section.home div.home-row div.home-column p {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-section.home div#short-about fieldset ul {
-    padding-left: 1em;
-}
-
-section.home div#login-form fieldset {
-    margin-top: 5vw;
-}
-
-section.home div#short-about h1, section.home div#short-about p {
-    margin-left: 4vw;
-}
-
-@media screen and (max-width: 800px) {
-    section.home div#short-about, section.home fieldset.forms-fieldset {
+@media screen and (max-width: 950px) {
+    .home-column {
         float: none;
         width: 100%;
-        margin: auto;
-    }
-    section.home fieldset.forms-fieldset fieldset#login-form, section.home fieldset.forms-fieldset fieldset#register-option {
-        float: none;
-        margin: auto;
-        margin-top: 15px;
-    }
-    section.home fieldset.forms-fieldset fieldset#register-option {
-        max-width: 50%;
-    }
-
-    section.home div#short-about {
-        float: none;
-        margin: auto;
     }
 }
 
 /* MAIN MENU */
 .main-menu {
     text-decoration: none;
+}
+
+container.main-menu fieldset table tbody tr td p a {
+    text-decoration: underline;
 }
 
 .main-menu #main-menu {

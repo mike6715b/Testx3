@@ -1,17 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        footer {
-            position: absolute;
-            bottom: 0;
-        }
-    </style>
     <section class="home">
-        <div id="short-about">
-            <h1>Sustav za online provjeru znanja</h1>
-            <p>Izradite online testove za svoje ucenike!</p>
-            <fieldset>
+        <h1 id="branding" align="center">Testx<sup><span id="num">3</span></sup></h1>
+        <p id="short-abot" align="center">Sustav za online provjeru znanja</p>
+        <div class="home-row">
+            <div class="home-column">
+                <img src="{{ asset('img/click-finger.png') }}" alt="Brzo i jednostavno">
+                <h2 align="center">Brzo i jednostavno</h2>
+                <p align="center">Brzo i jednostavno postaljvanje uz samo par klikova i spremni se da pravite nove provjere znanja za vase ucenike!</p>
+            </div>
+            <div class="home-column">
+                <img src="{{ asset('img/cloud.png') }}" alt="Oblak">
+                <h2 align="center">Sve u oblaku</h2>
+                <p align="center">Sve je u oblaku, pa mozete od kuce, iz skole, sa mora ili iz inozemstva pristupiti i uciti kroz testove.</p>
+            </div>
+            <div class="home-column">
+                <img src="{{ asset('img/progress-icon-21.jpg') }}" alt="Pratite napredak">
+                <h2 align="center">Pratite napredak ucenika</h2>
+                <p align="center">Pratite kako vasi ucenici napreduju kroz zadatke koje im zadajete kroz samoprovjere ili ocjenite njihovo znanje sa provjerama znanja.</p>
+            </div>
+        </div>
+    </section>
+    <!--
+    <fieldset>
                 <ul>
                     <li>jednostavna i brza izrada provjere znanja</li>
                     <li>odabir razlicitih vrsta pitanja</li>
@@ -21,35 +33,5 @@
                     <li>Stalna podrska</li>
                 </ul>
             </fieldset>
-        </div>
-        <fieldset class="forms-fieldset" id="forms-fieldset">
-            <div id="login-form">
-                <fieldset id="login-form">
-                    <legend align="left">Prijava</legend>
-                    <form action="{{ action('LoginController@login') }}" method="POST" id="login-form">
-                        @csrf
-                        <div class="login-table">
-                            <table>
-                                <tbody id="tbody-login"><tr>
-                                    <td align="right">Korisničko ime:</td>
-                                    <td><input name="username" type="text" size="30" style="width: 189px;"></td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Lozinka:</td>
-                                    <td><input name="password" type="password" size="30" style="width: 189px;"></td>
-                                </tr>
-                                </tbody></table>
-                            <button type="submit" name="submit">Prijavi me</button>
-                        </div>
-                    </form>
-                </fieldset>
-            </div>
-            <div id="register-option">
-                <fieldset id="register-option">
-                    <legend>Registriraj se</legend>
-                    <p>Ako jos nemas racun, pritisni gumb ispod i prijavi se za svoj racun!</p>
-                </fieldset>
-            </div>
-        </fieldset>
-    </section>
+    -->
 @endsection

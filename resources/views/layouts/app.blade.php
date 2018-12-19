@@ -25,7 +25,12 @@
                     </form>
                 </div>
             @else
-                <p><br><br>LOGIN REGISTER</p>
+                <nav>
+                    <ul id="logreg">
+                        <a href="{{ route('login') }}"><li>LOGIN</li></a>
+                        <a href={{ route('login') }}><li>REGISTRACIJA</li></a>
+                    </ul>
+                </nav>
             @endif
         </div>
     </div>
