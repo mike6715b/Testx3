@@ -21,17 +21,17 @@
                 <p align="center">Pratite kako vasi ucenici napreduju kroz zadatke koje im zadajete kroz samoprovjere ili ocjenite njihovo znanje sa provjerama znanja.</p>
             </div>
         </div>
+
     </section>
-    <!--
-    <fieldset>
-                <ul>
-                    <li>jednostavna i brza izrada provjere znanja</li>
-                    <li>odabir razlicitih vrsta pitanja</li>
-                    <li>Automatska provjera odgovora</li>
-                    <li>Zadaci za samoprovjeru</li>
-                    <li>Prilagoden za sve uredaje</li>
-                    <li>Stalna podrska</li>
-                </ul>
-            </fieldset>
-    -->
+
+    <script>
+        new Noty({
+            text: "Uspjeh! YAY",
+            type: "success",
+            layout: "topRight",
+            theme: "relax",
+            timeout: 3000,
+            progressBar: true,
+        }).show();
+    </script>
 @endsection

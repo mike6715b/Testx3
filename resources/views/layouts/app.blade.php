@@ -4,6 +4,8 @@
     <title>Testx3 - Sustav za online provjeru znanja</title>
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/noty.css') }}">
+    <script src="{{ asset('js/noty.js') }}" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
@@ -13,7 +15,7 @@
     <div class="container">
         <div id="branding">
             <div id="header-logo">
-                <a href="{{ route('mainmenu') }}"><img src="{{ asset('img/testx3.png') }}"></a>
+                <a href="{{ route('mainmenu') }}"><h1 id="logo">Testx<sup><span id="num">3</span></sup></h1></a>
             </div>
         </div>
         <div id="login-register">

@@ -16,6 +16,7 @@ Route::group(['middleware' => 'web'], function () {
         return view('home');
     });
 
+
     Route::get('/register', function() {
         return 'register';
     });

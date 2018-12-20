@@ -60,9 +60,17 @@ header, footer {
     border-bottom:#e8491d 3px solid;
 }
 
-header #header-logo {
+header #logo {
     float:left;
     padding-bottom: 5px;
+    color: black;
+    font-size: 60px;
+    font-family: "Comic Sans MS";
+    margin-top: 0px;
+}
+
+header #logo sup span {
+    color: #e8491d;
 }
 
 header #login-register {
@@ -70,11 +78,11 @@ header #login-register {
 }
 
 header ul {
-    margin-top: 50%;
-    margin-bottom: 50%;
+    margin-top: 40px;
 }
 
 ul#logreg li {
+    background-color: #dbdbdb;
     margin-right: 10px;
     padding: 4px;
     border: #e8491d 2px solid;
@@ -84,7 +92,7 @@ ul#logreg li {
 }
 
 ul#logreg a li {
-    color: white;
+    color: black;
 }
 
 ul#logreg li:hover {
@@ -155,19 +163,17 @@ section.home h1#branding {
     font-family: "Comic Sans MS";
     padding: auto;
     font-size: 70px;
+    margin-top: 10px;
     margin-bottom: 2px;
 }
 
 section.home p#short-abot {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-family: "Comic Sans MS";
 }
 
 section.home h1#branding span#num {
     color: #e8491d;
-}
-
-section.home p#short-abot {
-    font-family: "Comic Sans MS";
 }
 
 .home-column {
@@ -197,11 +203,31 @@ section.home div.home-row div.home-column p {
     padding-right: 10px;
 }
 
+section.home div.loginform {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+}
+
+section.home div.loginform fieldset {
+    background-color: #35424a;
+}
+
 @media screen and (max-width: 950px) {
     .home-column {
         float: none;
         width: 100%;
     }
+}
+
+
+/* LOGIN */
+
+container.login fieldset {
+    margin: auto;
+    margin-top: 30px;
+    width: 200px;
 }
 
 /* MAIN MENU */
