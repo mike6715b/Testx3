@@ -48,7 +48,7 @@ container {
     border-radius: 5px;
     background-color: #dbdbdb;
 }
-/* --GLOBAL */
+/* --GLOBAL-- */
 
 /* Header */
 header, footer {
@@ -61,7 +61,7 @@ header, footer {
 }
 
 header #logo {
-    float:left;
+    text-align: center;
     padding-bottom: 5px;
     color: black;
     font-size: 60px;
@@ -73,31 +73,68 @@ header #logo sup span {
     color: #e8491d;
 }
 
-header #login-register {
-    float: right;
+div#login-register nav {
+    width: 100%;
+    text-align: center;
 }
 
-header ul {
-    margin-top: 40px;
-}
-
-ul#logreg li {
-    background-color: #dbdbdb;
-    margin-right: 10px;
-    padding: 4px;
-    border: #e8491d 2px solid;
-    border-radius: 5px;
+div.logout  ul {
     list-style: none;
-    display: inline;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    display: inline-block;
 }
 
-ul#logreg a li {
+div.logout ul li {
+    border: #e8491d 2px solid;
+    border-top: none;
+    float: left;
+    font-size: 20px;
+    width: 16%;
+    text-align: center;
+}
+
+div.logout ul li a, .dropbtn {
     color: black;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
 }
 
-ul#logreg li:hover {
+div.logout ul li:hover, .dropdown-1:hover .dropbtn {
     background-color: #e8491d;
 }
+
+li.dropdown-1 {
+    display: inline-block;
+}
+
+li.dropdown-1 div.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+li.dropdown-1 div.dropdown-content a {
+    color: black;
+    border: #e8491d 2px solid;
+    background-color: #35424a;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+li.dropdown-1 div.dropdown-content a:hover{background-color: red;}
+
+.dropdown-1:hover .dropdown-content {
+    display: block;
+}
+
 
 /* --Header */
 
@@ -266,6 +303,7 @@ container.main-menu fieldset table tbody tr td p a {
 .main-menu fieldset table tbody tr td a {
     text-decoration: none;
 }
+
 /* ---MAIN MENU--- */
 
 /* ---EXAM--- */

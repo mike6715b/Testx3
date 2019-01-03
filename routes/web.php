@@ -17,8 +17,8 @@ Route::group(['middleware' => 'web'], function () {
     });
 
 
-    Route::get('/register', function() {
-        return 'register';
+    Route::get('register', function() {
+        return 'nema stranice jos heheehe';
     });
 
 //LOGIN/LOGOUT
