@@ -99,40 +99,52 @@
     @if(\Illuminate\Support\Facades\Auth::check())
         <button class="dropbtn_sweep-to-right">Pocetno</button>
         <div class="dropdown-content">
-            <a href="#">&raquo;Naslovnica</a>
+            <a href="{{ route('mainmenu') }}">&raquo;Naslovnica</a>
             <a href="#">&raquo;Pomoc</a>
-            <a href="#">&raquo;Logout</a>
+            <a href="{{ route('logout') }}">&raquo;Logout</a>
         </div>
         <button class="dropbtn_sweep-to-right">Testovi</button>
         <div class="dropdown-content">
-            <a href="#">&raquo;Stvaranje zadaca</a>
-            <a href="#">&raquo;Dostupne zadace</a>
-            <a href="#">&raquo;Provjera rezultata</a>
+            @if(Auth::user()->user_class == 'teacher' || Auth::user()->user_class == "admin")
+                <a href="{{ route('mainmenu.exam') }}">&raquo;Stvaranje zadaca</a>
+            @endif
+            <a href="{{ route('mainmenu.examlist') }}">&raquo;Dostupne zadace</a>
+            <a href="{{ route('mainmenu.examresult') }}">&raquo;Provjera rezultata</a>
         </div>
-        <button class="dropbtn_sweep-to-right">Korisnici</button>
-        <div class="dropdown-content">
-            <a href="#">&raquo;Dodaj ucenika</a>
-            <a href="#">&raquo;Popis ucenika</a>
-            <a href="#">&raquo;Dodaj razred</a>
-            <a href="#">&raquo;Popis razreda</a>
-            <a href="#">&raquo;Dodaj profesora</a>
-            <a href="#">&raquo;Popis profesora</a>
-        </div>
-        <button class="dropbtn_sweep-to-right">Predmeti</button>
-        <div class="dropdown-content">
-            <a href="#">&raquo;Dodaj predmet</a>
-            <a href="#">&raquo;Popis predmeta</a>
-        </div>
-        <button class="dropbtn_sweep-to-right">Gradivo</button>
-        <div class="dropdown-content">
-            <a href="#">&raquo;Unos novog gradiva</a>
-            <a href="#">&raquo;Unos pitanja</a>
-            <a href="#">&raquo;Popis gradiva</a>
-        </div>
+        @if(Auth::user()->user_class == 'teacher' || Auth::user()->user_class == "admin")
+            <button class="dropbtn_sweep-to-right">Korisnici</button>
+            <div class="dropdown-content">
+                @if(Auth::user()->user_class == 'admin')
+                    <a href="{{ route('mainmenu.studadd') }}">&raquo;Dodaj ucenika</a>
+                @endif
+                <a href="{{ route('mainmenu.studlist') }}">&raquo;Popis ucenika</a>
+                @if(Auth::user()->user_class == "admin")
+                    <a href="{{ route('mainmenu.classadd') }}">&raquo;Dodaj razred</a>
+                    <a href="{{ route('mainmenu.classlist') }}">&raquo;Popis razreda</a>
+                    <a href="{{ route('mainmenu.teachadd') }}">&raquo;Dodaj profesora</a>
+                    <a href="{{ route('mainmenu.teachlist') }}">&raquo;Popis profesora</a>
+                @endif
+            </div>
+            <button class="dropbtn_sweep-to-right">Predmeti</button>
+            <div class="dropdown-content">
+                @if(Auth::user()->user_class == 'admin')
+                    <a href="{{ route('mainmenu.subjadd') }}">&raquo;Dodaj predmet</a>
+                @endif
+                <a href="{{ route('mainmenu.subjlist') }}">&raquo;Popis predmeta</a>
+            </div>
+        @endif
+        @if(Auth::user()->user_class == 'teacher' || Auth::user()->user_class == "admin")
+            <button class="dropbtn_sweep-to-right">Gradivo</button>
+            <div class="dropdown-content">
+                <a href="{{ route('mainmenu.fieldadd') }}">&raquo;Unos novog gradiva</a>
+                <a href="{{ route('mainmenu.fieldquesadd') }}">&raquo;Unos pitanja</a>
+                <a href="{{ route('mainmenu.fieldlist') }}">&raquo;Popis gradiva</a>
+            </div>
+        @endif
     @else
         <button class="dropbtn_sweep-to-right">Pocetno</button>
         <div class="dropdown-content">
-            <a href="#">&raquo;Naslovnica</a>
+            <a href="{{ route('mainmenu') }}">&raquo;Naslovnica</a>
             <a href="#">&raquo;Pomoc</a>
             <a href="{{ route('login') }}">&raquo;Login</a>
         </div>
