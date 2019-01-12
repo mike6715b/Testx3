@@ -132,6 +132,13 @@ class PagesController extends Controller
         return view('usertransactions.classadd');
     }
 
+    public function classlist() {
+        if ($this->isUserTeacher() != true) {
+            return redirect()->rotue('mainmenu');
+        }
+        return view('usertransactions.classlist');
+    }
+
     public function studlist() {
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');

@@ -66,6 +66,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'as' => 'mainmenu.classadd',
         'uses' => 'PagesController@classadd',
     ]);
+    Route::get('mainmenu/classlist', [
+        'as' => 'mainmenu.classlist',
+        'uses' => 'PagesController@classlist'
+    ]);
     Route::get('mainmenu/studlist', [
         'as' => 'mainmenu.studlist',
         'uses' => 'PagesController@studlist',
