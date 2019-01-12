@@ -2,15 +2,15 @@
 <html>
 <head>
     <title>Testx3 - Sustav za online provjeru znanja</title>
-    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/noty.css') }}">
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/noty.js') }}" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body>
-
+<!-- OLD NAVBAR + HEADER
 <header>
     <div class="container">
         <div id="branding">
@@ -20,7 +20,7 @@
         </div>
         <br><br><br>
     </div>
-</header><!-- /header -->
+</header>
 <nav>
     <div id="login-register">
         @if(\Illuminate\Support\Facades\Auth::check())
@@ -91,8 +91,58 @@
         @endif
     </div>
 </nav>
+-->
 
-@yield('content')
+
+<div class="sidebar">
+    <h1 id="logo">Testx<sup><span id="num">3</span></sup></h1>
+    @if(\Illuminate\Support\Facades\Auth::check())
+        <button class="dropbtn_sweep-to-right">Pocetno</button>
+        <div class="dropdown-content">
+            <a href="#">&raquo;Naslovnica</a>
+            <a href="#">&raquo;Pomoc</a>
+            <a href="#">&raquo;Logout</a>
+        </div>
+        <button class="dropbtn_sweep-to-right">Testovi</button>
+        <div class="dropdown-content">
+            <a href="#">&raquo;Stvaranje zadaca</a>
+            <a href="#">&raquo;Dostupne zadace</a>
+            <a href="#">&raquo;Provjera rezultata</a>
+        </div>
+        <button class="dropbtn_sweep-to-right">Korisnici</button>
+        <div class="dropdown-content">
+            <a href="#">&raquo;Dodaj ucenika</a>
+            <a href="#">&raquo;Popis ucenika</a>
+            <a href="#">&raquo;Dodaj razred</a>
+            <a href="#">&raquo;Popis razreda</a>
+            <a href="#">&raquo;Dodaj profesora</a>
+            <a href="#">&raquo;Popis profesora</a>
+        </div>
+        <button class="dropbtn_sweep-to-right">Predmeti</button>
+        <div class="dropdown-content">
+            <a href="#">&raquo;Dodaj predmet</a>
+            <a href="#">&raquo;Popis predmeta</a>
+        </div>
+        <button class="dropbtn_sweep-to-right">Gradivo</button>
+        <div class="dropdown-content">
+            <a href="#">&raquo;Unos novog gradiva</a>
+            <a href="#">&raquo;Unos pitanja</a>
+            <a href="#">&raquo;Popis gradiva</a>
+        </div>
+    @else
+        <button class="dropbtn_sweep-to-right">Pocetno</button>
+        <div class="dropdown-content">
+            <a href="#">&raquo;Naslovnica</a>
+            <a href="#">&raquo;Pomoc</a>
+            <a href="{{ route('login') }}">&raquo;Login</a>
+        </div>
+    @endif
+</div>
+
+<section id="content">
+    @yield('content')
+</section>
+
 <!--
                 <div class="logout">
                     <ul>
@@ -114,7 +164,7 @@
                 </div>
 -->
 
-
+<!-- OLD FOOTER
 <footer class="container">
     <fieldset id="testx3">
         <legend>Testx3</legend>
@@ -133,6 +183,24 @@
         </ul>
     </fieldset>
 </footer>
+-->
 
+<script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropbtn_sweep-to-right");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>
 </body>
 </html>

@@ -1,21 +1,10 @@
 body{
     font: 15px/1.5 Arial, Helvetica,sans-serif;
-    padding:0;
-    margin:0;
+    margin: 0px;
     background-color:#dbdbdb;
 }
 
 /* Global */
-button {
-    padding: 3px;
-    border: #e8491d 2px solid;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #e8491d;
-}
-
 a{
     text-decoration: none;
 }
@@ -50,7 +39,120 @@ container {
 }
 /* --GLOBAL-- */
 
-/* Header */
+/* Header/Sidebar */
+
+.sidebar {
+    width: 200px;
+    background-color: #35424a;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.sidebar #logo {
+    text-align: center;
+    padding-bottom: 5px;
+    color: black;
+    font-size: 50px;
+    font-family: "Comic Sans MS";
+    margin-top: 0px;
+}
+
+.sidebar #logo sup span {
+    color: #e8491d;
+}
+
+.sidebar a, button.dropbtn_sweep-to-right {
+    background-color: #35424a;
+    width: 100%;
+    display: inline-block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+
+button.dropbtn_sweep-to-right {
+    border: none;
+    text-align: left;
+    font: 15px/1.5 Arial, Helvetica,sans-serif;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .sidebar a, button.dropbtn_sweep-to-right {float: left;}
+    div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+    .sidebar a, button.dropbtn_sweep-to-right {
+        text-align: center;
+        float: none;
+    }
+}
+
+.sidebar a, button.dropbtn_sweep-to-right {
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.sidebar a:before, button.dropbtn_sweep-to-right:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #e8491d;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.sidebar a:hover, button.dropbtn_sweep-to-right:hover, .sidebar a:focus, button.dropbtn_sweep-to-right:focus, .sidebar a:active, button.dropbtn_sweep-to-right:active {
+    color: black;
+}
+.sidebar a:hover:before, button.dropbtn_sweep-to-right:hover:before, .sidebar a:focus:before, button.dropbtn_sweep-to-right:focus:before, .sidebar a:active:before, button.dropbtn_sweep-to-right:active:before
+ {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.sidebar .dropdown-content {
+    display: none;
+}
+
+.sidebar .dropdown-content a {
+    width: 200px;
+}
+
+section#content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+
+/*
 header, footer {
     background:#35424a;
     color:#ffffff;
@@ -136,9 +238,9 @@ li.dropdown-1 div.dropdown-content a:hover{background-color: red;}
 }
 
 
-/* --Header */
+ --Header
 
-/* Footer */
+Footer
 
 footer fieldset {
     box-sizing: border-box;
@@ -188,7 +290,7 @@ footer fieldset ul {
     }
 }
 
-/* -- Footer -- */
+ -- Footer -- */
 
 .login {
     box-sizing: border-box;
@@ -199,8 +301,8 @@ footer fieldset ul {
 section.home h1#branding {
     font-family: "Comic Sans MS";
     padding: auto;
+    margin-top: 0px;
     font-size: 70px;
-    margin-top: 10px;
     margin-bottom: 2px;
 }
 
