@@ -72,6 +72,17 @@ container {
     background-color: #e8491d;
 }
 
+#list_table {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    border: none;
+}
+
+#list_table tbody tr:nth-child(odd) {
+    background-color: #c4c4c4;
+}
+
 /* --GLOBAL-- */
 
 /* Header/Sidebar */
