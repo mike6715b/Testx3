@@ -37,6 +37,41 @@ container {
     border-radius: 5px;
     background-color: #dbdbdb;
 }
+
+#h1_form_title {
+    font-family: "Comic Sans MS";
+    font-size: 2.25em;
+}
+
+#form_label {
+    font-family: "Comic Sans MS";
+    font-size: 1.1em;
+}
+
+#generic_input {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: #c4c4c4 2px;
+    border-radius: 20px;
+}
+
+#generic_submit {
+    width: auto;
+    background-color: #35424a;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#generic_submit:hover {
+    background-color: #e8491d;
+}
+
 /* --GLOBAL-- */
 
 /* Header/Sidebar */
@@ -84,7 +119,10 @@ button.dropbtn_sweep-to-right {
         height: auto;
         position: relative;
     }
-    .sidebar a, button.dropbtn_sweep-to-right {float: left;}
+    .sidebar a, button.dropbtn_sweep-to-right {
+        float: left;
+        text-align: center;
+    }
     div.content {margin-left: 0;}
 }
 
@@ -132,6 +170,7 @@ button.dropbtn_sweep-to-right {
 .sidebar a:hover, button.dropbtn_sweep-to-right:hover, .sidebar a:focus, button.dropbtn_sweep-to-right:focus, .sidebar a:active, button.dropbtn_sweep-to-right:active {
     color: black;
 }
+
 .sidebar a:hover:before, button.dropbtn_sweep-to-right:hover:before, .sidebar a:focus:before, button.dropbtn_sweep-to-right:focus:before, .sidebar a:active:before, button.dropbtn_sweep-to-right:active:before
  {
     -webkit-transform: scaleX(1);
@@ -150,6 +189,11 @@ section#content {
     margin-left: 200px;
     padding: 1px 16px;
     height: 1000px;
+}
+@media screen and (max-width: 700px) {
+    section#content {
+        margin: auto;
+    }
 }
 
 /*
@@ -368,45 +412,6 @@ container.login fieldset {
     margin-top: 30px;
     width: 200px;
 }
-
-/* MAIN MENU */
-.main-menu {
-    text-decoration: none;
-}
-
-container.main-menu fieldset table tbody tr td p a {
-    text-decoration: underline;
-}
-
-.main-menu #main-menu {
-    margin: auto;
-    text-align: left;
-}
-
-.main-menu fieldset{
-    border-color: #e8491d;
-    border-radius: 5px;
-    width: 500px;
-    margin: auto;
-    margin-top: 7px;
-    background-color: #c4c4c4;
-}
-
-.main-menu fieldset legend {
-    border: 2px solid #e8491d;
-    border-radius: 5px;
-    background-color: #dbdbdb;
-}
-
-.main-menu table tbody tr td {
-    padding-right: 10px;
-}
-
-.main-menu fieldset table tbody tr td a {
-    text-decoration: none;
-}
-
-/* ---MAIN MENU--- */
 
 /* ---EXAM--- */
 .exam-manage fieldset {
