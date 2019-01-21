@@ -57,7 +57,7 @@ container {
     border-radius: 20px;
 }
 
-#generic_submit {
+#generic_submit, #conf1 {
     width: auto;
     background-color: #35424a;
     color: white;
@@ -68,7 +68,7 @@ container {
     cursor: pointer;
 }
 
-#generic_submit:hover {
+#generic_submit:hover, #conf1:hover {
     background-color: #e8491d;
 }
 
@@ -323,8 +323,8 @@ form#fieldquesadd div#enterQues select#quesType,
     border-radius: 20px;
 }
 
-form#fieldquesadd div#enterQues button#btn\+,
-    form#fieldquesadd div#enterQues button#btn\- {
+form#fieldquesadd div#enterQues button#btnPlus,
+    form#fieldquesadd div#enterQues button#btnMinus {
     width: 30px;
     height: 30px;
     background-color: #35424a;
@@ -337,7 +337,16 @@ form#fieldquesadd div#enterQues button#btn\+,
     cursor: pointer;
 }
 
-form#fieldquesadd div#enterQues button#btn\+:hover,
-    form#fieldquesadd div#enterQues button#btn\-:hoover {
+form#fieldquesadd div#enterQues button#btnPlus:hover,
+    form#fieldquesadd div#enterQues button#btnMinus:hoover {
     background-color: #e8491d;
+}
+
+form#fieldquesadd div#enterQues div#ques input[type=text] {
+    width: 71%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline;
+    border: #c4c4c4 2px;
+    border-radius: 20px;
 }

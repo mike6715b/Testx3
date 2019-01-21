@@ -24,25 +24,23 @@
                 <p id="quesNum">
                     Pitanje br:
                 </p>
-                    <label for="quesType" id="form_label">Tip pitanja: </label><br>
-                    <select name="quesType" id="quesType">
-                        <option value="0"></option>
-                        <option value="1">Odabir odgovora</option>
-                        <option value="2">Visetruki odgovor</option>
-                        <option value="3">Upis odgovora</option>
-                    </select>
+                <label for="quesType" id="form_label">Tip pitanja: </label><br>
+                <select name="quesType" id="quesType">
+                    <option value="0"></option>
+                    <option value="1">Odabir odgovora</option>
+                    <option value="2">Visetruki odgovor</option>
+                    <option value="3">Upis odgovora</option>
+                </select>
                 <div id="question" style="display: none;">
                     <label for="question" id="form_label">Unesite pitanje: </label><br>
-                    <input type="text" name="question" id="question" style="width: 75%"> <br>
+                    <input type="text" name="question" id="question" required style="width: 75%"> <br>
                 </div>
-                <div id="quesType1" style="display: none;">
-                    <h2>Odgovor: </h2>
-                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans1"> <br>
-                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans2"> <br>
-                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans3"> <br>
-                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans4"> <br>
+                <div id="ques" style="display: none;">
+
                 </div>
-                <button type="button" id="btn+"><bold>+</bold></button><button type="button" id="btn-"><bold>-</bold></button>
+                <div id="addRemoveAnses" style="display: none">
+                    <button type="button" id="btnPlus"><bold>+</bold></button><button type="button" id="btnMinus"><bold>-</bold></button>
+                </div>
                 <br><input type="submit" id="generic_submit" style="display: none" value="Unesi pitanje">
             </div>
         </form>
@@ -91,11 +89,25 @@
               console.log('Tip pitanja: ' + selectedType);
               $('#question').show();
               if (selectedType === "1") {
-                  $('#quesType1').show();
+                  $('#ques').empty().show().append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"ans1\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+                  $('#addRemoveAnses').show();
                   $('#generic_submit').show();
               } else if (selectedType === "2" || selectedType === "3") {
                   alert('comming soon');
               }
+           });
+
+           $('#btnPlus').click(function () {
+               var numbs = $('#ques > input').length/2+1;
+               $('#ques').append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"ans" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+           });
+
+           $('#btnMinus').click(function () {
+               if ($('#ques > input').length/2+1 >= 3) {
+                   $('#ques input').last().remove();
+                   $('#ques input').last().remove();
+                   $('#ques br').last().remove();
+               }
            });
 
            /*$("#addAns").click(function (e) {
