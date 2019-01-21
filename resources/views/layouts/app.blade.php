@@ -4,8 +4,10 @@
     <title>Testx3 - Sustav za online provjeru znanja</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/noty.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/noty.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/chosen.jquery.js') }}" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>

@@ -2,18 +2,17 @@
 
 @section('content')
 
-    <fieldset>
-        <legend align="left">Unos Predmeta</legend>
-        <form method="POST" id="subjadd" action="{{ action('UserTransactionController@subjadd') }}">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-            <p>
-                <label>Naziv: </label><br>
-                <input type="text" name="name" id="name" required>
-            </p>
-            <input type="checkbox" name="gradiva" id="gradiva">
-            <label>Odmah na unos gradiva?</label><br>
-            <button type="submit" name="submit">Unesi</button>
-        </form>
-    </fieldset>
+    <h1 id="h1_form_title">Unos razreda</h1>
+    <form method="POST" id="subjadd" action="{{ action('UserTransactionController@subjadd') }}">
+        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+
+        <label for="name" id="form_label">Naziv: </label>
+        <input type="text" name="name" id="generic_input" required>
+
+        <label for="gradiva" id="form_label">Odmah na unos gradiva?</label>
+        <input type="checkbox" name="gradiva" id="form_label"><br>
+
+        <input type="submit" name="submit" id="generic_submit" value="Unesi">
+    </form>
 
 @endsection

@@ -2,16 +2,15 @@
 
 @section('content')
 
-    <fieldset>
-        <legend align="left">Popis gradiva</legend>
-        <label>Predmet: </label>
-        <select name="subjectSel" id="subjectSel">
+    <h1 id="h1_form_title">Popis gradiva</h1>
+        <label for="subjectSel" id="form_label">Predmet: </label>
+        <select name="subjectSel" id="generic_input" style="width: auto">
             <option value="0"></option>
             @foreach(App\Subject::all() as $subject)
                 <option value="{{ $subject->subj_id }}">{{ $subject->subj_name }}</option>
             @endforeach
         </select>
-        <table id="gradiva">
+        <table id="list_table">
             <thead>
                 <tr>
                     <th align="center">ID</th>
@@ -23,15 +22,14 @@
 
             </tbody>
         </table>
-    </fieldset>
 
     <script>
 
         $(document).ready(function () {
            console.log("Ready!");
-           $('#subjectSel').on('change', function () {
-              var selectedVal = $('#subjectSel').val();
-              //console.log('Change!');
+           $('#generic_input').on('change', function () {
+              var selectedVal = $('#generic_input').val();
+              console.log('Change!');
               if (selectedVal !== 0) {
                   var dataString = "subj=" + selectedVal;
                   $.ajax({

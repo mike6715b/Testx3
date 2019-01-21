@@ -92,7 +92,7 @@ container {
     background-color: #35424a;
     position: fixed;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .sidebar #logo {
@@ -299,4 +299,45 @@ container.login fieldset {
 .exam-result-done, .exam-list {
     margin-left: 25em;
     margin-right: 25em;
+}
+
+/* ---- FieldQuesAdd ---- */
+
+form#fieldquesadd div#selFieldSubj select {
+    width: auto;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: #c4c4c4 2px;
+    border-radius: 20px;
+}
+
+form#fieldquesadd div#enterQues select#quesType,
+    form#fieldquesadd div#enterQues div#question input[type=text],
+    form#fieldquesadd div#enterQues div#quesType1 {
+    width: auto;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: #c4c4c4 2px;
+    border-radius: 20px;
+}
+
+form#fieldquesadd div#enterQues button#btn\+,
+    form#fieldquesadd div#enterQues button#btn\- {
+    width: 30px;
+    height: 30px;
+    background-color: #35424a;
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    margin-right: 10px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+form#fieldquesadd div#enterQues button#btn\+:hover,
+    form#fieldquesadd div#enterQues button#btn\-:hoover {
+    background-color: #e8491d;
 }

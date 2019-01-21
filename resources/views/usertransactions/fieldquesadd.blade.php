@@ -2,63 +2,57 @@
 
 @section('content')
 
-    <fieldset>
-        <legend align="left">Dodavanje pitanja</legend>
+    <h1 id="h1_form_title">Unos novih pitanja</h1>
+    <div class="fieldquesadd">
         <form method="POST" action="{{ action('UserTransactionController@fieldquesadd') }}" name="fieldquesadd" id="fieldquesadd">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <div id="selFieldSubj">
-                <p>
-                    <label>Predmet: </label>
+                    <label for="subjectSel" id="form_label">Predmet: </label>
                     <select name="subjectSel" id="subjectSel">
                         <option value="0"></option>
                         @foreach(App\Subject::all() as $subject)
                             <option value="{{ $subject->subj_id }}">{{ $subject->subj_name }}</option>
                         @endforeach
                     </select>
-                </p>
-                <p>
-                    <label>Gradivo: </label>
+                    <label for="fieldSel" id="form_label">Gradivo: </label>
                     <select name="fieldSel" id="fieldSel" required>
 
                     </select>
-                </p>
-                <p>
                     <input type="button" value="Uredu" name="conf1" id="conf1">
-                </p>
             </div>
             <div id="enterQues" style="display:none;">
                 <p id="quesNum">
                     Pitanje br:
                 </p>
-                <p id="quesTypeSelector">
-                    <label>Tip pitanja: </label><br>
+                    <label for="quesType" id="form_label">Tip pitanja: </label><br>
                     <select name="quesType" id="quesType">
-                        <option></option>
+                        <option value="0"></option>
                         <option value="1">Odabir odgovora</option>
                         <option value="2">Visetruki odgovor</option>
                         <option value="3">Upis odgovora</option>
                     </select>
-                </p>
                 <div id="question" style="display: none;">
-                    <label>Unesite pitanje: </label><br>
-                    <input type="text" name="question" id="question"> <br>
+                    <label for="question" id="form_label">Unesite pitanje: </label><br>
+                    <input type="text" name="question" id="question" style="width: 75%"> <br>
                 </div>
                 <div id="quesType1" style="display: none;">
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans1"> <br>
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans2"> <br>
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans3"> <br>
-                        <label>Odgovor: </label>
-                        <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans4"> <br>
+                    <h2>Odgovor: </h2>
+                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans1"> <br>
+                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans2"> <br>
+                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans3"> <br>
+                    <input type="text" name="ans[]" required><input type="checkbox" name="tocanOdg[]" placeholder="Tocan odgovor?" id="tocanOdg1" value="ans4"> <br>
                 </div>
-                <button id="submitQues" name="submitQUes" type="submit" style="display: none;">Unesi pitanje</button>
+                <button type="button" id="btn+"><bold>+</bold></button><button type="button" id="btn-"><bold>-</bold></button>
+                <br><input type="submit" id="generic_submit" style="display: none" value="Unesi pitanje">
             </div>
         </form>
-    </fieldset>
+    </div>
+
 
     <script>
+
+        //Za kad dodajem nova pitanja, koristiti jquery za ispis pitanja ovisno o tome koju vrstu odaberemo.
+
         $(document).ready(function () {
            console.log('Ready!');
            $('#subjectSel').on('change', function () {
@@ -92,13 +86,13 @@
               }
            });
 
-           $('#quesTypeSelector').on('change', function () {
+           $('#quesType').on('change', function () {
               var selectedType = $("#quesType").val();
               console.log('Tip pitanja: ' + selectedType);
               $('#question').show();
               if (selectedType === "1") {
                   $('#quesType1').show();
-                  $('#submitQues').show();
+                  $('#generic_submit').show();
               } else if (selectedType === "2" || selectedType === "3") {
                   alert('comming soon');
               }

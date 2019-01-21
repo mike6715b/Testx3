@@ -2,8 +2,6 @@
 
 @section('content')
 
-    <fieldset class="exam-manage">
-        <legend align="left">Upravljanje ispitima</legend>
         <table>
             <tr>
                 <td>
@@ -107,7 +105,7 @@
                 </p>
                 <p>
                     <label>Razred: </label>
-                    <select name="class[]" id="class" multiple required>
+                    <select name="class[]" id="class" multiple required style="width: 25%">
                         @foreach(App\Classes::all() as $class)
                             <option value="{{ $class->class_id }}">{{ $class->class_name }}</option>
                         @endforeach
@@ -126,10 +124,10 @@
             </form>
         </fieldset>
 
-    </fieldset>
-
     <script>
         $(document).ready(function () {
+            $('select#class').chosen();
+
             console.log('Ready!');
             $('select#subject').on('change', function () {
                 var selectedValue = $(this).val();
