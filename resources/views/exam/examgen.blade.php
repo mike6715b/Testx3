@@ -13,27 +13,18 @@
                         <p style="border-radius: 15px; border-color: #ff8e70; border-width: 2px; border-style: solid; padding: 3px; background-color: #c6c6c6">{{ $pos+1 }}. {{ $question['question'] }}</p>
                         <p>
                             @if($question['type'] == 1)
-                                <?php $count = []; ?>
-                                @for($i = 0; $i < 4; $i++)<?php
+                                <?php $count = [];;?>
+                                @for($i = 0; $i < count($question["ans"]); $i++)<?php
                                     do {
-                                        $num = rand(1, 4);
+                                        $num = rand(1, count($question["ans"]));
                                     } while (in_array($num, $count));
                                     $count[$i] = $num;
                                     ?>@endfor
-                                <?php
-                                    for ($i = 0; $i < 4; $i++) {
-                                        switch ($count[$i]) {
+                                <?php dd($count);
+                                    for ($d = 0; $d < count($question["ans"]); $d++) {
+                                        switch ($question["type"]) {
                                             case 1:
-                                                ?><label for="{{$pos}}ans1"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans1" id="{{$pos}}ans1">{{ $question['ans1'] }}</label><br><?php
-                                                break;
-                                            case 2:
-                                                ?><label for="{{$pos}}ans2"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans2" id="{{$pos}}ans2">{{ $question['ans2'] }}</label><br><?php
-                                                break;
-                                            case 3:
-                                                ?><label for="{{$pos}}ans3"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans3" id="{{$pos}}ans3">{{ $question['ans3'] }}</label><br><?php
-                                                break;
-                                            case 4:
-                                                ?><label for="{{$pos}}ans4"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans4" id="{{$pos}}ans4">{{ $question['ans4'] }}</label><br><?php
+                                                ?><label for="ans[{{ $pos }}][]"><input type="checkbox" name="ans[{{ $pos }}][]" value="ans{{$d+1}}" id="{{$pos}}ans1">{{ $count[$d] }}</label><br><?php
                                                 break;
                                         }
                                     }
@@ -47,7 +38,7 @@
                 <?php $pos++ ?>
             @endforeach
         </table>
-            <button name="sub-btn">Unesi</button>
+            <button name="sub-btn">Predaj zadacu</button>
         </form>
     </fieldset>
 

@@ -154,10 +154,7 @@ class UserTransactionController extends Controller
                 $question = [
                     'question' => $param[0],
                     'type' => $param[3],
-                    'ans1' => $param[1][0],
-                    'ans2' => $param[1][1],
-                    'ans3' => $param[1][2],
-                    'ans4' => $param[1][3],
+                    'ans' => $param[1],
                     'correct' => $param[2]
                 ];
 
@@ -180,10 +177,7 @@ class UserTransactionController extends Controller
                 1 => [
                     'question' => $question,
                     'type' => $param[3],
-                    'ans1' => $ans[0],
-                    'ans2' => $ans[1],
-                    'ans3' => $ans[2],
-                    'ans4' => $ans[3],
+                    'ans' => $ans,
                     'correct' => $corrAns,
                 ]
             ];
