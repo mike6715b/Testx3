@@ -101,6 +101,7 @@ class ExamController extends Controller
      *
      */
     public function examcheck(Request $request) {
+        dd($request);
         $score = 0; $key = 0;
         $result = $this->CheckAns($request, $score, $key);
         $score = $result[0] / $result[1];
