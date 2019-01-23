@@ -72,17 +72,48 @@ container {
     background-color: #e8491d;
 }
 
-#list_table {
+#list_table , #active-test, #inactive-test{
     margin: auto;
     width: 50%;
     text-align: center;
     border: none;
 }
 
-#list_table tbody tr:nth-child(odd) {
+#list_table tbody tr:nth-child(odd), #active-test tbody tr:nth-child(odd) {
     background-color: #c4c4c4;
 }
 
+#active-test {
+    float: left;
+}
+
+#inactive-test {
+    float: right;
+}
+
+#test_exam, #test_self {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    border: none;
+}
+
+#test_exam table tbody tr:nth-child(odd), #tests_self table tbody tr:nth-child(odd) {
+    background-color: #c4c4c4;
+}
+
+div#tests_self, div#test_exam {
+    width: 45%;
+    margin: auto;
+    display: inline-block;
+}
+
+div#test_exam {
+    float: right;
+}
+div#tests_self {
+    float: left;
+}
 /* --GLOBAL-- */
 
 /* Header/Sidebar */

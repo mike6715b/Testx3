@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <fieldset class="exam-list">
-        <legend align="left">Samoprovjera</legend>
+<div id="examlist">
+    <div id="tests_self">
+        <h1 id="h1_form_title">Samoprovjere</h1>
         <table name="tests_self" id="test_self">
             <thead>
             <th>Naziv testa</th>
@@ -28,10 +28,9 @@
             @endif
             </tbody>
         </table>
-    </fieldset>
-
-    <fieldset class="exam-list">
-        <legend align="left">Provjera znanja</legend>
+    </div>
+    <div id="test_exam">
+        <h1  id="h1_form_title">Provjere znanja</h1>
         <table name="test_exam" id="test_exam">
             <thead>
             <th>Naziv testa</th>
@@ -57,5 +56,6 @@
             </tbody>
         </table>
     </fieldset>
-
+    </div>
+</div>
 @endsection

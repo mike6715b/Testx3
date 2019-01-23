@@ -2,9 +2,8 @@
 
 @section('content')
     <?php $rb = 1; ?>
-    <fieldset class="exam-result-done">
-        <legend>Rezultati zadace</legend>
-        <table align="center">
+    <h1 id="h1_form_title">Rezultati zadace</h1>
+        <table align="center" id="list_table">
             <thead>
                 <th>Rb.</th>
                 <th>Naziv testa</th>

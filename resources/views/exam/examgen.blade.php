@@ -2,8 +2,6 @@
 
 @section('content')
 <?php $pos=0 ?>
-    <fieldset style="margin-left: 15%; margin-right: 15%; margin-top: 10px; border: 2px solid #e8491d; border-radius: 5px;">
-        <legend style="border: 2px solid #e8491d; border-radius: 5px; background-color: #dbdbdb;">Test</legend>
         <p style="margin-bottom: 0px; margin-top: 0px">{{ \Illuminate\Support\Facades\Auth::user()->user_name }}</p>
         <p style="margin-bottom: 0px; margin-top: 0px">{{ \Illuminate\Support\Facades\Auth::user()->user_email }}</p>
         <form  id="exam" method="POST" action="{{ action('ExamController@examcheck') }}">

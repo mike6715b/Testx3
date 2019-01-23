@@ -1,12 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <h1 id="h1_form_title">Upravljanje testovima</h1>
 
-        <table>
-            <tr>
-                <td>
-                    <fieldset id="activetest">
-                        <legend align="left">Aktivni ispiti</legend>
                         <table id="active-test">
                             <thead>
                             <th>Naziv</th>
@@ -26,9 +22,11 @@
                                     </td>
                                     <td>
                                         <?php $classes = json_decode($test->test_class) ?>
+                                            <select name="" id="">
                                         @foreach($classes as $class)
-                                            {{ \App\Classes::where('class_id', $class)->first()->class_name }},
+                                                <option value="">{{ \App\Classes::where('class_id', $class)->first()->class_name }}</option>
                                         @endforeach
+                                            </select>
                                     </td>
                                     <td><a href="./deac?id={{ $test->test_id }}">Deaktiviraj</a></td>
                                     <td><a href="./deltest?id={{ $test->test_id }}">Obrisi</a></td>
@@ -36,13 +34,8 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </fieldset>
-                </td>
-                <td>
-                    <fieldset id="inactivetest">
-                        <legend align="left">Neaktivni ispiti</legend>
-                        <table id="active-test">
-                            <thead>
+                    <table id="inactive-test">
+                        <thead>
                             <th>Naziv</th>
                             <th>Tip</th>
                             <th>Razred</th>
@@ -65,9 +58,11 @@
                                         </td>
                                         <td>
                                             <?php $classes = json_decode($test->test_class) ?>
+                                                <select name="" id="">
                                             @foreach($classes as $class)
-                                                {{ \App\Classes::where('class_id', $class)->first()->class_name }},
+                                                <option>{{ \App\Classes::where('class_id', $class)->first()->class_name }}</option>
                                             @endforeach
+                                                </select>
                                         </td>
                                         <td><a href="./act?id={{ $test->test_id }}">Aktiviraj</a></td>
                                         <td><a href="./deltest?id={{ $test->test_id }}">Obrisi</a></td>
@@ -76,60 +71,46 @@
                             @endif
                             </tbody>
                         </table>
-                    </fieldset>
-                </td>
-            </tr>
-        </table>
 
-        <fieldset id="addtest">
-            <legend>Dodavanje ispita</legend>
+        <h1 id="h1_form_title" style="width: 100%">Unos nove zadace</h1>
             <form method="POST" id="addexam" action="{{ action('ExamController@examcreate') }}">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-                <p>
-                    <label>Naziv testa: </label>
-                    <input type="text" name="title" id="title" required>
-                </p>
-                <p>
-                    <label>Predmet: </label>
-                    <select name="subject" id="subject" required>
+                    <label for="title" id="form_label">Naziv testa: </label>
+                    <input type="text" name="title" id="generic_input" required>
+
+                    <label for="subject" id="form_label">Predmet: </label>
+                    <select name="subject" id="generic_input" required>
                         <option value="0" selected></option>
                         @foreach(App\Subject::all() as $subject)
                             <option value="{{ $subject->subj_id }}">{{ $subject->subj_name }}</option>
                         @endforeach
                     </select>
-                </p>
-                <p>
-                    <label>Gradivo: </label>
-                    <select name="field" id="field" required>
+
+                    <label for="field" id="form_label">Gradivo: </label>
+                    <select name="field" id="generic_input" required>
                     </select>
-                </p>
-                <p>
-                    <label>Razred: </label>
-                    <select name="class[]" id="class" multiple required style="width: 25%">
+
+                    <label for="class" id="form_label">Razred: </label>
+                    <select name="class[]" id="generic_input" multiple required style="width: 25%">
                         @foreach(App\Classes::all() as $class)
                             <option value="{{ $class->class_id }}">{{ $class->class_name }}</option>
                         @endforeach
                     </select>
-                </p>
-                <p>
-                    <label>Tip testa: </label>
-                    <select name="type" id="type" required>
+
+                    <label for="type" id="form_label">Tip testa: </label>
+                    <select name="type" id="generic_input" required>
                         <option value="2">Samoprovjera</option>
                         <option value="1">Provjera znanja</option>
                     </select>
-                </p>
-                <p>
-                    <button type="submit" name="submit">Unesi</button>
-                </p>
+
+                    <input type="submit" name="submit" id="generic_submit" value="Unesi">
             </form>
-        </fieldset>
 
     <script>
         $(document).ready(function () {
-            $('select#class').chosen();
 
             console.log('Ready!');
-            $('select#subject').on('change', function () {
+            $('select[name=subject]').on('change', function () {
                 var selectedValue = $(this).val();
                 console.log('Odabrano: ' + selectedValue);
                 if (selectedValue !== 0) {
