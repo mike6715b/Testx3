@@ -6,12 +6,12 @@
         <form  id="exam" method="POST" action="{{ action('ExamController@examcheck') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
         <table>
-            @foreach($questions as $key => $question)
+            @foreach($questions as $Queskey => $question)
                 <tr>
                     <td>
-                        <p>{{ $key+1 }}. {{ $question['question'] }}</p>
+                        <p>{{ $Queskey+1 }}. {{ $question['question'] }}</p>
                         @foreach($question["ans"] as $key => $value)
-                            <p><input type="checkbox" name="{{ $quesNum }}[]" value="{{ $key }}">{{ $value }}</p>
+                            <p><input type="checkbox" name="{{ $Queskey }}[]" value="{{ $key }}">{{ $value }}</p>
                         @endforeach
                     </td>
                 </tr>
