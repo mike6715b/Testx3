@@ -145,13 +145,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'uses' => 'ExamController@examcheck',
     ]);
     Route::get('mainmenu/deac', [
-        'uses' => 'ExamController@deactivate',
+        'uses' => 'ExamController@deactivateTest',
     ]);
     Route::get('mainmenu/act', [
-        'uses' => 'ExamController@activate',
+        'uses' => 'ExamController@activateTest',
     ]);
     Route::get('mainmenu/deltest', [
-        'uses' => 'ExamController@delete'
+        'uses' => 'ExamController@deleteTest'
     ]);
 
 //Ajax

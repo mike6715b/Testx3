@@ -89,7 +89,7 @@
               console.log('Tip pitanja: ' + selectedType);
               $('#question').show();
               if (selectedType === "1") {
-                  $('#ques').empty().show().append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"ans1\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+                  $('#ques').empty().show().append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"0\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
                   $('#addRemoveAnses').show();
                   $('#generic_submit').show();
               } else if (selectedType === "2" || selectedType === "3") {
@@ -98,8 +98,8 @@
            });
 
            $('#btnPlus').click(function () {
-               var numbs = $('#ques > input').length/2+1;
-               $('#ques').append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"ans" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+               var numbs = $('#ques > input').length/2;
+               $('#ques').append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
            });
 
            $('#btnMinus').click(function () {

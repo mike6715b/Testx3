@@ -59,31 +59,36 @@ class ExamController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function examgen(Request $request) {
+        session_unset(); //Unset potential old session data
         $test = Test::where('test_id', '=', $request->id)->first(); //Dohvati test koji je korisnik zatrazio
         $questionRow = Question::where('ques_id', '=', $test->test_ques)->first(); //Dohvati pitanja koja odgovaraju tom testu
         $questions = json_decode($questionRow->ques_questions, TRUE); //decode json-a
-        // RANDOMIZING QUESTIONS
-        $ques_nums = []; //kreiramo prazan array u koji cemo spremati redoslijed pitanja
-        for ($i = 0; $i < count($questions); $i++) { //For petlja izvrsava se x puta gdje je x broj pitanja
-            do {
-                $num = rand(1, count($questions));
-            } while (in_array($num, $ques_nums)); //generira nasumicni broj dok ne dobijemo broj koji nije vec dobiven
-            $ques_nums[$i] = $num; //Postavljamo broj u array za redoslijed pitanja
-        }
-        for ($i = 0; $i < count($questions); $i++) { //Preslagujemo pitanja po redosliju iz prehodne for petlje
-            $ques_num = $ques_nums[$i];
-            $ques = $questions[$ques_num];
-            $questions_rand[$i] = $ques; //$questions_rand ==> randomizirana pitanja
-        }
-        for ($i = 0; $i < count($questions_rand); $i++) {
-            $request->session()->put($i, $questions_rand[$i]['correct']); //U session spremamo tocne odgovore kako im mozemo pristupiti u provjeri
+        shuffle($questions); // RANDOMIZING QUESTIONS
+        $questions_rand = array();
+        foreach ($questions as $question) { //Randomizacija svakih odgovora
+            $list = $question["ans"];
+            $random = $this->shuffle_assoc($list);
+            unset($question["ans"]);
+            $question["ans"] = $random;
+            array_push($questions_rand, $question);
         }
         $request->session()->put('test_type', $test->test_type);
-        $request->session()->put('ques_id', $request->id);
-        $request->session()->put('ques_rand', json_encode($questions_rand));
         $request->session()->put('test_id', $request->id);
-        //dd($questions_rand);
+        $request->session()->put('ques', json_encode($questions_rand));
+
         return view('exam.examgen')->with('questions', $questions_rand);
+    }
+
+    protected function shuffle_assoc($list) {
+        if (!is_array($list)) return $list;
+
+        $keys = array_keys($list);
+        shuffle($keys);
+        $random = array();
+        foreach ($keys as $key) {
+            $random[$key] = $list[$key];
+        }
+        return $random;
     }
 
     /**
@@ -102,11 +107,9 @@ class ExamController extends Controller
      *
      */
     public function examcheck(Request $request) {
-        //dd($request);
-        $score = 0; $key = 0;
-        $result = $this->CheckAns($request, $score, $key);
-        dd($result);
+        $result = $this->CheckAns($request);
         $score = $result[0] / $result[1];
+        dd($result);
         if ($request->session()->get("test_type") == 1) {
             if ($score < 0.5) {
                 $grade = 1;
@@ -126,9 +129,8 @@ class ExamController extends Controller
             $testDone->test_anses = json_encode($request->all()['ans']);
             date_default_timezone_set('CET');
             $testDone->test_complete = date('d/m/Y h:i:s');
-            //dd($testDone);
             $testDone->save();
-            $questions = $request->session()->get('ques_rand');
+            $questions = $request->session()->get('ques');
             $questions = json_decode($questions, TRUE);
             return view('exam.examresult')
                 ->with('questions', $questions)
@@ -136,8 +138,7 @@ class ExamController extends Controller
                 ->with('score', $result[0])
                 ->with('numOfAns', $result[1]);
         } else {
-            $questions = $request->session()->get('ques_rand');
-            $questions = json_decode($questions, TRUE);
+            $questions = json_decode($request->session()->get('ques'), TRUE);
             return view('exam.examresult')
                 ->with('questions', $questions)
                 ->with('anses', $request->all()['ans'])
@@ -146,19 +147,19 @@ class ExamController extends Controller
         }
     }
 
-    public function deactivate(Request $request) {
+    public function deactivateTest(Request $request) {
         $id = $request->id;
         Test::where('test_id', '=', $id)->update(['status' => 0]);
         return redirect()->route('mainmenu.exam');
     }
 
-    public function activate(Request $request) {
+    public function activateTest(Request $request) {
         $id = $request->id;
         Test::where('test_id', '=', $id)->update(['status' => 1]);
         return redirect()->route('mainmenu.exam');
     }
 
-    public function delete(Request $request) {
+    public function deleteTest(Request $request) {
         Test::destroy($request->id);
         TestDone::where('test_id', '=', $request->id)->delete();
         return redirect()->route('mainmenu.exam');
@@ -178,37 +179,33 @@ class ExamController extends Controller
      * @param $request
      * @param $score
      * @param $key
-     * @param array $cor
      * @return array
      */
-    protected function CheckAns($request, $score, $key, $cor = []) {
-        do {
-            $userAns = $request->all()["ans"]; //Dohvacamo odgovore od korisnika
-            dd($request);
-            $corrAns = $request->session()->get($key); //Dohvacamo tocne odgovore za pitanje
-            if (!key_exists($key, $userAns)) { //Provjeravamo dali je korisnik dao odgovor na pitanje
-                $key++;
-                continue; //Ako nije, nastavi na drugo pitanje
+    protected function CheckAns($request, $score = 0, $key = 0) {
+        $questions = json_decode($request->session()->get('ques'));
+        for ($i = 0; $i < count($questions); $i++) {
+            $questionScore = 0;
+            if (!$request->$i) { // Provjeravamo dali je korisnik dao odgovor na pitanje
+                continue;
             }
-            if (count($corrAns) == count($userAns[$key])) { //Ako je broj tocnih odgovora, jedan broju odgovora koje je dao korisnik
-                $control = []; //Koristimo za provjeru koliko ima tocnih/netocnih odgovora
-                for ($i = 0; $i < count($corrAns); $i++) {
-                    if (in_array($userAns[$key][$i], $corrAns)) { //Ako odgovor postoji u tocnim odgovorima
-                        array_push($control, 1);
-                    }
-                }
-                $counts = array_count_values($control); //Prebroji tocne i netocne odgovore
-                if (key_exists(1, $counts)) { //Ako ima tocnih odgovora
-                    if ($counts[1] == count($corrAns)) { //Ako smo tocno ondgovorili na isti broj tocni
-                        $score++;
-                        array_push($cor, $key);
-                    }
-                }
+            $userAns = $request->$i; // Odgovori korisnika
+            $questionCorrect = $questions[$i]->correct; // Tocni odgovori na pitanje
+            //$ansnum = 0; //Debugging
+            foreach ($userAns as $ans) {
+                if (in_array($ans, $questionCorrect)) {
+                    $questionScore++;
+                   // echo "$i,$ansnum je tocno<br>";
+                } //else {
+                    //echo "$i,$ansnum je netocno<br>";
+                //}
+
+                //$ansnum++; //Debugging
             }
-            $key++;
-        } while ($request->session()->has($key));
-        $request->session()->put('corrects', $cor);
-        $return = [$score, $key];
+            $questionScore = $questionScore / count($questionCorrect);
+            $score += $questionScore;
+        }
+        $quesCount = count($questions);
+        $return = [$score, $quesCount];
         return $return;
     }
 }
