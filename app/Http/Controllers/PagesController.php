@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Session;
 
 class PagesController extends Controller
 {
-    protected $user_class;
 
     protected function isUserAdmin() {
         if (Auth::user()->user_class == 'admin') {

@@ -107,9 +107,12 @@ class ExamController extends Controller
      *
      */
     public function examcheck(Request $request) {
+        //dd($request);
         $result = $this->CheckAns($request);
         $score = $result[0] / $result[1];
-        dd($result);
+        $anses = $request->all();
+        unset($anses['_token']);
+        unset($anses['sub-btn']);
         if ($request->session()->get("test_type") == 1) {
             if ($score < 0.5) {
                 $grade = 1;
@@ -126,7 +129,7 @@ class ExamController extends Controller
             $testDone->test_id = $request->session()->get('test_id');
             $testDone->test_user_id = Auth::user()->user_id;
             $testDone->test_grade = $grade;
-            $testDone->test_anses = json_encode($request->all()['ans']);
+            $testDone->test_anses = json_encode($anses);
             date_default_timezone_set('CET');
             $testDone->test_complete = date('d/m/Y h:i:s');
             $testDone->save();
@@ -134,16 +137,18 @@ class ExamController extends Controller
             $questions = json_decode($questions, TRUE);
             return view('exam.examresult')
                 ->with('questions', $questions)
-                ->with('anses', $request->all()['ans'])
+                ->with('anses', $request->all())
                 ->with('score', $result[0])
-                ->with('numOfAns', $result[1]);
+                ->with('numOfAns', $result[1])
+                ->with('questionScores', $result[2]);
         } else {
             $questions = json_decode($request->session()->get('ques'), TRUE);
             return view('exam.examresult')
                 ->with('questions', $questions)
-                ->with('anses', $request->all()['ans'])
+                ->with('anses', $request->all())
                 ->with('score', $result[0])
-                ->with('numOfAns', $result[1]);
+                ->with('numOfAns', $result[1])
+                ->with('questionScores', $result[2]);
         }
     }
 
@@ -183,6 +188,7 @@ class ExamController extends Controller
      */
     protected function CheckAns($request, $score = 0, $key = 0) {
         $questions = json_decode($request->session()->get('ques'));
+        $scoresQuestions = array();
         for ($i = 0; $i < count($questions); $i++) {
             $questionScore = 0;
             if (!$request->$i) { // Provjeravamo dali je korisnik dao odgovor na pitanje
@@ -190,22 +196,19 @@ class ExamController extends Controller
             }
             $userAns = $request->$i; // Odgovori korisnika
             $questionCorrect = $questions[$i]->correct; // Tocni odgovori na pitanje
-            //$ansnum = 0; //Debugging
             foreach ($userAns as $ans) {
                 if (in_array($ans, $questionCorrect)) {
                     $questionScore++;
-                   // echo "$i,$ansnum je tocno<br>";
-                } //else {
-                    //echo "$i,$ansnum je netocno<br>";
-                //}
-
-                //$ansnum++; //Debugging
+                } else {
+                    $questionScore--;
+                }
             }
             $questionScore = $questionScore / count($questionCorrect);
             $score += $questionScore;
+            array_push($scoresQuestions, $questionScore);
         }
         $quesCount = count($questions);
-        $return = [$score, $quesCount];
+        $return = [$score, $quesCount, $scoresQuestions];
         return $return;
     }
 }
