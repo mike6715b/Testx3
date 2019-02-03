@@ -224,6 +224,7 @@ button.dropbtn_sweep-to-right {
 }
 
 .sidebar .dropdown-content a {
+    padding-left: 2em;
     width: 200px;
 }
 
