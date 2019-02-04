@@ -115,7 +115,6 @@ class UserTransactionController extends Controller
     }
 
     public function fieldquesadd(Request $request) {
-        //dd($request); //Debug
         $subject = $request->subjectSel;
         $field = $request->fieldSel;
         $quesType = $request->quesType;
@@ -149,7 +148,7 @@ class UserTransactionController extends Controller
     }
 
     protected function addQuestion($param, $numer, $currentQuestion) {
-        if ($param[3] == 1 || $param[3] == 2) {
+        if ($param[3] == 1 || $param[3] == 2 || $param[3] == 3) {
             $num = $numer+1;
                 $question = [
                     'question' => $param[0],
@@ -172,7 +171,7 @@ class UserTransactionController extends Controller
         $ans = $param[1];
         $corrAns = $param[2];
 
-        if ($param[3] == 1 || $param[3] == 2) {
+        if ($param[3] == 1 || $param[3] == 2 || $param[3] == 3) {
             $quest = [
                 1 => [
                     'question' => $question,

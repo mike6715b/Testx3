@@ -97,7 +97,9 @@
                   $('#addRemoveAnses').show();
                   $('#generic_submit').show();
               } else if (selectedType === "3") {
-                  alert('comming soon! :P');
+                  $('#ques').empty().show().append("<label for=\"ans\" id=\"form_label\">Odgovor: </label><input type=\"text\" name=\"ans\" id=\"ans\" required><br>");
+                  $('#addRemoveAnses').hide();
+                  $('#generic_submit').show();
               }
            });
 
