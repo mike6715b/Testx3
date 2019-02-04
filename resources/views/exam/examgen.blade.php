@@ -15,6 +15,10 @@
                                 @include('exam.examgen.checkbox')
                                 @break
 
+                            @case(2)
+                                @include('exam.examgen.radio')
+                                @break
+
                             @default
                                 <h2>Greska! Molim prijavite administratoru</h2>
                         @endswitch

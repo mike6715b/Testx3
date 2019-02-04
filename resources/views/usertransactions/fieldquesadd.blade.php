@@ -27,8 +27,8 @@
                 <label for="quesType" id="form_label">Tip pitanja: </label><br>
                 <select name="quesType" id="quesType">
                     <option value="0"></option>
-                    <option value="1">Odabir odgovora</option>
-                    <option value="2">Visetruki odgovor</option>
+                    <option value="1">Visestruki odgovor</option>
+                    <option value="2">Odabir odgovora</option>
                     <option value="3">Upis odgovora</option>
                 </select>
                 <div id="question" style="display: none;">
@@ -92,14 +92,23 @@
                   $('#ques').empty().show().append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"0\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
                   $('#addRemoveAnses').show();
                   $('#generic_submit').show();
-              } else if (selectedType === "2" || selectedType === "3") {
-                  alert('comming soon');
+              } else if (selectedType === "2") {
+                  $('#ques').empty().show().append("<input type=\"radio\" name=\"tocanOdg[]\" value=\"0\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+                  $('#addRemoveAnses').show();
+                  $('#generic_submit').show();
+              } else if (selectedType === "3") {
+                  alert('comming soon! :P');
               }
            });
 
            $('#btnPlus').click(function () {
+               var selectedType = $("#quesType").val();
                var numbs = $('#ques > input').length/2;
-               $('#ques').append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+               if (selectedType === "1") {
+                   $('#ques').append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+               } else if (selectedType === "2") {
+                   $('#ques').append("<input type=\"radio\" name=\"tocanOdg[]\" value=\"" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+               }
            });
 
            $('#btnMinus').click(function () {
