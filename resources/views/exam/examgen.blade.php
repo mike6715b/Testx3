@@ -10,9 +10,14 @@
                 <tr>
                     <td>
                         <p>{{ $Queskey+1 }}. {{ $question['question'] }}</p>
-                        @foreach($question["ans"] as $key => $value)
-                            <p><input type="checkbox" name="{{ $Queskey }}[]" value="{{ $key }}">{{ $value }}</p>
-                        @endforeach
+                        @switch($question['type'])
+                            @case(1)
+                                @include('exam.examgen.checkbox')
+                                @break
+
+                            @default
+                                <h2>Greska! Molim prijavite administratoru</h2>
+                        @endswitch
                     </td>
                 </tr>
             @endforeach
