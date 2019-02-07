@@ -19,6 +19,10 @@
                                 @include('exam.examgen.radio')
                                 @break
 
+                            @case(3)
+                                @include('exam.examgen.inputtext')
+                                @break
+
                             @default
                                 <h2>Greska! Molim prijavite administratoru</h2>
                         @endswitch

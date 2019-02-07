@@ -9,18 +9,26 @@
             <tr>
                 <td>
                     <p>{{ $quesKey+1 }}. {{ $question['question'] }} Rezultat: {{$questionScores[$quesKey] * 100}}%</p>
-                @foreach($question['ans'] as $ansKey => $ans)
-                    @if(in_array($ansKey, $question['correct']) && in_array($ansKey, $anses[$quesKey]))
-                        <p class="correct-ans">{{ $ans }}
-                    @elseif(in_array($ansKey, $question['correct']) && !in_array($ansKey, $anses[$quesKey]))
-                        <p class="incorrect-ans">{{ $ans }}
-                    @elseif(in_array($ansKey, $anses[$quesKey]) && !in_array($ansKey, $question['correct']))
-                        <p class="incorrect-ans">{{ $ans }}
-                    @else
-                        <p class="neutral-ans">{{ $ans }}
+                    @if($question['type'] == 3)
+                        @if($questionScores[$quesKey] == 1)
+                            <p class="correct-ans">{{ $anses[$quesKey][0] }}</p>
+                        @else
+                            <p class="incorrect-ans">{{ $anses[$quesKey][0] }}</p>
+                        @endif
+                        @continue
                     @endif
-                        </p>
-                @endforeach
+                    @foreach($question['ans'] as $ansKey => $ans)
+                        @if(in_array($ansKey, $question['correct']) && in_array($ansKey, $anses[$quesKey]))
+                            <p class="correct-ans">{{ $ans }}
+                        @elseif(in_array($ansKey, $question['correct']) && !in_array($ansKey, $anses[$quesKey]))
+                            <p class="incorrect-ans">{{ $ans }}
+                        @elseif(in_array($ansKey, $anses[$quesKey]) && !in_array($ansKey, $question['correct']))
+                            <p class="incorrect-ans">{{ $ans }}
+                        @else
+                            <p class="neutral-ans">{{ $ans }}
+                        @endif
+                            </p>
+                    @endforeach
                 </td>
             </tr>
         @endforeach

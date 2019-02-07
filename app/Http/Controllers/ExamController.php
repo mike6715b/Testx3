@@ -107,7 +107,6 @@ class ExamController extends Controller
      *
      */
     public function examcheck(Request $request) {
-        //dd($request);
         $result = $this->CheckAns($request);
         $score = $result[0] / $result[1];
         $anses = $request->all();
@@ -189,6 +188,7 @@ class ExamController extends Controller
     protected function CheckAns($request, $score = 0, $key = 0) {
         $questions = json_decode($request->session()->get('ques'));
         $scoresQuestions = array();
+        $score = 0;
         for ($i = 0; $i < count($questions); $i++) {
             $questionScore = 0;
             if (!$request->$i) { // Provjeravamo dali je korisnik dao odgovor na pitanje
@@ -196,15 +196,23 @@ class ExamController extends Controller
             }
             $userAns = $request->$i; // Odgovori korisnika
             $questionCorrect = $questions[$i]->correct; // Tocni odgovori na pitanje
-            foreach ($userAns as $ans) {
-                if (in_array($ans, $questionCorrect)) {
+            if  ($questions[$i]->type  == 3) {
+                if  (strcasecmp($userAns[0], $questions[$i]->ans) == 0) {
                     $questionScore++;
-                } else {
-                    $questionScore--;
+                    $score++;
                 }
+            } else {
+                foreach ($userAns as $ans) {
+                    if (in_array($ans, $questionCorrect)) {
+                        $questionScore++;
+                    } else {
+                        $questionScore--;
+                    }
+                }
+                $questionScore = $questionScore / count($questionCorrect);
+                $score += $questionScore;
             }
-            $questionScore = $questionScore / count($questionCorrect);
-            $score += $questionScore;
+
             array_push($scoresQuestions, $questionScore);
         }
         $quesCount = count($questions);
