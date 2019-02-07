@@ -16,11 +16,6 @@ Route::group(['middleware' => 'web'], function () {
         return view('home');
     });
 
-
-    Route::get('register', function() {
-        return 'nema stranice jos heheehe';
-    });
-
 //LOGIN/LOGOUT
     Route::post('login', [
         'as' => 'login',
@@ -161,9 +156,4 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('ajaxGetClasses', [
         'uses' => 'UserTransactionController@ajaxGetClasses'
     ]);
-});
-
-
-Route::get('/db', function () {
-   echo "Null!";
 });
