@@ -13,9 +13,8 @@
         <table id="list_table">
             <thead>
                 <tr>
-                    <th align="center">ID</th>
-                    <th align="right">Naziv</th>
-                    <th align="right">Prikaz Pitanja</th>
+                    <th align="center">Naziv</th>
+                    <th align="center">Prikaz Pitanja</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -40,7 +39,8 @@
                       cache: false,
                       success: function(data) {
                           $.each(data, function(key, value) {
-                              $('#tbody').append('<tr><td>' + value + '<td><td>' + key + '</td>>' +
+                              $('#tbody').append('<tr>' +
+                                  '<td>' + key + '</td>' +
                                   '<td><a href="../showques?id=' + value + '">Prikaz pitanja</a></td></tr>\n');
                           });
                       }

@@ -29,7 +29,7 @@
                                             </select>
                                     </td>
                                     <td><a href="./deac?id={{ $test->test_id }}">Deaktiviraj</a></td>
-                                    <td><a href="./deltest?id={{ $test->test_id }}">Obrisi</a></td>
+                                    <td><a href="./deltest?id={{ $test->test_id }}" class="confirmation">Obrisi</a></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -65,7 +65,7 @@
                                                 </select>
                                         </td>
                                         <td><a href="./act?id={{ $test->test_id }}">Aktiviraj</a></td>
-                                        <td><a href="./deltest?id={{ $test->test_id }}">Obrisi</a></td>
+                                        <td><a href="./deltest?id={{ $test->test_id }}" class="confirmation">Obrisi</a></td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -141,6 +141,10 @@
                     });
                 }
             });
+
+            $(".confirmation").on('click', function () {
+                return confirm("Jeste li sigurni da želite obrisati test?");
+            })
 
 
         });
