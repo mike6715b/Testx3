@@ -7,10 +7,10 @@
                             <thead>
                             <th>Naziv</th>
                             <th>Tip</th>
-                            <th>Razred</th>
+                            <th>Razredi</th>
                             </thead>
                             <tbody>
-                            @foreach($active as $test)
+                            @foreach($active as $key => $test)
                                 <tr>
                                     <td>{{ $test->test_title }}</td>
                                     <td>
@@ -21,12 +21,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <?php $classes = json_decode($test->test_class) ?>
-                                            <select name="" id="">
-                                        @foreach($classes as $class)
-                                                <option value="">{{ \App\Classes::where('class_id', $class)->first()->class_name }}</option>
-                                        @endforeach
-                                            </select>
+                                        <select>
+                                            @foreach($activeClasses[$key] as $class)
+                                                <option>{{ $class }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <td><a href="./deac?id={{ $test->test_id }}">Deaktiviraj</a></td>
                                     <td><a href="./deltest?id={{ $test->test_id }}" class="confirmation">Obrisi</a></td>
@@ -46,7 +45,7 @@
                                     <td colspan="4">Nema neaktivnih provjera znanja</td>
                                 </tr>
                             @else
-                                @foreach($inactive as $test)
+                                @foreach($inactive as $key => $test)
                                     <tr>
                                         <td>{{ $test->test_title }}</td>
                                         <td>
@@ -57,12 +56,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <?php $classes = json_decode($test->test_class) ?>
-                                                <select name="" id="">
-                                            @foreach($classes as $class)
-                                                <option>{{ \App\Classes::where('class_id', $class)->first()->class_name }}</option>
-                                            @endforeach
-                                                </select>
+                                            <select name="" id="">
+                                                @foreach($inactiveClasses[$key] as $class)
+                                                    <option>{{ $class }}</option>
+                                                @endforeach
+                                            </select>
                                         </td>
                                         <td><a href="./act?id={{ $test->test_id }}">Aktiviraj</a></td>
                                         <td><a href="./deltest?id={{ $test->test_id }}" class="confirmation">Obrisi</a></td>

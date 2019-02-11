@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes;
 use App\Field;
 use App\Question;
 use App\Subject;
 use App\Test;
+use App\TestClass;
 use App\TestDone;
 use App\User;
 use Illuminate\Http\Request;
@@ -44,8 +46,31 @@ class PagesController extends Controller
             return redirect()->route('mainmenu');
         }
         $active = Test::where('status', '=', '1')->get();
+        $activeClasses = $this->getClasses($active);
         $inactive = Test::where('status', '!=', '1')->get();
-        return view('exam.manage')->with('active', $active)->with('inactive', $inactive);
+        $inactiveClasses = $this->getClasses($inactive);
+        return view('exam.manage')
+            ->with('active', $active)
+            ->with('inactive', $inactive)
+            ->with('activeClasses', $activeClasses)
+            ->with('inactiveClasses', $inactiveClasses);
+    }
+
+    protected function getClasses($tests) {
+        $return = array();
+        foreach ($tests as $key => $test) {
+            $classes = array();
+            $ClassesForTest = TestClass::where('test_id', '=', $test->test_id)->get();
+            foreach ($ClassesForTest as $class) {
+                $classData = Classes::where('class_id', $class->class_id)->get();
+                array_push($classes, $classData[0]->class_name);
+            }
+
+            $return = [
+                $key => $classes
+            ];
+        }
+        return $return;
     }
 
     public function examlist() {

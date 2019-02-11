@@ -7,6 +7,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\TestClass;
 use App\TestDone;
 use Illuminate\Http\Request;
 use App\Question;
@@ -26,7 +27,6 @@ class ExamController extends Controller
     public function examcreate(Request $request) {
         // Dohvacamo sve sto je korisnik upisao
         $title = $request->title;
-        $class = json_encode($request->class);
         $subject = $request->subject;
         $field = $request->field;
         $type = $request->type;
@@ -34,14 +34,23 @@ class ExamController extends Controller
         // Dohvacamo pitanja koja je korisnik odabrao
         $question = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->pluck('ques_id');
 
-        // Unosimo novi test u bazu
+        //Unosimo test
         $exam = new Test;
         $exam->test_title = $title;
-        $exam->test_class = $class;
         $exam->test_ques = $question[0];
         $exam->test_type = $type;
         $exam->status = 1;
         $exam->save();  //Spremanje
+
+        $exam_id = $exam->test_id;
+
+        // Unosimo novi test u bazu
+        foreach ($request->class as $class) {
+            $exam = new TestClass;
+            $exam->test_id = $exam_id;
+            $exam->class_id = $class;
+            $exam->save();  //Spremanje
+        }
 
         return redirect()->route('mainmenu.exam');  //Preusmjeravanje na */mainmenu/exam
     }
