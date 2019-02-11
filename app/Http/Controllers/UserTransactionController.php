@@ -121,6 +121,7 @@ class UserTransactionController extends Controller
         $quest = $request->question;
         $answer = $request->ans;
         $corrAns = $request->tocanOdg;
+        $multi = $request->multi;
 
         $param = [
             0 => $quest,
@@ -132,19 +133,20 @@ class UserTransactionController extends Controller
         $quesInTable = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->get();
         if (count($quesInTable) == 0) {
             $question = $this->newQuestion($param);
-
             $this->saveQuestion($subject, $field, $question);
-            return redirect()->route('mainmenu');
         } else {
             $quesInTableID = Question::where('ques_subj_id', '=', $subject)->where('ques_field_id', '=', $field)->pluck('ques_id');
             $quesCurrDecoded = json_decode($quesInTable[0]->ques_questions, TRUE);
             $question = $this->addQuestion($param, count($quesCurrDecoded), $quesCurrDecoded);
-            $questionID = $quesInTableID[0];
-
-            $this->saveQuestion($subject, $field, $question, $questionID);
-            return redirect()->route('mainmenu');
+            $this->saveQuestion($subject, $field, $question, $quesInTableID[0]);
         }
 
+        if ($multi == 1) {
+            return view('usertransactions.fieldquesadd')->with('retData', [$subject, $field]);
+            //return redirect()->route('mainmenu.fieldquesadd')->with('retData', [$subject, $field]);
+        } else {
+            return redirect()->route('mainmenu');
+        }
     }
 
     protected function addQuestion($param, $numer, $currentQuestion) {
