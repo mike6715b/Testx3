@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1 id="h1_form_title">Unos predmeta</h1>
+    <h1 id="h1_form_title">Unos razreda</h1>
     <form method="POST" id="subjadd" action="{{ action('UserTransactionController@subjadd') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 
