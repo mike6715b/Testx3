@@ -8,17 +8,17 @@
             <div class="home-column">
                 <img src="{{ asset('img/click-finger.png') }}" alt="Brzo i jednostavno">
                 <h2 align="center">Brzo i jednostavno</h2>
-                <p align="center">Brzo i jednostavno postaljvanje uz samo par klikova i spremni se da pravite nove provjere znanja za vase ucenike!</p>
+                <p align="center">Brzo i jednostavno postaljvanje uz samo par klikova i spremni se da pravite nove provjere znanja za vaše učenike!</p>
             </div>
             <div class="home-column">
                 <img src="{{ asset('img/cloud.png') }}" alt="Oblak">
                 <h2 align="center">Sve u oblaku</h2>
-                <p align="center">Sve je u oblaku, pa mozete od kuce, iz skole, sa mora ili iz inozemstva pristupiti i uciti kroz testove.</p>
+                <p align="center">Sve je u oblaku, pa možete od kuće, iz škole, sa mora ili iz inozemstva pristupiti i učiti kroz online provjere znanja.</p>
             </div>
             <div class="home-column">
                 <img src="{{ asset('img/progress-icon-21.jpg') }}" alt="Pratite napredak">
-                <h2 align="center">Pratite napredak ucenika</h2>
-                <p align="center">Pratite kako vasi ucenici napreduju kroz zadatke koje im zadajete kroz samoprovjere ili ocjenite njihovo znanje sa provjerama znanja.</p>
+                <h2 align="center">Pratite napredak učenika</h2>
+                <p align="center">Pratite kako vaši učenici napreduju kroz zadatke koje im zadajete kroz samoprovjere ili ocjenite njihovo znanje sa provjerama znanja.</p>
             </div>
         </div>
 

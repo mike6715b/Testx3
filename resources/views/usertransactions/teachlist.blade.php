@@ -8,7 +8,7 @@
         <tr>
             <th>Ime</th>
             <th>Mail</th>
-            <th>Korisnicko ime</th>
+            <th>Korisničko ime</th>
         </tr>
         </thead>
         <tbody>

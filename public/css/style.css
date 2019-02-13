@@ -79,7 +79,9 @@ container {
     border: none;
 }
 
-#list_table tbody tr:nth-child(odd), #active-test tbody tr:nth-child(odd) {
+#list_table tbody tr:nth-child(odd),
+#active-test tbody tr:nth-child(odd),
+#inactive-test tbody tr:nth-child(even) {
     background-color: #c4c4c4;
 }
 
@@ -106,6 +108,15 @@ div#tests_self, div#test_exam {
     width: 45%;
     margin: auto;
     display: inline-block;
+}
+
+@media screen and (max-width: 800px) {
+    div#tests_self, div#test_exam {
+        width: 100%;
+    }
+    div#test_exam h1, div#tests_self {
+        text-align: center;
+    }
 }
 
 div#test_exam {
@@ -392,3 +403,4 @@ form#fieldquesadd div#enterQues div#ques input[type=text] {
 .correct-ans {
     background-color: rgba(70, 175, 44, 0.57);
 }
+

@@ -175,6 +175,7 @@ class ExamController extends Controller
     public function deleteTest(Request $request) {
         Test::destroy($request->id);
         TestDone::where('test_id', '=', $request->id)->delete();
+        TestClass::where('test_id', $request->id)->delete();
         return redirect()->route('mainmenu.exam');
     }
 

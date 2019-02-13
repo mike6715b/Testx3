@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use phpDocumentor\Reflection\Types\Array_;
 
 class PagesController extends Controller
 {
@@ -46,9 +47,18 @@ class PagesController extends Controller
             return redirect()->route('mainmenu');
         }
         $active = Test::where('status', '=', '1')->get();
-        $activeClasses = $this->getClasses($active);
+        if (empty($active)) {
+            $activeClasses = array();
+        } else {
+            $activeClasses = $this->getClasses($active);
+        }
         $inactive = Test::where('status', '!=', '1')->get();
-        $inactiveClasses = $this->getClasses($inactive);
+        if (empty($inactive)) {
+            $inactiveClasses = array();
+        } else {
+            $inactiveClasses = $this->getClasses($inactive);
+        }
+        //dd($active);
         return view('exam.manage')
             ->with('active', $active)
             ->with('inactive', $inactive)
@@ -62,13 +72,10 @@ class PagesController extends Controller
             $classes = array();
             $ClassesForTest = TestClass::where('test_id', '=', $test->test_id)->get();
             foreach ($ClassesForTest as $class) {
-                $classData = Classes::where('class_id', $class->class_id)->get();
-                array_push($classes, $classData[0]->class_name);
+                $classData = Classes::where('class_id', $class->class_id)->first();
+                array_push($classes, $classData->class_name);
             }
-
-            $return = [
-                $key => $classes
-            ];
+            array_push($return, $classes);
         }
         return $return;
     }

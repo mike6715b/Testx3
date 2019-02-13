@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="studadd">
-        <h1 id="h1_form_title">Dodavanje ucenika</h1>
+        <h1 id="h1_form_title">Dodavanje učenika</h1>
         <form method="POST" action="{{ action("UserTransactionController@studadd") }}" name="studadd" id="studadd">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 
             <label for="name" id="form_label">Ime Prezime: </label>
             <input type="text" name="name" id="generic_input" required>
 
-            <label for="uid" id="form_label">Korisnicko ime: </label>
+            <label for="uid" id="form_label">Korisničko ime: </label>
             <input type="text" name="uid" id="generic_input" required>
 
             <label for="email" id="form_label">Email: </label>
@@ -29,7 +29,7 @@
             </select>
 
             <input type="checkbox" name="multi" id="multi">
-            <label for="multi" id="form_label">Visestruki unos?</label><br>
+            <label for="multi" id="form_label">Viseštruki unos?</label><br>
 
         </form>
         <button id="generic_submit">Unesi</button>

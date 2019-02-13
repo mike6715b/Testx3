@@ -10,27 +10,33 @@
                             <th>Razredi</th>
                             </thead>
                             <tbody>
-                            @foreach($active as $key => $test)
+                            @if($active->count() == 0)
                                 <tr>
-                                    <td>{{ $test->test_title }}</td>
-                                    <td>
-                                        @if($test->test_type == 2)
-                                            Samoprovjera
-                                        @else
-                                            Provjera znanja
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <select>
-                                            @foreach($activeClasses[$key] as $class)
-                                                <option>{{ $class }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td><a href="./deac?id={{ $test->test_id }}">Deaktiviraj</a></td>
-                                    <td><a href="./deltest?id={{ $test->test_id }}" class="confirmation">Obrisi</a></td>
+                                    <td colspan="3">Nema aktivnih provjera</td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach($active as $key => $test)
+                                    <tr>
+                                        <td>{{ $test->test_title }}</td>
+                                        <td>
+                                            @if($test->test_type == 2)
+                                                Samoprovjera
+                                            @else
+                                                Provjera znanja
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <select>
+                                                @foreach($activeClasses[$key] as $class)
+                                                    <option>{{ $class }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td><a href="./deac?id={{ $test->test_id }}">Deaktiviraj</a></td>
+                                        <td><a href="./deltest?id={{ $test->test_id }}" class="confirmation">Obrisi</a></td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     <table id="inactive-test">
@@ -42,7 +48,7 @@
                             <tbody>
                             @if($inactive->count() == 0)
                                 <tr>
-                                    <td colspan="4">Nema neaktivnih provjera znanja</td>
+                                    <td colspan="3">Nema neaktivnih provjera znanja</td>
                                 </tr>
                             @else
                                 @foreach($inactive as $key => $test)

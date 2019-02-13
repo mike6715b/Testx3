@@ -2,14 +2,14 @@
 
 @section('content')
 
-        <h1 id="h1_form_title">Unesi profesora</h1>
+        <h1 id="h1_form_title">Dodavanje profesora</h1>
         <form method="POST" action="{{ action('UserTransactionController@teachadd') }}" id="teachAdd" >
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 
             <label for="name" id="form_label">Ime Prezime: </label>
             <input type="text" name="name" id="generic_input" required>
 
-            <label for="uid" id="form_label">Username: </label>
+            <label for="uid" id="form_label">Korisničko ime: </label>
             <input type="text" name="uid" id="generic_input" required>
 
             <label for="email" id="form_label">Email: </label>

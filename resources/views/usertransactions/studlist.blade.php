@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <h1 id="h1_form_title">Popis ucenika</h1>
+    <h1 id="h1_form_title">Popis učenika</h1>
     <table id="list_table">
         <thead>
         <tr>
             <th>Ime</th>
             <th>Mail</th>
-            <th>Korisnicko ime</th>
+            <th>Korisničko ime</th>
             <th>Razred</th>
         </tr>
         </thead>
