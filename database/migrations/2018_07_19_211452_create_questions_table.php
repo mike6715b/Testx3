@@ -17,9 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->increments('ques_id');
             $table->integer('ques_subj_id');
             $table->integer('ques_field_id');
-            $table->integer('ques_type');
             $table->longText('ques_questions');
-            $table->boolean('status');
             $table->timestamps();
         });
     }
