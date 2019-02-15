@@ -8,7 +8,7 @@
         @foreach($questions as $quesKey => $question)
             <tr>
                 <td>
-                    <p>{{ $quesKey+1 }}. {{ $question['question'] }} Rezultat: {{$questionScores[$quesKey] * 100}}%</p>
+                    <p>{{ $quesKey+1 }}. {{ $question['question'] }}</p>
                     @if($question['type'] == 3)
                         @if($questionScores[$quesKey] == 1)
                             <p class="correct-ans">{{ $anses[$quesKey][0] }}</p>
