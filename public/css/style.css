@@ -355,6 +355,10 @@ form#fieldquesadd div#selFieldSubj select {
     border-radius: 20px;
 }
 
+form#fieldquesadd div#enterQues p#quesNum {
+    font-family: "Comic Sans MS";
+}
+
 form#fieldquesadd div#enterQues select#quesType,
     form#fieldquesadd div#enterQues div#question input[type=text],
     form#fieldquesadd div#enterQues div#quesType1 {

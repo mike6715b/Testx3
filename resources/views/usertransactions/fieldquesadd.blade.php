@@ -94,8 +94,25 @@
                   });
               }
            });
+           // ajaxGetTestCount
 
            $('#conf1').click(function () {
+               var field = $('#fieldSel').val();
+               var dataString = "?field=" + field;
+               console.log("dataString = " + dataString);
+               $.ajax({
+                   type: "GET",
+                   url: "{{ action('UserTransactionController@ajaxGetTestCount') }}" + dataString,
+                   dataType: 'html',
+                   cache: false,
+                   success: function(html) {
+                       if (html > 0) {
+                           $('#quesNum').append(html);
+                       } else {
+                           $('#quesNum').append(1);
+                       }
+                   }
+               });
               var subjValLen = $('#subjectSel').val();
               var fieldValLen = $('#fieldSel').val();
               if (subjValLen != null && fieldValLen != null) {

@@ -203,24 +203,19 @@ class UserTransactionController extends Controller
 
     public function ajaxGetFields(Request $request) {
         $subj = $request->subj;
-
         $res = DB::table('fields')->where('field_subj_id', $subj)->pluck('field_id', 'field_name');
         return json_encode($res);
-
     }
-/*
-    public function ajaxGetClasses(Request $request) {
-        $subj = $request->subj;
 
-        if (Auth::user()->user_class == 'admin') {
-            $req = Classes::all();
-            return $req;
-        } else {
-            $req = DB::table('class_subject')->where('subject_id', '=', $subj)->pluck('class_id');
-            foreach($req as $class) {
-
-            }
+    public function ajaxGetTestCount(Request $request) {
+        $field = $request->field;
+        $return = Question::where('ques_field_id', $field)->first();
+        if ($return == null) {
+            echo 1;
+            exit;
         }
+        $return = json_decode($return->ques_questions, true);
+        echo count($return)+1;
     }
-*/
+
 }
