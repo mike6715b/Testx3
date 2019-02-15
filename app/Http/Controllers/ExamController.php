@@ -70,6 +70,15 @@ class ExamController extends Controller
     public function examgen(Request $request) {
         session_unset(); //Unset potential old session data
         $test = Test::where('test_id', '=', $request->id)->first(); //Dohvati test koji je korisnik zatrazio
+        if ($test->test_type == 1) {
+            $testDone = new TestDone;
+            $testDone->test_id = $test->test_id;
+            $testDone->test_user_id = Auth::user()->user_id;
+            $testDone->test_grade = 0;
+            $testDone->test_anses = 0;
+            $testDone->test_complete = 0;
+            $testDone->save();
+        }
         $questionRow = Question::where('ques_id', '=', $test->test_ques)->first(); //Dohvati pitanja koja odgovaraju tom testu
         $questions = json_decode($questionRow->ques_questions, TRUE); //decode json-a
         shuffle($questions); // RANDOMIZING QUESTIONS
@@ -133,14 +142,17 @@ class ExamController extends Controller
             } else {
                 $grade = 5;
             }
-            $testDone = new TestDone();
-            $testDone->test_id = $request->session()->get('test_id');
-            $testDone->test_user_id = Auth::user()->user_id;
-            $testDone->test_grade = $grade;
-            $testDone->test_anses = json_encode($anses);
             date_default_timezone_set('CET');
-            $testDone->test_complete = date('d/m/Y h:i:s');
-            $testDone->save();
+            $testDone = TestDone::where('test_id', $request->session()->get('test_id'))
+                ->update([
+                    'test_grade' => $grade,
+                    'test_anses' => json_encode($anses),
+                    'test_complete' => date('d/m/Y h:i:s')
+                ]);
+            //$testDone->test_grade = $grade;
+            //$testDone->test_anses = json_encode($anses);
+            //$testDone->test_complete = date('d/m/Y h:i:s');
+            //$testDone->save();
             $questions = $request->session()->get('ques');
             $questions = json_decode($questions, TRUE);
             return view('exam.examresult')
