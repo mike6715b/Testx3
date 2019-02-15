@@ -82,8 +82,8 @@ class PagesController extends Controller
 
     public function examlist() {
         if ($this->isUserAdmin() || $this->isUserTeacher()) {
-            $self = Test::where('test_type', '1')->where('status', 1)->get();
-            $exam = Test::where('test_type', '2')->where('status', 1)->get();
+            $self = Test::where('test_type', '2')->where('status', 1)->get();
+            $exam = Test::where('test_type', '1')->where('status', 1)->get();
             return view('exam.examlist')->with('self', $self)->with('exam', $exam);
         }
 
@@ -100,6 +100,9 @@ class PagesController extends Controller
             return null;
         }
         foreach ($tests as $TestKey => $test) {
+            if ($test->test_type == 1 && !empty(TestDone::where('test_id', $test->test_id)->first())) {
+                continue;
+            }
             $testClasses = TestClass::where('test_id', $test->test_id)->get();
             foreach ($testClasses as $Classkey => $classes) {
                 if ($classes->class_id == Auth::user()->user_class) {
