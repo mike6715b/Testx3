@@ -218,17 +218,19 @@ class ExamController extends Controller
             }
             $userAns = $request->$i; // Odgovori korisnika
             $questionCorrect = $questions[$i]->correct; // Tocni odgovori na pitanje
-            if  ($questions[$i]->type  == 3) {
+            if  ($questions[$i]->type  == 3) { //Ako je pitanje tipa unosa pitanja
                 if  (strcasecmp($userAns[0], $questions[$i]->ans) == 0) {
                     $questionScore++;
                     $score++;
                 }
-            } else {
+            } else { //Ostali tipovi pitanja
                 foreach ($userAns as $ans) {
                     if (in_array($ans, $questionCorrect)) {
                         $questionScore++;
                     } else {
-                        $questionScore--;
+                        if ($questionScore > 0) {
+                            $questionScore--;
+                        }
                     }
                 }
                 $questionScore = $questionScore / count($questionCorrect);
