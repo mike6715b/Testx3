@@ -81,66 +81,33 @@ class PagesController extends Controller
     }
 
     public function examlist() {
-        $self = $this->getSelfTest();
-        $exam = $this->getExamTest();
+        if ($this->isUserAdmin() || $this->isUserTeacher()) {
+            $self = Test::where('test_type', '1')->where('status', 1)->get();
+            $exam = Test::where('test_type', '2')->where('status', 1)->get();
+            return view('exam.examlist')->with('self', $self)->with('exam', $exam);
+        }
+
+        $self = $this->getTests(2);
+        $exam = $this->getTests(1);
 
         return view('exam.examlist')->with('self', $self)->with('exam', $exam);
     }
 
-    protected function getExamTest() {
-        $skips = ["[","]","\""];
-        $tests = Test::where('test_type', '=', '1')->where('status', '=', 1)->get();
-        if (count($tests) != 0) {
-            $i = 1;
-            $res = [];
-            do {
-                //Check
-                $resul = TestDone::where('test_user_id', '=', Auth::user()->user_id)
-                    ->where('test_id', '=', $tests[$i-1]->test_id)->get();
-                if (count($resul) != 0) {
-                    $i++;
-                    continue;
+    protected function getTests($test_type) {
+        $return = array();
+        $tests = Test::where('test_type', '=', $test_type)->where('status', '=', 1)->get();
+        if  (empty($tests)) {
+            return null;
+        }
+        foreach ($tests as $TestKey => $test) {
+            $testClasses = TestClass::where('test_id', $test->test_id)->get();
+            foreach ($testClasses as $Classkey => $classes) {
+                if ($classes->class_id == Auth::user()->user_class) {
+                    array_push($return, $test);
                 }
-
-                $subj = \App\Subject::where('subj_id', '=', \App\Question::where('ques_id', '=', $tests[$i-1]->test_ques)->pluck('ques_subj_id'))->pluck('subj_name');
-                $subj = str_replace($skips, ' ', $subj);
-                $array = [
-                    "1" => $tests[$i-1]->test_title,
-                    "2" => $subj,
-                    "3" => $tests[$i-1]->updated_at,
-                    "4" => $tests[$i-1]->test_id,
-                ];
-                array_push($res, $array);
-                $i++;
-            } while (count($tests) > 1 && $i-1 < count($tests));
-            return $res;
-        } else {
-            return null;
+            }
         }
-    }
-
-    protected function getSelfTest() {
-        $skips = ["[","]","\""];
-        $tests = Test::where('test_type', '=', '2')->where('status', '=', 1)->get();
-        if (count($tests) != 0) {
-            $i = 1;
-            $res = [];
-            do {
-                $subj = \App\Subject::where('subj_id', '=', \App\Question::where('ques_id', '=', $tests[$i-1]->test_ques)->pluck('ques_subj_id'))->pluck('subj_name');
-                $subj = str_replace($skips, ' ', $subj);
-                $array = [
-                    "1" => $tests[$i-1]->test_title,
-                    "2" => $subj,
-                    "3" => $tests[$i-1]->updated_at,
-                    "4" => $tests[$i-1]->test_id,
-                ];
-                array_push($res, $array);
-                $i++;
-            } while (count($tests) > 1 && $i-1 < count($tests));
-            return $res;
-        } else {
-            return null;
-        }
+        return $return;
     }
 
     public function examresult() {

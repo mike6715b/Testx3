@@ -15,10 +15,10 @@
             @if(!empty($self))
                 @foreach($self as $testS)
                     <tr>
-                        <td>{{ $testS[1] }}</td>
-                        <td>{{ $testS[2] }}</td>
-                        <td>{{ $testS[3] }}</td>
-                        <td><a href="/examgen?id={{ $testS[4] }}">Pisanje</a> </td>
+                        <td>{{ $testS->test_title }}</td>
+                        <td>{{ \App\Subject::where('subj_id', \App\Question::where('ques_id', $testS->test_ques)->first()->ques_subj_id)->first()->subj_name }}</td>
+                        <td>{{ $testS->updated_at }}</td>
+                        <td><a href="/examgen?id={{ $testS->test_id }}">Pisanje</a> </td>
                     </tr>
                 @endforeach
             @else
@@ -42,10 +42,10 @@
             @if(!empty($exam))
                 @foreach($exam as $testE)
                     <tr>
-                        <td>{{ $testE[1] }}</td>
-                        <td>{{ $testE[2] }}</td>
-                        <td>{{ $testE[3] }}</td>
-                        <td><a href="/examgen?id={{ $testE[4] }}">Pisanje</a></td>
+                        <td>{{ $testE->test_title }}</td>
+                        <td>{{ \App\Subject::where('subj_id', \App\Question::where('ques_id', $testE->test_ques)->first()->ques_subj_id)->first()->subj_name }}</td>
+                        <td>{{ $testE->updated_at }}</td>
+                        <td><a href="/examgen?id={{ $testE->test_id }}">Pisanje</a></td>
                     </tr>
                 @endforeach
             @else
