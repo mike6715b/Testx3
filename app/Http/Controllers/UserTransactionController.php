@@ -27,7 +27,7 @@ class UserTransactionController extends Controller
             $mul = true;
             return redirect()->route('mainmenu.classadd')->with($mul);
         } else {
-            return $classes->all();
+            return redirect()->route('mainmenu');
         }
     }
 
