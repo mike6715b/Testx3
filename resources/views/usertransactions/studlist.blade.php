@@ -18,7 +18,7 @@
                 <td>{{ $user->user_name }}</td>
                 <td>{{ $user->user_email }}</td>
                 <td>{{ $user->user_uid }}</td>
-                <td>{{ App\Classes::where('class_id', $user->user_class)->pluck('class_name') }}</td>
+                <td>{{ App\Classes::where('class_id', $user->user_class)->value('class_name') }}</td>
             </tr>
         @endforeach
         </tbody>
