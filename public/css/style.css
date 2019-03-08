@@ -398,13 +398,44 @@ form#fieldquesadd div#enterQues div#ques input[type=text] {
     border-radius: 20px;
 }
 
+/* ---- Examgen ---- */
+
+#exam table tbody tr td p:first-of-type {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    background-color: rgba(90, 98, 104, 0.3);
+    border: 0px solid transparent;
+    border-radius: 20px;
+}
+
+#exam table tbody tr td p:not(:first-of-type) {
+    margin-left: 2em;
+}
+
+
 /* ---- Examcheck ---- */
+
+table#examcheck tbody tr td p:first-child {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    background-color: rgba(90, 98, 104, 0.3);
+    border: 0px solid transparent;
+    border-radius: 20px;
+}
 
 .incorrect-ans {
     background-color: rgba(175, 44, 44, 0.57);
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 0px solid transparent;
+    border-radius: 20px;
 }
 
 .correct-ans {
     background-color: rgba(70, 175, 44, 0.57);
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 0px solid transparent;
+    border-radius: 20px;
 }
 

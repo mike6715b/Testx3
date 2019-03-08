@@ -18,7 +18,10 @@
                         @continue
                     @endif
                     @foreach($question['ans'] as $ansKey => $ans)
-                        @if(in_array($ansKey, $question['correct']) && in_array($ansKey, $anses[$quesKey]))
+                        @if(empty($anses[$quesKey]))
+                            <p class="incorrect-ans">Niste unjeli odgovor!</p>
+                            @break
+                        @elseif(in_array($ansKey, $question['correct']) && in_array($ansKey, $anses[$quesKey]))
                             <p class="correct-ans">{{ $ans }}
                         @elseif(in_array($ansKey, $question['correct']) && !in_array($ansKey, $anses[$quesKey]))
                             <p class="incorrect-ans">{{ $ans }}
