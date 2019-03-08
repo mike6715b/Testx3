@@ -37,6 +37,7 @@
                       dataType: 'JSON',
                       cache: false,
                       success: function(data) {
+                          $('#tbody').empty();
                           $.each(data, function(key, value) {
                               $('#tbody').append('<tr>' +
                                   '<td>' + key + '</td></tr>');
