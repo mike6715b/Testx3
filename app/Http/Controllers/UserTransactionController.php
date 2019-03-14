@@ -7,6 +7,7 @@ use App\Field;
 use App\Subject;
 use App\Classes;
 use App\Question;
+use App\ClassPerm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -22,6 +23,21 @@ class UserTransactionController extends Controller
         $classes = new Classes;
         $classes->class_name = $name;
         $classes->save();
+
+        $classPerm = new ClassPerm;
+        $classPerm->user_id = $request->user;
+        $classPerm->class_id = $classes->id;
+        $classPerm->list_student = 1;
+        $classPerm->add_student = 1;
+        $classPerm->remove_student = 1;
+        $classPerm->edit_student = 1;
+        $classPerm->read_student_info = 1;
+        $classPerm->assign_self_exam = 1;
+        $classPerm->assign_exam = 1;
+        $classPerm->list_grade = 1;
+        $classPerm->save();
+
+        info('New class added!', ['id' => $classes->id, 'name' => $name,]);
 
         if (isset($request->multi)) {
             $mul = true;
@@ -67,6 +83,9 @@ class UserTransactionController extends Controller
 
     public function teachadd(Request $request)
     {
+        if (Auth::user()->user_class != 'admin') {
+            return back();
+        }
         $name = $request->name;
         $uid = $request->uid;
         $email = $request->email;
@@ -88,10 +107,8 @@ class UserTransactionController extends Controller
     }
 
     public function subjadd(Request $request) {
-        $name = $request->name;
-
         $subject = new Subject;
-        $subject->subj_name = $name;
+        $subject->subj_name = $request->name;
         $subject->subj_author = Auth::user()->user_uid;
         $subject->save();
 
@@ -216,6 +233,24 @@ class UserTransactionController extends Controller
         }
         $return = json_decode($return->ques_questions, true);
         echo count($return)+1;
+    }
+
+    public function ajaxGetStudents(Request $request) {
+        $classes = \App\User::getClassesForUser();
+        $users = \App\User::where('user_class', $request->class)->get();
+        $students = collect();
+        foreach ($users as $key => $user) {
+            $student = collect([
+                $key => [
+                    'user_name' => $user->user_name,
+                    'user_email' => $user->user_email,
+                    'user_uid' => $user->user_uid,
+                    'user_class' => Classes::where('class_id', $user->user_class)->value('class_name')
+                ]
+            ]);
+            $students->put($key, $student[$key]);
+        }
+        return json_encode($students);
     }
 
 }
