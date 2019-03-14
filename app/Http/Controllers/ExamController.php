@@ -143,16 +143,12 @@ class ExamController extends Controller
                 $grade = 5;
             }
             date_default_timezone_set('CET');
-            $testDone = TestDone::where('test_id', $request->session()->get('test_id'))
+            TestDone::where('test_id', $request->session()->get('test_id'))
                 ->update([
                     'test_grade' => $grade,
                     'test_anses' => json_encode($anses),
                     'test_complete' => date('d/m/Y h:i:s')
                 ]);
-            //$testDone->test_grade = $grade;
-            //$testDone->test_anses = json_encode($anses);
-            //$testDone->test_complete = date('d/m/Y h:i:s');
-            //$testDone->save();
             $questions = $request->session()->get('ques');
             $questions = json_decode($questions, TRUE);
             return view('exam.examresult')

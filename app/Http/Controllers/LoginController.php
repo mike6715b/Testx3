@@ -16,25 +16,15 @@ class LoginController extends Controller
 
         //Auth::loginUsingId('1');
 
-
         if (Auth::check()) {
+            info('User sucessfully logged in!', ['uid' => Auth::user()->user_uid]);
             return redirect()->route('mainmenu');
         } else {
             $errors = "Incorrect login data!";
+            info('User loggin attempt failed!', ['uid' => Auth::user()->user_uid]);
             return view('login')->with($errors);
         }
     }
-
-    /*public function loginOld(Request $request) {
-        session([
-            'user_id' => '1',
-            'user_name' => 'Bruno Rehak',
-            'user_uid' => 'bruno.rehak',
-            'user_email' => 'bruno.rehak@gmail.com',
-            'user_class' => 'admin',
-        ]);
-        return redirect()->route('mainmenu');
-    }*/
 
     public function logout() {
         Auth::logout();
