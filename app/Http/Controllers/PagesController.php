@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes;
+use App\ClassPerm;
 use App\Field;
 use App\Question;
 use App\Subject;
@@ -37,7 +38,6 @@ class PagesController extends Controller
     }
 
     public function mainmenu(Request $request) {
-        //dd(Auth::user());
         $user_class = Auth::user()->user_class;
         return view('mainmenu')->with($user_class);
     }
@@ -87,8 +87,8 @@ class PagesController extends Controller
             return view('exam.examlist')->with('self', $self)->with('exam', $exam);
         }
 
-        $self = $this->getTests(2);
         $exam = $this->getTests(1);
+        $self = $this->getTests(2);
 
         return view('exam.examlist')->with('self', $self)->with('exam', $exam);
     }
@@ -141,10 +141,11 @@ class PagesController extends Controller
     }
 
     public function studlist() {
-        if ($this->isUserTeacher() != true) {
+        if (!$this->isUserTeacher()) {
             return redirect()->route('mainmenu');
         }
-        return view('usertransactions.studlist');
+        $classes = User::getClassesForUser();
+        return view('usertransactions.studlist')->with('classes', $classes);
     }
 
     public function teachadd() {
