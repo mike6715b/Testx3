@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use App\ClassPerm;
+use App\SubjPerm;
 
 class User extends Authenticatable
 {
@@ -63,6 +65,23 @@ class User extends Authenticatable
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function scopegetClassesForUser() {
+        $classesQuery = ClassPerm::where('user_id', Auth::id())->get();
+        $class = collect();
+        foreach ($classesQuery as $key => $classV) {
+            if ($classV->list_student) {
+                $class->push($classesQuery[$key]->class_id);
+            }
+        }
+        return $class;
+    }
+
+    public function scopegetStudentsForClass($classID) {
+        if (ClassPerm::where('user_id', Auth::id())->where('class_id', $classID)->value('list_student')) {
+            dd('Success!');
         }
     }
 }
