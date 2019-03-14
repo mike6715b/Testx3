@@ -159,4 +159,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('ajaxGetTestCount', [
         'uses' => 'UserTransactionController@ajaxGetTestCount'
     ]);
+    Route::get('ajaxGetStudents', [
+        'uses' => 'UserTransactionController@ajaxGetStudents'
+    ]);
 });
