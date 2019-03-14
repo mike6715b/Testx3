@@ -2,12 +2,17 @@
 
 @section('content')
 
-    <h1 id="h1_form_title">Unos razreda</h1>
+    <h1 id="h1_form_title">Unos predmeta</h1>
     <form method="POST" id="subjadd" action="{{ action('UserTransactionController@subjadd') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 
         <label for="name" id="form_label">Naziv: </label>
         <input type="text" name="name" id="generic_input" required>
+
+        <select name="class" id="generic_input">
+            <option value="0">Odaberite razred</option>
+
+        </select>
 
         <label for="gradiva" id="form_label">Odmah na unos gradiva?</label>
         <input type="checkbox" name="gradiva" id="form_label"><br>
