@@ -236,8 +236,11 @@ class UserTransactionController extends Controller
     }
 
     public function ajaxGetStudents(Request $request) {
-        $classes = \App\User::getClassesForUser();
-        $users = \App\User::where('user_class', $request->class)->get();
+        $classes = User::getClassesForUser();
+        if (!$classes->contains($request->class)) {
+            dd("Nedovoljna dopustenja!");
+        }
+        $users = User::where('user_class', $request->class)->get();
         $students = collect();
         foreach ($users as $key => $user) {
             $student = collect([

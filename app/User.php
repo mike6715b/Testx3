@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use App\ClassPerm;
 use App\SubjPerm;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
