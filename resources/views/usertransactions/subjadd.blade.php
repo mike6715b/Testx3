@@ -9,9 +9,12 @@
         <label for="name" id="form_label">Naziv: </label>
         <input type="text" name="name" id="generic_input" required>
 
+        <label for="class" id="form_label">Glavni nastavnik: </label>
         <select name="class" id="generic_input">
-            <option value="0">Odaberite razred</option>
-
+            <option value=""></option>
+            @foreach(\App\User::where('user_class', 'teacher')->get() as $value)
+                <option value="{{ $value->user_id }}">{{ $value->user_name }}</option>
+            @endforeach
         </select>
 
         <label for="gradiva" id="form_label">Odmah na unos gradiva?</label>

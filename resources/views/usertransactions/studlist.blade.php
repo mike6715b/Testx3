@@ -4,12 +4,14 @@
 
     <h1 id="h1_form_title">Popis učenika</h1>
     <label for=""></label>
-    <select name="class" id="generic_input">
-        <option value="0"></option>
-        @foreach($classes as $key => $class)
-            <option value="{{ $class }}">{{ \App\Classes::where('class_id', $class)->value('class_name') }}</option>
-        @endforeach
-    </select>
+    @if(empty($students))
+        <select name="class" id="generic_input">
+            <option value="0"></option>
+            @foreach($classes as $key => $class)
+                <option value="{{ $class }}">{{ \App\Classes::where('class_id', $class)->value('class_name') }}</option>
+            @endforeach
+        </select>
+    @endif
     <table id="list_table">
         <thead>
         <tr>
@@ -20,7 +22,16 @@
         </tr>
         </thead>
         <tbody id="list_table_body">
-
+            @if(!empty($students))
+                @foreach($students as $student)
+                    <tr>
+                        <td>{{ $student->user_name }}</td>
+                        <td>{{ $student->user_email }}</td>
+                        <td>{{ $student->user_uid }}</td>
+                        <td>{{ \App\Classes::where('class_id', $student->user_class)->value('class_name') }}</td>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 

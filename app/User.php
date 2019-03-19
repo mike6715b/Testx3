@@ -80,6 +80,11 @@ class User extends Authenticatable
         return $class;
     }
 
+    public function scopecanClasses($action) {
+        $classQUery = ClassPerm::where('user_id', Auth::id())->first()->value($action);
+        return $classQUery;
+    }
+
     public function scopegetStudentsForClass($classID) {
         if (ClassPerm::where('user_id', Auth::id())->where('class_id', $classID)->value('list_student')) {
             dd('Success!');

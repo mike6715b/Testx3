@@ -46,19 +46,8 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        $active = Test::where('status', '=', '1')->get();
-        if (empty($active)) {
-            $activeClasses = array();
-        } else {
-            $activeClasses = $this->getClasses($active);
-        }
-        $inactive = Test::where('status', '!=', '1')->get();
-        if (empty($inactive)) {
-            $inactiveClasses = array();
-        } else {
-            $inactiveClasses = $this->getClasses($inactive);
-        }
-        //dd($active);
+        $tests = Test::all();
+        dd($tests);
         return view('exam.manage')
             ->with('active', $active)
             ->with('inactive', $inactive)
@@ -144,8 +133,13 @@ class PagesController extends Controller
         if (!$this->isUserTeacher()) {
             return redirect()->route('mainmenu');
         }
-        $classes = User::getClassesForUser();
-        return view('usertransactions.studlist')->with('classes', $classes);
+        if ($this->isUserAdmin()) {
+            $students = User::where('user_class', '!=', 'teacher')->where('user_class', '!=', 'admin')->get();
+            return view('usertransactions.studlist')->with('students', $students);
+        } else {
+            $classes = User::getClassesForUser();
+            return view('usertransactions.studlist')->with('classes', $classes);
+        }
     }
 
     public function teachadd() {
@@ -163,7 +157,7 @@ class PagesController extends Controller
     }
 
     public function subjadd() {
-        if ($this->isUserTeacher() != true) {
+        if ($this->isUserAdmin() != true) {
             return redirect()->route('mainmenu');
         }
         return view('usertransactions.subjadd');
