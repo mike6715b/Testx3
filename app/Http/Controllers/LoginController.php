@@ -17,11 +17,11 @@ class LoginController extends Controller
         //Auth::loginUsingId('1');
 
         if (Auth::check()) {
-            info('User sucessfully logged in!', ['uid' => Auth::user()->user_uid]);
+            info('User sucessfully logged in!', ['uid' => Auth::user()]);
             return redirect()->route('mainmenu');
         } else {
             $errors = "Incorrect login data!";
-            info('User loggin attempt failed!', ['uid' => Auth::user()->user_uid]);
+            info('User loggin attempt failed!', ['uid' => Auth::user()]);
             return view('login')->with($errors);
         }
     }
