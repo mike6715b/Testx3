@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SubjPerm;
 use App\User;
 use App\Field;
 use App\Subject;
@@ -111,6 +112,14 @@ class UserTransactionController extends Controller
         $subject->subj_name = $request->name;
         $subject->subj_author = Auth::user()->user_uid;
         $subject->save();
+        $subjectPerm = new SubjPerm;
+        $subjectPerm->user_id = $request->teacher;
+        $subjectPerm->subj_id = $subject->id;
+        $subjectPerm->list_subj = 1;
+        $subjectPerm->add_field = 1;
+        $subjectPerm->add_question = 1;
+        $subjectPerm->make_exam = 1;
+        $subjectPerm->save();
 
         if (isset($request->gradiva)) {
             return redirect()->route('mainmenu.fieldadd');
