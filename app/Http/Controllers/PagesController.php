@@ -7,6 +7,7 @@ use App\ClassPerm;
 use App\Field;
 use App\Question;
 use App\Subject;
+use App\SubjPerm;
 use App\Test;
 use App\TestClass;
 use App\TestDone;
@@ -46,20 +47,73 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        $tests = Test::all();
-        dd($tests);
+        $subjectsForUser = User::getSubjectsForUser();
+        $activeExams = $this->getActiveExams($subjectsForUser);
+        $inactiveExams = $this->getInactiveExams($subjectsForUser);
+        //dump($inactiveExams);
+        //dd($inactiveExams[0]->isEmpty());
+        if ($activeExams != null || $activeExams[0]->isEmpty() != true) {
+            $activeClasses = $this->getClasses($activeExams);
+        } else {
+            $activeClasses = null;
+        }
+        if ($inactiveExams != null || $inactiveExams[0]->isEmpty() != true) {
+            $inactiveClasses = $this->getClasses($inactiveExams);
+        } else {
+            $inactiveClasses = null;
+        }
+        //dd($activeExams);
+        dump('User can only use a field in 1 test!');
         return view('exam.manage')
-            ->with('active', $active)
-            ->with('inactive', $inactive)
+            ->with('active', $activeExams[0])
+            ->with('inactive', $inactiveExams[0])
             ->with('activeClasses', $activeClasses)
             ->with('inactiveClasses', $inactiveClasses);
+    }
+
+    protected function getInactiveExams($subjectsForUser) {
+        if ($this->isUserAdmin()) {
+            $inactiveExams = collect();
+            $tests = Test::where('status', 0)->get();
+            foreach ($tests as $test) {
+                $inactiveExams->push($test);
+            }
+        } else {
+            $inactiveExams = collect();
+            foreach($subjectsForUser as $key => $subjectForUser) {
+                $questions = Question::where('ques_subj_id', $subjectForUser['subj_id'])->get();
+                foreach ($questions as $keyQ => $question) {
+                    $inactiveExams->push(Test::where('test_ques', $question->ques_id)->where('status', 0)->get());
+                }
+            }
+        }
+        return $inactiveExams;
+    }
+
+    protected function getActiveExams($subjectsForUser) {
+        if ($this->isUserAdmin()) {
+            $activeExams = collect();
+            $activeExams->push(Test::where('status', 1)->get());
+        } else {
+            $activeExams = collect();
+            foreach($subjectsForUser as $key => $subjectForUser) {
+                $questions = Question::where('ques_subj_id', $subjectForUser['subj_id'])->get();
+                foreach ($questions as $keyQ => $question) {
+                    $activeExams->push(Test::where('test_ques', $question->ques_id)->where('status', 1)->get());
+                }
+            }
+        }
+        return $activeExams;
     }
 
     protected function getClasses($tests) {
         $return = array();
         foreach ($tests as $key => $test) {
+            if ($test->isEmpty()) {
+                continue;
+            }
             $classes = array();
-            $ClassesForTest = TestClass::where('test_id', '=', $test->test_id)->get();
+            $ClassesForTest = TestClass::where('test_id', $test[0]->test_id)->get();
             foreach ($ClassesForTest as $class) {
                 $classData = Classes::where('class_id', $class->class_id)->first();
                 array_push($classes, $classData->class_name);

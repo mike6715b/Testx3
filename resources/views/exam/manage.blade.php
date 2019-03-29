@@ -9,9 +9,9 @@
         <th>Razredi</th>
         </thead>
         <tbody>
-        @if($active->count() == 0)
+        @if(empty($active))
             <tr>
-                <td colspan="3">Nema aktivnih provjera</td>
+                <td colspan="6">Nema aktivnih provjera</td>
             </tr>
         @else
             @foreach($active as $key => $test)
@@ -45,9 +45,9 @@
         <th>Razred</th>
         </thead>
         <tbody>
-        @if($inactive->count() == 0)
+        @if(empty($inactive))
             <tr>
-                <td colspan="3">Nema neaktivnih provjera znanja</td>
+                <td colspan="6">Nema neaktivnih ispita</td>
             </tr>
         @else
             @foreach($inactive as $key => $test)

@@ -90,4 +90,12 @@ class User extends Authenticatable
             dd('Success!');
         }
     }
+
+    public function scopegetSubjectsForUser() {
+        $query = SubjPerm::where('user_id', Auth::id())->get();
+        $subset = $query->map(function ($user) {
+            return $user->only(['user_id', 'subj_id', 'list_subj', 'add_field', 'add_question', 'make_exam']);
+        });
+        return $subset;
+    }
 }
