@@ -32,9 +32,7 @@
             <div class="dropdown-content">
                 @if(Auth::user()->user_class == 'admin')
                     <a href="{{ route('mainmenu.studadd') }}">&raquo;Dodaj ucenika</a>
-                @endif
-                <a href="{{ route('mainmenu.studlist') }}">&raquo;Popis ucenika</a>
-                @if(Auth::user()->user_class == "admin")
+                    <a href="{{ route('mainmenu.studlist') }}">&raquo;Popis ucenika</a>
                     <a href="{{ route('mainmenu.classadd') }}">&raquo;Dodaj razred</a>
                 @endif
                 <a href="{{ route('mainmenu.classlist') }}">&raquo;Popis razreda</a>
