@@ -255,7 +255,18 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        return view('usertransactions.fieldquesadd');
+        $subjectsForUser = User::getSubjectsForUser();
+        $subjects = [];
+        foreach ($subjectsForUser as $subject) {
+            if (!$subject['add_question']) {
+                continue;
+            }
+            $subj = Subject::where('subj_id', $subject['subj_id'])->value('subj_name');
+            $subjects = [
+                $subject['subj_id'] => $subj,
+            ];
+        }
+        return view('usertransactions.fieldquesadd')->with('subjects', $subjects);
     }
 
     public function fieldlist() {

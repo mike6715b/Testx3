@@ -11,8 +11,8 @@
                     <label for="subjectSel" id="form_label">Predmet: </label>
                     <select name="subjectSel" id="subjectSel">
                         <option value="0"></option>
-                        @foreach(App\Subject::all() as $subject)
-                            <option value="{{ $subject->subj_id }}">{{ $subject->subj_name }}</option>
+                        @foreach($subjects as $key => $subject)
+                            <option value="{{ $key }}">{{ $subject }}</option>
                         @endforeach
                     </select>
                     <label for="fieldSel" id="form_label">Gradivo: </label>
