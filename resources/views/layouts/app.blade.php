@@ -36,7 +36,9 @@
                 <a href="{{ route('mainmenu.studlist') }}">&raquo;Popis ucenika</a>
                 @if(Auth::user()->user_class == "admin")
                     <a href="{{ route('mainmenu.classadd') }}">&raquo;Dodaj razred</a>
-                    <a href="{{ route('mainmenu.classlist') }}">&raquo;Popis razreda</a>
+                @endif
+                <a href="{{ route('mainmenu.classlist') }}">&raquo;Popis razreda</a>
+                @if(Auth::user()->user_class == "admin")
                     <a href="{{ route('mainmenu.teachadd') }}">&raquo;Dodaj profesora</a>
                     <a href="{{ route('mainmenu.teachlist') }}">&raquo;Popis profesora</a>
                 @endif
