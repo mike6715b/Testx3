@@ -6,8 +6,8 @@
         <label for="subjectSel" id="form_label">Predmet: </label>
         <select name="subjectSel" id="generic_input" style="width: auto">
             <option value="0"></option>
-            @foreach(App\Subject::all() as $subject)
-                <option value="{{ $subject->subj_id }}">{{ $subject->subj_name }}</option>
+            @foreach($subjects as $key => $subject)
+                <option value="{{ $key }}">{{ $subject }}</option>
             @endforeach
         </select>
         <table id="list_table">
