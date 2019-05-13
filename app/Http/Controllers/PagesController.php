@@ -237,17 +237,7 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        $subjectsForUser = User::getSubjectsForUser();
-        $subjects = [];
-        foreach ($subjectsForUser as $subject) {
-            if (!$subject['add_field']) {
-                continue;
-            }
-            $subj = Subject::where('subj_id', $subject['subj_id'])->value('subj_name');
-            $subjects = [
-                $subject['subj_id'] => $subj,
-            ];
-        }
+        $subjects = User::getSubjectWithPerm('add_field');
         return view('usertransactions.fieldadd')->with('subjects', $subjects);
     }
 
@@ -255,17 +245,7 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        $subjectsForUser = User::getSubjectsForUser();
-        $subjects = [];
-        foreach ($subjectsForUser as $subject) {
-            if (!$subject['add_question']) {
-                continue;
-            }
-            $subj = Subject::where('subj_id', $subject['subj_id'])->value('subj_name');
-            $subjects = [
-                $subject['subj_id'] => $subj,
-            ];
-        }
+        $subjects = User::getSubjectWithPerm('add_question');
         return view('usertransactions.fieldquesadd')->with('subjects', $subjects);
     }
 

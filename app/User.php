@@ -98,4 +98,19 @@ class User extends Authenticatable
         });
         return $subset;
     }
+
+    public static function getSubjectWithPerm($perm) {
+        $subjectsForUser = static::getSubjectsForUser();
+        $subjects = [];
+        foreach ($subjectsForUser as $subject) {
+            if (!$subject[$perm]) {
+                continue;
+            }
+            $subj = Subject::where('subj_id', $subject['subj_id'])->value('subj_name');
+            $subjects = [
+                $subject['subj_id'] => $subj,
+            ];
+        }
+        return $subjects;
+    }
 }
