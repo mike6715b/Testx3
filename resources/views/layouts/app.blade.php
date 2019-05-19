@@ -6,8 +6,16 @@
     <link rel="stylesheet" href="{{ asset('css/noty.css') }}">
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/noty.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/gtag.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140416731-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-140416731-1');
+    </script>
 
 </head>
 <body>
