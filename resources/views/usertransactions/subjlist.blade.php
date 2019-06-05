@@ -8,17 +8,28 @@
         <tr>
             <th>ID</th>
             <th>Naziv</th>
-            <th>Autor</th>
+            @if(Auth::user()->user_class == 'admin')
+                <th>Profesor</th>
+            @endif
         </tr>
         </thead>
         <tbody>
-        @foreach(App\Subject::where('subj_author', Auth::user()->user_uid)->get() as $subject)
-            <tr>
-                <td>{{ $subject->subj_id }}</td>
-                <td>{{ $subject->subj_name }}</td>
-                <td>{{ $subject->subj_author }}</td>
-            </tr>
-        @endforeach
+        @if(Auth::user()->user_class == 'admin')
+            @foreach(App\Subject::all() as $subject)
+                <tr>
+                    <td>{{ $subject->subj_id }}</td>
+                    <td>{{ $subject->subj_name }}</td>
+                    <td>{{ App\User::where('user_id', $subject->subj_author)->first()->value('user_name') }}</td>
+                </tr>
+            @endforeach
+        @else
+            @foreach(App\Subject::where('subj_author', Auth::user()->user_id)->get() as $subject)
+                <tr>
+                    <td>{{ $subject->subj_id }}</td>
+                    <td>{{ $subject->subj_name }}</td>
+                </tr>
+            @endforeach
+        @endif
         </tbody>
     </table>
 
