@@ -147,9 +147,11 @@
                var selectedType = $("#quesType").val();
                var numbs = $('#ques > input').length/2;
                if (selectedType === "1") {
-                   $('#ques').append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+                   $('#ques').append("<input type=\"checkbox\" name=\"tocanOdg[]\" value=\"" +
+                       numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
                } else if (selectedType === "2") {
-                   $('#ques').append("<input type=\"radio\" name=\"tocanOdg[]\" value=\"" + numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
+                   $('#ques').append("<input type=\"radio\" name=\"tocanOdg[]\" value=\"" +
+                       numbs + "\"><input type=\"text\" name=\"ans[]\" id=\"ans\" required><br>");
                }
            });
 
