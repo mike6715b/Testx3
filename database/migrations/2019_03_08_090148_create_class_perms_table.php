@@ -17,6 +17,7 @@ class CreateClassPermsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('class_id');
+            $table->boolean('list_class');
             $table->boolean('list_student');
             $table->boolean('add_student');
             $table->boolean('remove_student');
