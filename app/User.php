@@ -69,7 +69,7 @@ class User extends Authenticatable
         }
     }
 
-    public function scopegetClassesForUser() {
+    public static function getClassesForUserList() {
         $classesQuery = ClassPerm::where('user_id', Auth::id())->get();
         $class = collect();
         foreach ($classesQuery as $key => $classV) {
@@ -80,6 +80,24 @@ class User extends Authenticatable
         return $class;
     }
 
+    public static function getClassesForUser() {
+        $query = ClassPerm::where('user_id', Auth::id())->get();
+        $subset = $query->map(function ($user) {
+            return $user->only(['class_id', 'list_class', 'list_student', 'add_student', 'remove_student', 'edit_student',
+                'read_student_info', 'assign_self_exam', 'assign_exam', 'list_grade']);
+        });
+        return $subset;
+    }
+
+    public static function getPermsForClass($class) {
+        $query = ClassPerm::where('class_id', $class)->get();
+        $subset = $query->map(function ($user) {
+            return $user->only(['user_id', 'class_id', 'list_class', 'list_student', 'add_student', 'remove_student', 'edit_student',
+                'read_student_info', 'assign_self_exam', 'assign_exam', 'list_grade']);
+        });
+        return $subset;
+    }
+
     public function scopecanClasses($action) {
         $classQUery = ClassPerm::where('user_id', Auth::id())->first()->value($action);
         return $classQUery;
@@ -88,6 +106,44 @@ class User extends Authenticatable
     public function scopegetStudentsForClass($classID) {
         if (ClassPerm::where('user_id', Auth::id())->where('class_id', $classID)->value('list_student')) {
             dd('Success!');
+        }
+    }
+
+    public static function getClassesWithPerm($perm) {
+        $classesForUser = static::getClassesForUser();
+        $classes = [];
+        foreach ($classesForUser as $class) {
+            if (!$class[$perm]) {
+                continue;
+            }
+            $cla = Classes::where('class_id', $class['class_id'])->value('class_name');
+            $classes = [
+                $class['class_id'] => $cla,
+            ];
+        }
+        return $classes;
+    }
+
+    public static function canUserClass($class, $perm) {
+        $classPerms = ClassPerm::where('user_id', Auth::id())->where('class_id', $class)->first();
+        if ($classPerms[$perm]) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    //TODO
+    //Add new row to table for listing main teacher
+
+    public static function isTeacherMain($class) {
+        $classPerms = ClassPerm::where('user_id', Auth::id())->where('class_id', $class)->first();
+        if ($classPerms['list_class'] && $classPerms['list_student'] && $classPerms['add_student'] && $classPerms['remove_student']
+            && $classPerms['edit_student'] && $classPerms['read_student_info'] && $classPerms['assign_exam'] && $classPerms['list_grade']) {
+            return true;
+        } else {
+            return false;
         }
     }
 

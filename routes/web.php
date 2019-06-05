@@ -52,7 +52,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'uses' => 'ExamController@examgen'
     ]);
 
-//Add stud/teach
+//Add stud/teach - Manage
     Route::get('mainmenu/studadd', [
         'as' => 'mainmenu.studadd',
         'uses' => 'PagesController@studadd',
@@ -76,6 +76,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('mainmenu/teachlist', [
         'as' => 'mainmenu.teachlist',
         'uses' => 'PagesController@teachlist',
+    ]);
+    Route::get('mainmenu/manageclass', [
+        'as' => 'mainmenu.manageclass',
+        'uses' => 'PagesController@manageclass',
     ]);
 
 //Subject

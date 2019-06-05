@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <h1 id="h1_form_title">Popis razreda</h1>
     <div style="overflow-x: auto">
         <table id="list_table">
@@ -10,12 +9,20 @@
                 <th>Naziv</th>
             </thead>
             <tbody>
-            @foreach(App\Classes::all() as $class)
+            @if(empty($classes))
                 <tr>
-                    <td>{{ $class->class_id }}</td>
-                    <td>{{ $class->class_name }}</td>
+                    <td colspan="3">Nema razreda!</td>
                 </tr>
-            @endforeach
+            @else
+                @foreach($classes as $key => $class)
+                    <tr>
+                        <td>{{ $key }}</td>
+                        <td>{{ $class }}</td>
+                        @if(\App\User::canUserClass($key, 'list_student'))<td><a href="{{ action('PagesController@studlist', ['class_id' => $key]) }}" target="_blank">Popis Ucenika</a></td>@endif
+                        @if(\App\User::isTeacherMain($key))<td><a href="{{ action('PagesController@manageclass', ['class_id' => $key]) }}">Upravljaj</a></td>@endif
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>
