@@ -398,6 +398,23 @@ form#fieldquesadd div#enterQues div#ques input[type=text] {
     border-radius: 20px;
 }
 
+/* ---- Listquestion ---- */
+
+.listquestion p:first-of-type {
+    display: inline;
+    border: 2px solid #808080;
+    border-radius: 20px;
+    padding: 4px;
+}
+
+.listquestion p:not(:first-of-type) {
+    margin-left: 2em;
+}
+
+.listquestion {
+    margin-bottom: 3em;
+}
+
 /* ---- Examgen ---- */
 
 #exam table tbody tr td p:first-of-type {

@@ -101,8 +101,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'as' => 'mainmenu.fieldlist',
         'uses' => 'PagesController@fieldlist',
     ]);
-    Route::get('showques', [
-        'uses' => 'PagesController@showques'
+    Route::get('listquestion', [
+        'uses' => 'PagesController@listquestion'
     ]);
 
     Route::get('logout', [
