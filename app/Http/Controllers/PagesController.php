@@ -180,20 +180,21 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->rotue('mainmenu');
         }
-        return view('usertransactions.classlist');
+        $classes = User::getClassesWithPerm('list_class');
+        return view('usertransactions.classlist')->with('classes', $classes);
     }
 
-    public function studlist() {
+    public function manageclass(Request $request) {
+        $perms = User::getPermsForClass($request->class_id);
+        return view('usertransactions.manageclass')->with('perms', $perms);
+    }
+
+    public function studlist(Request $request) {
         if (!$this->isUserTeacher()) {
             return redirect()->route('mainmenu');
         }
-        if ($this->isUserAdmin()) {
-            $students = User::where('user_class', '!=', 'teacher')->where('user_class', '!=', 'admin')->get();
-            return view('usertransactions.studlist')->with('students', $students);
-        } else {
-            $classes = User::getClassesForUser();
-            return view('usertransactions.studlist')->with('classes', $classes);
-        }
+        $students = User::where('user_class', $request->class_id)->get();
+        return view('usertransactions.studlist')->with('students', $students);
     }
 
     public function teachadd() {
@@ -224,15 +225,6 @@ class PagesController extends Controller
         return view('usertransactions.subjlist');
     }
 
-    public function showques(Request $request) {
-        if ($this->isUserTeacher() != true) {
-            return redirect()->route('mainmenu');
-        }
-        $res = Question::where('ques_field_id', $request->id)->first();
-        $decoded = json_decode($res->ques_questions, TRUE);
-        return view('usertransactions.showques')->with('decoded', $decoded);
-    }
-
     public function fieldadd() {
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
@@ -255,5 +247,17 @@ class PagesController extends Controller
         }
         $subjects = User::getSubjectWithPerm('list_subj');
         return view('usertransactions.fieldlist')->with('subjects', $subjects);
+    }
+
+    public function listquestion(Request $request) {
+        if ($this->isUserTeacher() != true) {
+            return redirect()->route('mainmenu');
+        }
+        if(!array_key_exists($request->id, User::getSubjectWithPerm('list_subj'))) {
+            return redirect()->route('mainmenu');
+        }
+        $res = Question::where('ques_field_id', $request->id)->first();
+        $decoded = json_decode($res->ques_questions, TRUE);
+        return view('usertransactions.listquestion')->with('decoded', $decoded);
     }
 }
