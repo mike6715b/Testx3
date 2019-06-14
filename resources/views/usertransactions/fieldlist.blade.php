@@ -14,6 +14,7 @@
             <thead>
                 <tr>
                     <th align="center">Naziv</th>
+                    <th align="center">Opcije</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -40,8 +41,8 @@
                           $('#tbody').empty();
                           $.each(data, function(key, value) {
                               $('#tbody').append('<tr>' +
-                                  '<td>' + key + '</td></tr>');
-                              //'<td><a href="../showques?id=' + value + '">Prikaz pitanja</a></td></tr>\n'
+                                  '<td>' + key + '</td>' +
+                                  '<td><a href="../listquestion?id=' + value + '">Prikaz pitanja</a></td></tr>\n');
                           });
                       }
                   });
