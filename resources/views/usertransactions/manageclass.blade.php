@@ -13,7 +13,6 @@
                 <th>Uklanjanje</th>
                 <th>Izmjena</th>
                 <th>Podatci</th>
-                <th>Samoprovjere</th>
                 <th>Provjere</th>
                 <th>Ocjene</th>
             </tr>
