@@ -33,7 +33,6 @@ class UserTransactionController extends Controller
         $classPerm->remove_student = 1;
         $classPerm->edit_student = 1;
         $classPerm->read_student_info = 1;
-        $classPerm->assign_self_exam = 1;
         $classPerm->assign_exam = 1;
         $classPerm->list_grade = 1;
         $classPerm->save();

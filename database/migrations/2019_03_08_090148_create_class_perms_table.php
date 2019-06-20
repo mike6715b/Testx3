@@ -23,7 +23,6 @@ class CreateClassPermsTable extends Migration
             $table->boolean('remove_student');
             $table->boolean('edit_student');
             $table->boolean('read_student_info');
-            $table->boolean('assign_self_exam');
             $table->boolean('assign_exam');
             $table->boolean('list_grade');
             $table->timestamps();

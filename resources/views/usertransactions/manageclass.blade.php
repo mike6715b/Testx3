@@ -22,24 +22,14 @@
             @foreach($perms as $perm)
                 <tr>
                     <td>{{ \App\User::where('user_id', $perm['user_id'])->value('user_name') }}</td>
-                    <td>@if($perm['list_class'])<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['list_student'])<input type="checkbox" name="{{ $perm['class_id'] }}['list_student']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['add_student'])<input type="checkbox" name="{{ $perm['class_id'] }}['add_student']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['remove_student'])<input type="checkbox" name="{{ $perm['class_id'] }}['remove_student']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['edit_student'])<input type="checkbox" name="{{ $perm['class_id'] }}['edit_student']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['read_student_info'])<input type="checkbox" name="{{ $perm['class_id'] }}['read_student_info']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['assign_self_exam'])<input type="checkbox" name="{{ $perm['class_id'] }}['assign_self_exam']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['assign_exam'])<input type="checkbox" name="{{ $perm['class_id'] }}['assign_exam']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
-                    <td>@if($perm['list_grade'])<input type="checkbox" name="{{ $perm['class_id'] }}['list_grade']" checked>
-                        @else<input type="checkbox" name="{{ $perm['class_id'] }}['list_class']">@endif</td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['list_class']"@if($perm['list_class']) checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['list_student']" @if($perm['list_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['add_student']" @if($perm['add_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['remove_student']" @if($perm['remove_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['edit_student']" @if($perm['edit_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['read_student_info']" @if($perm['read_student_info'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['assign_exam']" @if($perm['assign_exam'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['list_grade']" @if($perm['list_grade'])checked @endif></td>
                 </tr>
             @endforeach
         </tbody>

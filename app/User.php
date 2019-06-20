@@ -84,7 +84,7 @@ class User extends Authenticatable
         $query = ClassPerm::where('user_id', Auth::id())->get();
         $subset = $query->map(function ($user) {
             return $user->only(['class_id', 'list_class', 'list_student', 'add_student', 'remove_student', 'edit_student',
-                'read_student_info', 'assign_self_exam', 'assign_exam', 'list_grade']);
+                'read_student_info', 'assign_exam', 'list_grade']);
         });
         return $subset;
     }
@@ -93,7 +93,7 @@ class User extends Authenticatable
         $query = ClassPerm::where('class_id', $class)->get();
         $subset = $query->map(function ($user) {
             return $user->only(['user_id', 'class_id', 'list_class', 'list_student', 'add_student', 'remove_student', 'edit_student',
-                'read_student_info', 'assign_self_exam', 'assign_exam', 'list_grade']);
+                'read_student_info', 'assign_exam', 'list_grade']);
         });
         return $subset;
     }
