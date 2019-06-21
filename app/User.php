@@ -134,13 +134,9 @@ class User extends Authenticatable
 
     }
 
-    //TODO
-    //Add new row to table for listing main teacher
-
     public static function isTeacherMain($class) {
-        $classPerms = ClassPerm::where('user_id', Auth::id())->where('class_id', $class)->first();
-        if ($classPerms['list_class'] && $classPerms['list_student'] && $classPerms['add_student'] && $classPerms['remove_student']
-            && $classPerms['edit_student'] && $classPerms['read_student_info'] && $classPerms['assign_exam'] && $classPerms['list_grade']) {
+        $classPerms = ClassPerm::where('user_id', Auth::id())->where('class_id', $class)->where('main_teacher', true)->firstOrFail();
+        if ($classPerms) {
             return true;
         } else {
             return false;
