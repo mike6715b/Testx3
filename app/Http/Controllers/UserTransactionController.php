@@ -28,6 +28,7 @@ class UserTransactionController extends Controller
         $classPerm = new ClassPerm;
         $classPerm->user_id = $request->user;
         $classPerm->class_id = $classes->id;
+        $classPerm->main_teacher = 1;
         $classPerm->list_student = 1;
         $classPerm->add_student = 1;
         $classPerm->remove_student = 1;
@@ -109,7 +110,7 @@ class UserTransactionController extends Controller
     public function subjadd(Request $request) {
         $subject = new Subject;
         $subject->subj_name = $request->name;
-        $subject->subj_author = Auth::user()->user_uid;
+        $subject->subj_author = $request->teacher;
         $subject->save();
         $subjectPerm = new SubjPerm;
         $subjectPerm->user_id = $request->teacher;
@@ -244,7 +245,7 @@ class UserTransactionController extends Controller
     }
 
     public function ajaxGetStudents(Request $request) {
-        $classes = User::getClassesForUser();
+        $classes = User::getClassesForUserList();
         if (!$classes->contains($request->class)) {
             dd("Nedovoljna dopustenja!");
         }
@@ -262,6 +263,10 @@ class UserTransactionController extends Controller
             $students->put($key, $student[$key]);
         }
         return json_encode($students);
+    }
+
+    public function ajaxUpdateClassPerm(Request $request) {
+        User::updateClassPerm($request->user_id, $request->class_id, $request->perm, $request->value);
     }
 
 }
