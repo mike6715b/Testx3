@@ -169,4 +169,16 @@ class User extends Authenticatable
         }
         return $subjects;
     }
+
+    public static function updateClassPerm($userID, $classID, $perm, $value) {
+        if ($value == "true") {
+            ClassPerm::where('user_id', $userID)
+                ->where("class_id", $classID)
+                ->update([$perm => 1]);
+        } else {
+            ClassPerm::where('user_id', $userID)
+                ->where("class_id", $classID)
+                ->update([$perm => 0]);
+        }
+    }
 }

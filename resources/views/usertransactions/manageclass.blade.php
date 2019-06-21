@@ -21,17 +21,51 @@
             @foreach($perms as $perm)
                 <tr>
                     <td>{{ \App\User::where('user_id', $perm['user_id'])->value('user_name') }}</td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['list_class']"@if($perm['list_class']) checked @endif></td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['list_student']" @if($perm['list_student'])checked @endif></td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['add_student']" @if($perm['add_student'])checked @endif></td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['remove_student']" @if($perm['remove_student'])checked @endif></td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['edit_student']" @if($perm['edit_student'])checked @endif></td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['read_student_info']" @if($perm['read_student_info'])checked @endif></td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['assign_exam']" @if($perm['assign_exam'])checked @endif></td>
-                    <td><input type="checkbox" name="{{ $perm['class_id'] }}['list_grade']" @if($perm['list_grade'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},list_class"@if($perm['list_class']) checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},list_student" @if($perm['list_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},add_student" @if($perm['add_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},remove_student" @if($perm['remove_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},edit_student" @if($perm['edit_student'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},read_student_info" @if($perm['read_student_info'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},assign_exam" @if($perm['assign_exam'])checked @endif></td>
+                    <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['class_id'] }},list_grade" @if($perm['list_grade'])checked @endif></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <script>
+        $('input[type=checkbox]').on('change', function () {
+            var attrName = $(this).attr('name');
+            var nameA = attrName.split(",");
+            let attrChecked = $(this).prop('checked');
+            $.ajax({
+                type: "GET",
+                url: "{{ action('UserTransactionController@ajaxUpdateClassPerm') }}",
+                data: { user_id: nameA[0], class_id: nameA[1], perm: nameA[2], value: attrChecked},
+                success: function() {
+                    new Noty({
+                        text: "Dopustenje " + nameA[2] + " za razred " + nameA[1] + " za korisnika " + nameA[0] + " je sada " + attrChecked,
+                        type: "success",
+                        layout: "topRight",
+                        theme: "relax",
+                        timeout: 3000,
+                        progressBar: true,
+                    }).show();
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    new Noty({
+                        text: "Dogodila se pogreska! \n" + thrownError,
+                        type: "error",
+                        layout: "topRight",
+                        theme: "relax",
+                        timeout: 3000,
+                        progressBar: true,
+                    }).show();
+                }
+            });
+        });
+        // ajaxGetTestCount
+    </script>
 
 @endsection
