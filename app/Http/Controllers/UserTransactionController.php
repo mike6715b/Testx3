@@ -115,6 +115,7 @@ class UserTransactionController extends Controller
         $subjectPerm = new SubjPerm;
         $subjectPerm->user_id = $request->teacher;
         $subjectPerm->subj_id = $subject->id;
+        $subjectPerm->subj_author = 1;
         $subjectPerm->list_subj = 1;
         $subjectPerm->add_field = 1;
         $subjectPerm->add_question = 1;
