@@ -266,8 +266,33 @@ class UserTransactionController extends Controller
         return json_encode($students);
     }
 
+    public function ajaxGetTeachers(Request $request) {
+        $res = User::where('user_class', 'teacher')->pluck('user_id', 'user_name');
+        return json_encode($res);
+    }
+
+    public function ajaxAddClassPerm(Request $request) {
+        $classPerm = new ClassPerm();
+        $classPerm->user_id = $request->teach_id;
+        $classPerm->class_id = $request->class_id;
+        $classPerm->main_teacher = 0;
+        $classPerm->list_class = 0;
+        $classPerm->list_student = 0;
+        $classPerm->add_student = 0;
+        $classPerm->remove_student = 0;
+        $classPerm->edit_student = 0;
+        $classPerm->read_student_info = 0;
+        $classPerm->assign_exam = 0;
+        $classPerm->list_grade = 0;
+        $classPerm->save();
+    }
+
     public function ajaxUpdateClassPerm(Request $request) {
         User::updateClassPerm($request->user_id, $request->class_id, $request->perm, $request->value);
+    }
+
+    public function ajaxDeleteClassPerm(Request $request) {
+        ClassPerm::where('user_id', $request->user_id)->where('class_id', $request->class_id)->delete();
     }
 
 }

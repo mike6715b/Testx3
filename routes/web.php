@@ -169,4 +169,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('ajaxUpdateClassPerm', [
         'uses' => 'UserTransactionController@ajaxUpdateClassPerm'
     ]);
+    Route::get('ajaxGetTeachers', [
+        'uses' => 'UserTransactionController@ajaxGetTeachers'
+    ]);
+    Route::get('ajaxAddClassPerm', [
+        'uses' => 'UserTransactionController@ajaxAddClassPerm'
+    ]);
+    Route::get('ajaxDeleteClassPerm', [
+        'uses' => 'UserTransactionController@ajaxDeleteClassPerm'
+    ]);
 });
