@@ -19,7 +19,9 @@ class CreateSubjPermsTable extends Migration
             $table->integer('subj_id');
             $table->boolean('list_subj');
             $table->boolean('add_field');
+            $table->boolean('remove_field');
             $table->boolean('add_question');
+            $table->boolean('remove_question');
             $table->boolean('make_exam');
             $table->timestamps();
         });
