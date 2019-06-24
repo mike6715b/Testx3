@@ -155,27 +155,27 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 //Ajax
     Route::get('ajaxGetFields', [
-        'uses' => 'UserTransactionController@ajaxGetFields'
+        'uses' => 'AjaxController@ajaxGetFields'
     ]);
     Route::get('ajaxGetClasses', [
-        'uses' => 'UserTransactionController@ajaxGetClasses'
+        'uses' => 'AjaxController@ajaxGetClasses'
     ]);
     Route::get('ajaxGetTestCount', [
-        'uses' => 'UserTransactionController@ajaxGetTestCount'
+        'uses' => 'AjaxController@ajaxGetTestCount'
     ]);
     Route::get('ajaxGetStudents', [
-        'uses' => 'UserTransactionController@ajaxGetStudents'
+        'uses' => 'AjaxController@ajaxGetStudents'
     ]);
     Route::get('ajaxUpdateClassPerm', [
-        'uses' => 'UserTransactionController@ajaxUpdateClassPerm'
+        'uses' => 'AjaxController@ajaxUpdateClassPerm'
     ]);
     Route::get('ajaxGetTeachers', [
-        'uses' => 'UserTransactionController@ajaxGetTeachers'
+        'uses' => 'AjaxController@ajaxGetTeachers'
     ]);
     Route::get('ajaxAddClassPerm', [
-        'uses' => 'UserTransactionController@ajaxAddClassPerm'
+        'uses' => 'AjaxController@ajaxAddClassPerm'
     ]);
     Route::get('ajaxDeleteClassPerm', [
-        'uses' => 'UserTransactionController@ajaxDeleteClassPerm'
+        'uses' => 'AjaxController@ajaxDeleteClassPerm'
     ]);
 });
