@@ -139,7 +139,7 @@ div#tests_self {
 
 .sidebar #logo {
     text-align: center;
-    padding-bottom: 5px;
+    padding-bottom: 0;
     color: black;
     font-size: 50px;
     font-family: "Comic Sans MS";
@@ -148,6 +148,11 @@ div#tests_self {
 
 .sidebar #logo sup span {
     color: #e8491d;
+}
+
+div.sidebar p#sidebar-username {
+    color: white;
+    padding: 16px;
 }
 
 .sidebar a, button.dropbtn_sweep-to-right {

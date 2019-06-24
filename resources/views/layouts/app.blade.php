@@ -22,6 +22,7 @@
 <div class="sidebar">
     <h1 id="logo">Testx<sup><span id="num">3</span></sup></h1>
     @if(\Illuminate\Support\Facades\Auth::check())
+        <p id="sidebar-username">{{ \Illuminate\Support\Facades\Auth::user()->user_name }}</p>
         <button class="dropbtn_sweep-to-right">Glavni izbornik</button>
         <div class="dropdown-content">
             <a href="{{ route('mainmenu') }}">&raquo;Naslovnica</a>
