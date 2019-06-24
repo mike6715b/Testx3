@@ -68,7 +68,7 @@
             let attrChecked = $(this).prop('checked');
             $.ajax({
                 type: "GET",
-                url: "{{ action('UserTransactionController@ajaxUpdateClassPerm') }}",
+                url: "{{ action('AjaxController@ajaxUpdateClassPerm') }}",
                 data: { user_id: nameA[0], class_id: nameA[1], perm: nameA[2], value: attrChecked},
                 success: function() {
                     new Noty({
@@ -99,7 +99,7 @@
             if(confirm("Jeste li sigurni da zelite obrisati dopustenja?")) {
                 $.ajax({
                     type: "GET",
-                    url: "{{ action('UserTransactionController@ajaxDeleteClassPerm') }}",
+                    url: "{{ action('AjaxController@ajaxDeleteClassPerm') }}",
                     data: { user_id: nameA[0], class_id: nameA[1] },
                     success: function () {
                         new Noty({
@@ -132,7 +132,7 @@
             $('tr[id=teachID]').show();
             $.ajax({
                 type: "GET",
-                url: "{{ action('UserTransactionController@ajaxGetTeachers') }}",
+                url: "{{ action('AjaxController@ajaxGetTeachers') }}",
                 dataType: "JSON",
                 success: function (data) {
                     $.each(data, function(key, value) {
@@ -147,7 +147,7 @@
             $.ajax({
                 type: "GET",
                 data: { teach_id: teachID, class_id: getUrlParameter('class_id') },
-                url: "{{ action('UserTransactionController@ajaxAddClassPerm') }}",
+                url: "{{ action('AjaxController@ajaxAddClassPerm') }}",
                 success: function () {
                     new Noty({
                         text: "Dodana su nova dopustenja za korisnika " + $("#selTeach option:selected").text(),

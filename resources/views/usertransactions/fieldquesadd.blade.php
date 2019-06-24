@@ -78,7 +78,7 @@
                console.log("dataString = " + dataString);
                $.ajax({
                    type: "GET",
-                   url: "{{ action('UserTransactionController@ajaxGetTestCount') }}" + dataString,
+                   url: "{{ action('AjaxController@ajaxGetTestCount') }}" + dataString,
                    dataType: 'html',
                    cache: false,
                    success: function(html) {
@@ -98,7 +98,7 @@
                   var dataString = "subj=" + selectedValue;
                   $.ajax({
                       type: "GET",
-                      url: "{{ action('UserTransactionController@ajaxGetFields') }}",
+                      url: "{{ action('AjaxController@ajaxGetFields') }}",
                       data: dataString,
                       dataType: "JSON",
                       cache: false,
@@ -118,7 +118,7 @@
                console.log("dataString = " + dataString);
                $.ajax({
                    type: "GET",
-                   url: "{{ action('UserTransactionController@ajaxGetTestCount') }}" + dataString,
+                   url: "{{ action('AjaxController@ajaxGetTestCount') }}" + dataString,
                    dataType: 'html',
                    cache: false,
                    success: function(html) {
