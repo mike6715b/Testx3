@@ -91,6 +91,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'as' => 'mainmenu.subjlist',
         'uses' => 'PagesController@subjlist',
     ]);
+    Route::get('managesubject', [
+        'uses' => 'PagesController@managesubject',
+    ]);
 
 //Fields
     Route::get('mainmenu/fieldadd', [
@@ -177,5 +180,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     ]);
     Route::get('ajaxDeleteClassPerm', [
         'uses' => 'AjaxController@ajaxDeleteClassPerm'
+    ]);
+    Route::get('ajaxUpdateSubjectPerm', [
+        'uses' => 'AjaxController@ajaxUpdateSubjectPerm'
+    ]);
+    Route::get('ajaxAddSubjectPerm', [
+        'uses' => 'AjaxController@ajaxAddSubjectPerm'
+    ]);
+    Route::get('ajaxDeleteSubjectPerm', [
+        'uses' => 'AjaxController@ajaxDeleteSubjectPerm'
     ]);
 });

@@ -19,7 +19,7 @@
                         <td>{{ $key }}</td>
                         <td>{{ $class }}</td>
                         @if(\App\User::canUserClass($key, 'list_student'))<td><a href="{{ action('PagesController@studlist', ['class_id' => $key]) }}" target="_blank">Popis Ucenika</a></td>@endif
-                        @if(\App\User::isTeacherMain($key))<td><a href="{{ action('PagesController@manageclass', ['class_id' => $key]) }}">Upravljaj</a></td>@endif
+                        @if(\App\User::isTeacherMainClass($key))<td><a href="{{ action('PagesController@manageclass', ['class_id' => $key]) }}">Upravljaj</a></td>@endif
                     </tr>
                 @endforeach
             @endif

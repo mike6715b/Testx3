@@ -117,9 +117,7 @@ class User extends Authenticatable
                 continue;
             }
             $cla = Classes::where('class_id', $class['class_id'])->value('class_name');
-            $classes = [
-                $class['class_id'] => $cla,
-            ];
+            $classes[$class['class_id']] = $cla;
         }
         return $classes;
     }
@@ -134,9 +132,18 @@ class User extends Authenticatable
 
     }
 
-    public static function isTeacherMain($class) {
-        $classPerms = ClassPerm::where('user_id', Auth::id())->where('class_id', $class)->where('main_teacher', true)->firstOrFail();
+    public static function isTeacherMainClass($class) {
+        $classPerms = ClassPerm::where('user_id', Auth::id())->where('class_id', $class)->where('main_teacher', true)->first();
         if ($classPerms) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isTeacherMainSubject($subj_id) {
+        $subjPerms = SubjPerm::where('user_id', Auth::id())->where('subj_id', $subj_id)->where('subj_author', true)->first();
+        if ($subjPerms) {
             return true;
         } else {
             return false;
@@ -159,9 +166,7 @@ class User extends Authenticatable
                 continue;
             }
             $subj = Subject::where('subj_id', $subject['subj_id'])->value('subj_name');
-            $subjects = [
-                $subject['subj_id'] => $subj,
-            ];
+            $subjects[$subject['subj_id']] = $subj;
         }
         return $subjects;
     }
@@ -174,6 +179,27 @@ class User extends Authenticatable
         } else {
             ClassPerm::where('user_id', $userID)
                 ->where("class_id", $classID)
+                ->update([$perm => 0]);
+        }
+    }
+
+    public static function getPermsForSubject($subj_id) {
+        $query = SubjPerm::where('subj_id', $subj_id)->get();
+        $subset = $query->map(function ($user) {
+            return $user->only(['user_id', 'subj_id', 'subj_author', 'list_subj', 'list_subj', 'add_field', 'remove_field',
+                'add_question', 'remove_question', 'make_exam']);
+        });
+        return $subset;
+    }
+
+    public static function updateSubjPerm($userID, $subjID, $perm, $value) {
+        if ($value == "true") {
+            SubjPerm::where('user_id', $userID)
+                ->where("subj_id", $subjID)
+                ->update([$perm => 1]);
+        } else {
+            SubjPerm::where('user_id', $userID)
+                ->where("subj_id", $subjID)
                 ->update([$perm => 0]);
         }
     }

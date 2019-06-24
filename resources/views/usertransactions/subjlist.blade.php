@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <h1 id="h1_form_title">Popis predmeta</h1>
     <table id="list_table">
         <thead>
@@ -23,10 +22,11 @@
                 </tr>
             @endforeach
         @else
-            @foreach(App\Subject::where('subj_author', Auth::user()->user_id)->get() as $subject)
+            @foreach($subjects as $key => $subject)
                 <tr>
-                    <td>{{ $subject->subj_id }}</td>
-                    <td>{{ $subject->subj_name }}</td>
+                    <td>{{ $key }}</td>
+                    <td>{{ $subject }}</td>
+                    @if(\App\User::isTeacherMainSubject($key))<td><a href="{{ action('PagesController@managesubject', ['subj_id' => $key]) }}">Upravljaj</a></td>@endif
                 </tr>
             @endforeach
         @endif

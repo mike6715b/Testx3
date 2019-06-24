@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SubjPerm;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\ClassPerm;
@@ -75,5 +76,27 @@ class AjaxController extends Controller
 
     public function ajaxDeleteClassPerm(Request $request) {
         ClassPerm::where('user_id', $request->user_id)->where('class_id', $request->class_id)->delete();
+    }
+
+    public function ajaxUpdateSubjectPerm(Request $request) {
+        User::updateSubjPerm($request->user_id, $request->subj_id, $request->perm, $request->value);
+    }
+
+    public function ajaxDeleteSubjectPerm(Request $request) {
+        SubjPerm::where('user_id', $request->user_id)->where('subj_id', $request->subj_id)->delete();
+    }
+
+    public function ajaxAddSubjectPerm(Request $request) {
+        $subjPerm = new SubjPerm();
+        $subjPerm->user_id = $request->teach_id;
+        $subjPerm->subj_id = $request->subj_id;
+        $subjPerm->subj_author = 0;
+        $subjPerm->list_subj = 0;
+        $subjPerm->add_field = 0;
+        $subjPerm->remove_field = 0;
+        $subjPerm->add_question = 0;
+        $subjPerm->remove_question = 0;
+        $subjPerm->make_exam = 0;
+        $subjPerm->save();
     }
 }

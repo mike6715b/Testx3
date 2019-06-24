@@ -222,7 +222,13 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        return view('usertransactions.subjlist');
+        $subjects = User::getSubjectWithPerm('list_subj');
+        return view('usertransactions.subjlist')->with('subjects', $subjects);
+    }
+
+    public function managesubject(Request $request) {
+        $perms = User::getPermsForSubject($request->subj_id);
+        return view('usertransactions.managesubject')->with('perms', $perms);
     }
 
     public function fieldadd() {
