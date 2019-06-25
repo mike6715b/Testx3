@@ -26,6 +26,28 @@
 
         $(document).ready(function () {
            console.log("Ready!");
+           if ($('#generic_input').val() != 0) {
+               var selectedVal = $('#generic_input').val();
+               console.log('Change!');
+               if (selectedVal !== 0) {
+                   var dataString = "subj=" + selectedVal;
+                   $.ajax({
+                       type: 'GET',
+                       url: '{{ action('AjaxController@ajaxGetFields') }}',
+                       data: dataString,
+                       dataType: 'JSON',
+                       cache: false,
+                       success: function(data) {
+                           $('#tbody').empty();
+                           $.each(data, function(key, value) {
+                               $('#tbody').append('<tr>' +
+                                   '<td>' + key + '</td>' +
+                                   '<td><a href="../listquestion?id=' + value + '">Prikaz pitanja</a></td></tr>\n');
+                           });
+                       }
+                   });
+               }
+           }
            $('#generic_input').on('change', function () {
               var selectedVal = $('#generic_input').val();
               console.log('Change!');
@@ -33,7 +55,7 @@
                   var dataString = "subj=" + selectedVal;
                   $.ajax({
                       type: 'GET',
-                      url: '{{ action('UserTransactionController@ajaxGetFields') }}',
+                      url: '{{ action('AjaxController@ajaxGetFields') }}',
                       data: dataString,
                       dataType: 'JSON',
                       cache: false,
