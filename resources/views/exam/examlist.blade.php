@@ -6,10 +6,10 @@
         <h1 id="h1_form_title">Samoprovjere</h1>
         <table name="tests_self" id="test_self">
             <thead>
-            <th>Naziv testa</th>
-            <th>Predmet</th>
-            <th>Gradivo</th>
-            <th>Datum aktivacije</th>
+                <th>Naziv testa</th>
+                <th>Predmet</th>
+                <th>Gradivo</th>
+                <th>Datum aktivacije</th>
             <th></th>
             </thead>
             <tbody id="tbody_self">

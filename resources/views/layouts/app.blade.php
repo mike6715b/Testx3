@@ -34,7 +34,9 @@
             @if(Auth::user()->user_class == 'teacher' || Auth::user()->user_class == "admin")
                 <a href="{{ route('mainmenu.exam') }}">&raquo;Stvaranje zadaca</a>
             @endif
-            <a href="{{ route('mainmenu.examlist') }}">&raquo;Dostupne zadace</a>
+            @if(Auth::user()->user_class != 'teacher' && Auth::user()->user_class != 'admin')
+                    <a href="{{ route('mainmenu.examlist') }}">&raquo;Dostupne zadace</a>
+            @endif
             <a href="{{ route('mainmenu.examresult') }}">&raquo;Provjera rezultata</a>
         </div>
         @if(Auth::user()->user_class == 'teacher' || Auth::user()->user_class == "admin")

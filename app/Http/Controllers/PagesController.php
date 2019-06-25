@@ -152,9 +152,24 @@ class PagesController extends Controller
     }
 
     public function examresult() {
-        $data = TestDone::where('test_user_id', '=', Auth::user()->user_id)->get();
-        return view('exam.results')
-            ->with('data', $data);
+        if  ($this->isUserAdmin() || $this->isUserTeacher()) {
+            $classes = User::getClassesWithPerm('list_grade');
+            $userRes = array();
+            foreach ($classes as $classKey => $class) {
+                $users = User::where('user_class', $classKey)->get();
+                foreach ($users as $user) {
+                    $test = TestDone::where('test_user_id', $user->user_id)->get();
+                    if ($test->count() > 0) {
+                        array_push($userRes, $test);
+                    }
+                }
+            }
+            return view('exam.results')->with('data', $userRes);
+        } else {
+            $data = TestDone::where('test_user_id', '=', Auth::user()->user_id)->get();
+            return view('exam.results')
+                ->with('data', $data);
+        }
     }
 
     public function studadd() {
