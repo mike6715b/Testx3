@@ -118,7 +118,9 @@ class UserTransactionController extends Controller
         $subjectPerm->subj_author = 1;
         $subjectPerm->list_subj = 1;
         $subjectPerm->add_field = 1;
+        $subjectPerm->remove_field = 1;
         $subjectPerm->add_question = 1;
+        $subjectPerm->remove_question = 1;
         $subjectPerm->make_exam = 1;
         $subjectPerm->save();
 

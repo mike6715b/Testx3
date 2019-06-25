@@ -153,7 +153,7 @@ class User extends Authenticatable
     public static function getSubjectsForUser() {
         $query = SubjPerm::where('user_id', Auth::id())->get();
         $subset = $query->map(function ($user) {
-            return $user->only(['subj_id', 'list_subj', 'add_field', 'add_question', 'make_exam']);
+            return $user->only(['subj_id', 'list_subj', 'add_field', 'remove_field', 'add_question', 'remove_field', 'make_exam']);
         });
         return $subset;
     }

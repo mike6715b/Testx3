@@ -81,16 +81,12 @@ container {
 
 #list_table tbody tr:nth-child(odd),
 #active-test tbody tr:nth-child(odd),
-#inactive-test tbody tr:nth-child(even) {
+#inactive-test tbody tr:nth-child(odd) {
     background-color: #c4c4c4;
 }
 
-#active-test {
-    float: left;
-}
-
 #inactive-test {
-    float: right;
+    margin-top: 3em;
 }
 
 #test_exam, #test_self {

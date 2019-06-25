@@ -160,6 +160,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('ajaxGetFields', [
         'uses' => 'AjaxController@ajaxGetFields'
     ]);
+    Route::get('ajaxGetFieldsForExam', [
+        'uses' => 'AjaxController@ajaxGetFieldsForExam'
+    ]);
     Route::get('ajaxGetClasses', [
         'uses' => 'AjaxController@ajaxGetClasses'
     ]);

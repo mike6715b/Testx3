@@ -47,7 +47,7 @@
                     <tr>
                         <td>{{ $testE->test_title }}</td>
                         <td>{{ \App\Subject::where('subj_id', \App\Question::where('ques_id', $testE->test_ques)->first()->ques_subj_id)->first()->subj_name }}</td>
-                        <td>{{ \App\Field::where('subj_id', \App\Question::where('ques_id', $testE->test_ques)->first()->ques_field_id)->first()->field_name }}</td>
+                        <td>{{ \App\Field::where('field_id', \App\Question::where('ques_id', $testE->test_ques)->first()->ques_field_id)->first()->field_name }}</td>
                         <td>{{ $testE->updated_at }}</td>
                         <td><a href="/examgen?id={{ $testE->test_id }}">Pisanje</a></td>
                     </tr>

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\SubjPerm;
-use Illuminate\Support\Facades\DB;
+use App\Question;
+use App\Test;
 use Illuminate\Http\Request;
 use App\ClassPerm;
+use App\SubjPerm;
+use App\Field;
 use App\User;
 
 
@@ -13,7 +15,22 @@ class AjaxController extends Controller
 {
     public function ajaxGetFields(Request $request) {
         $subj = $request->subj;
-        $res = DB::table('fields')->where('field_subj_id', $subj)->pluck('field_id', 'field_name');
+        $res = Field::where('field_subj_id', $subj)->pluck('field_id', 'field_name');
+        return json_encode($res);
+    }
+
+    public function ajaxGetFieldsForExam(Request $request) {
+        $subj = $request->subj;
+        $query = Field::where('field_subj_id', $subj)->pluck('field_id', 'field_name');
+        $res = array();
+        foreach ($query as $key => $field) {
+            $ques_id = Question::where('ques_field_id', $field)->pluck('ques_id');
+            if (!Test::where('test_ques', $ques_id)->first()) {
+                $res = [
+                    $key => $field
+                ];
+            }
+        }
         return json_encode($res);
     }
 

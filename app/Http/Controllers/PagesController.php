@@ -47,28 +47,36 @@ class PagesController extends Controller
         if ($this->isUserTeacher() != true) {
             return redirect()->route('mainmenu');
         }
-        $subjectsForUser = User::getSubjectsForUser();
+        $subjectsForUser = User::getSubjectWithPerm('make_exam');
         $activeExams = $this->getActiveExams($subjectsForUser);
-        $inactiveExams = $this->getInactiveExams($subjectsForUser);
-        //dump($inactiveExams);
-        //dd($inactiveExams[0]->isEmpty());
-        if ($activeExams != null || $activeExams[0]->isEmpty() != true) {
-            $activeClasses = $this->getClasses($activeExams);
-        } else {
-            $activeClasses = null;
-        }
-        if ($inactiveExams != null || $inactiveExams[0]->isEmpty() != true) {
-            $inactiveClasses = $this->getClasses($inactiveExams);
-        } else {
-            $inactiveClasses = null;
-        }
         //dd($activeExams);
-        dump('User can only use a field in 1 test!');
+        $inactiveExams = $this->getInactiveExams($subjectsForUser);
+        $activeClasses = $this->getClasses($activeExams);
+        $inactiveClasses = $this->getClasses($inactiveExams);
         return view('exam.manage')
-            ->with('active', $activeExams[0])
-            ->with('inactive', $inactiveExams[0])
+            ->with('active', $activeExams)
+            ->with('inactive', $inactiveExams)
             ->with('activeClasses', $activeClasses)
             ->with('inactiveClasses', $inactiveClasses);
+    }
+
+    protected function getActiveExams($subjectsForUser) {
+        if ($this->isUserAdmin()) {
+            $activeExams = collect();
+            $activeExams->push(Test::where('status', 1)->get());
+        } else {
+            $activeExams = collect();
+            foreach($subjectsForUser as $key => $subjectForUser) {
+                $questions = Question::where('ques_subj_id', $key)->get();
+                foreach ($questions as $keyQ => $question) {
+                    $testQuery = Test::where('test_ques', $question->ques_id)->where('status', 1)->get();
+                    if ($testQuery->count() > 0) {
+                        $activeExams->push($testQuery);
+                    }
+                }
+            }
+        }
+        return $activeExams;
     }
 
     protected function getInactiveExams($subjectsForUser) {
@@ -81,29 +89,16 @@ class PagesController extends Controller
         } else {
             $inactiveExams = collect();
             foreach($subjectsForUser as $key => $subjectForUser) {
-                $questions = Question::where('ques_subj_id', $subjectForUser['subj_id'])->get();
+                $questions = Question::where('ques_subj_id', $key)->get();
                 foreach ($questions as $keyQ => $question) {
-                    $inactiveExams->push(Test::where('test_ques', $question->ques_id)->where('status', 0)->get());
+                    $testQuery = Test::where('test_ques', $question->ques_id)->where('status', 0)->get();
+                    if ($testQuery->count() > 0) {
+                        $inactiveExams->push($testQuery);
+                    }
                 }
             }
         }
         return $inactiveExams;
-    }
-
-    protected function getActiveExams($subjectsForUser) {
-        if ($this->isUserAdmin()) {
-            $activeExams = collect();
-            $activeExams->push(Test::where('status', 1)->get());
-        } else {
-            $activeExams = collect();
-            foreach($subjectsForUser as $key => $subjectForUser) {
-                $questions = Question::where('ques_subj_id', $subjectForUser['subj_id'])->get();
-                foreach ($questions as $keyQ => $question) {
-                    $activeExams->push(Test::where('test_ques', $question->ques_id)->where('status', 1)->get());
-                }
-            }
-        }
-        return $activeExams;
     }
 
     protected function getClasses($tests) {
