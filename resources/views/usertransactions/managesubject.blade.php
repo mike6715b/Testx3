@@ -28,7 +28,7 @@
                 <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['subj_id'] }},add_question" @if($perm['add_question'])checked @endif></td>
                 <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['subj_id'] }},remove_question" @if($perm['remove_question'])checked @endif></td>
                 <td><input type="checkbox" name="{{ $perm['user_id'] }},{{ $perm['subj_id'] }},make_exam" @if($perm['make_exam'])checked @endif></td>
-                <td><img name="{{ $perm['user_id'] }},{{ $perm['subj_id'] }}" src="{{ asset('img/red-x.jpg') }}" alt="Obrisi" width="20" height="20"></td>
+                <td><img name="{{ $perm['user_id'] }},{{ $perm['subj_id'] }}" src="{{ asset('img/red-x.jpg') }}" alt="Obriši" width="20" height="20"></td>
             </tr>
         @endforeach
         <tr id="addPerm">
@@ -61,16 +61,20 @@
         };
 
         $('#list_table tbody').on('click', 'input[type=checkbox]', function () {
+            var permList = { list_subj: "popis učenika", add_field: "dodavanje gradiva", remove_field: "uklonjanje gradiva",
+                add_question: "dodavanje pitanja", remove_question: "uklanjanje pitanja", make_exam: "stvaranje ispita" };
+            var trueFalse = { true: "dopušteno", false: "zabranjeno" };
             var attrName = $(this).attr('name');
             var nameA = attrName.split(",");
             let attrChecked = $(this).prop('checked');
+            let teachName = $(this).parent().siblings(":first").text();
             $.ajax({
                 type: "GET",
                 url: "{{ action('AjaxController@ajaxUpdateSubjectPerm') }}",
                 data: { user_id: nameA[0], subj_id: nameA[1], perm: nameA[2], value: attrChecked},
                 success: function() {
                     new Noty({
-                        text: "Dopustenje " + nameA[2] + " za predmet " + nameA[1] + " za korisnika " + nameA[0] + " je sada " + attrChecked,
+                        text: "Dopuštenje \"" + permList[nameA[2]] + "\" za korisnika " + teachName + " je sada <b>" + trueFalse[attrChecked] + "</b>",
                         type: "success",
                         layout: "topRight",
                         theme: "relax",
@@ -80,7 +84,7 @@
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     new Noty({
-                        text: "Dogodila se pogreska! \n" + thrownError,
+                        text: "Dogodila se pogreška! \n" + thrownError,
                         type: "error",
                         layout: "topRight",
                         theme: "relax",
@@ -94,14 +98,15 @@
         $('#list_table tbody').on('click', 'img', function () {
             var attrName = $(this).attr('name');
             var nameA = attrName.split(",");
-            if(confirm("Jeste li sigurni da zelite obrisati dopustenja?")) {
+            let teachName = $(this).parent().siblings(":first").text();
+            if(confirm("Jeste li sigurni da želite obrisati dopuštenja za korisnika " + teachName)) {
                 $.ajax({
                     type: "GET",
                     url: "{{ action('AjaxController@ajaxDeleteSubjectPerm') }}",
                     data: { user_id: nameA[0], subj_id: nameA[1] },
                     success: function () {
                         new Noty({
-                            text: "Obrisana su dopustenja za korisnika " + nameA[0],
+                            text: "Obrisana su dopuštenja za korisnika " + teachName,
                             type: "success",
                             layout: "topRight",
                             theme: "relax",
@@ -148,11 +153,11 @@
                 url: "{{ action('AjaxController@ajaxAddSubjectPerm') }}",
                 success: function () {
                     new Noty({
-                        text: "Dodana su nova dopustenja za korisnika " + $("#selTeach option:selected").text(),
+                        text: "Dodana su nova dopuštenja za korisnika " + $("#selTeach option:selected").text(),
                         type: "success",
                         layout: "topRight",
                         theme: "relax",
-                        timeout: 3000,
+                        timeout: 4000,
                         progressBar: true,
                     }).show();
                     $('tr[id=teachID]').hide();
@@ -163,18 +168,18 @@
                         '<td><input type="checkbox" name="' + teachID + ',' + getUrlParameter("subj_id") + ',add_question"></td>' +
                         '<td><input type="checkbox" name="' + teachID + ',' + getUrlParameter("subj_id") + ',remove_question"></td>' +
                         '<td><input type="checkbox" name="' + teachID + ',' + getUrlParameter("subj_id") + ',make_exam"></td>' +
-                        '<td><img name="' + teachID + ',' + getUrlParameter("subj_id") + '" src="{{ asset('img/red-x.jpg') }}" alt="Obrisi" width="20" height="20"></td></tr>');
+                        '<td><img name="' + teachID + ',' + getUrlParameter("subj_id") + '" src="{{ asset('img/red-x.jpg') }}" alt="Obriši" width="20" height="20"></td></tr>');
                     $('#selTeach > option').remove();
                     $('tr[id=addPerm]').show();
                     $('thead > tr').show();
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     new Noty({
-                        text: "Dogodila se pogreska! \n" + thrownError,
+                        text: "Dogodila se pogreška! \n" + thrownError,
                         type: "error",
                         layout: "topRight",
                         theme: "relax",
-                        timeout: 3000,
+                        timeout: 10000,
                         progressBar: true,
                     }).show();
                 }
