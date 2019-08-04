@@ -21,7 +21,7 @@ class LoginController extends Controller
             return redirect()->route('mainmenu');
         } else {
             $errors = "Incorrect login data!";
-            info('User loggin attempt failed!', ['uid' => $request->username]);
+            info('User loggin attempt failed!', ['uid' => Auth::user()]);
             return view('login')->with($errors);
         }
     }
