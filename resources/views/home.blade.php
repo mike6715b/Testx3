@@ -3,7 +3,7 @@
 @section('content')
     <section class="home">
         <h1 id="branding" align="center">Testx<sup><span id="num">3</span></sup></h1>
-        <p id="short-abot" align="center">Sustav za online provjeru znanja</p>
+        <p id="short-abot" align="center">Sustav za online provjeru znanja <br> Kontakt: <b>bruno.rehak@gmail.com</b></p>
         <div class="home-row">
             <div class="home-column">
                 <img src="{{ asset('img/click-finger.png') }}" alt="Brzo i jednostavno">
@@ -26,11 +26,11 @@
 
     <script>
         new Noty({
-            text: "Uspjeh! YAY",
+            text: "Kontakt: bruno.rehak@gmail.com",
             type: "success",
             layout: "topRight",
             theme: "relax",
-            timeout: 3000,
+            timeout: 15000,
             progressBar: true,
         }).show();
     </script>
